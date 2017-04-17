@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>DoLess.Commands</id>
+		<version>$version$</version>
+		<title>DoLess : Commands</title>
+		<authors>Romain Rastel</authors>
+		<owners>Romain Rastel</owners>
+		<licenseUrl>https://github.com/letsar/DoLess.Commands/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/letsar/DoLess.Commands</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/letsar/DoLess.Commands/master/nuget/doless.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Basic MVVM commands implementation.</description>
+		<tags>mvvm, command</tags>
+	</metadata>
+	<files>
+		<!-- Portable -->
+		<file src="..\src\DoLess.Commands.Pcl\bin\Release\DoLess.Commands.dll" target="lib\portable-net45+win8\DoLess.Commands.dll" />
+		<file src="..\src\DoLess.Commands.Pcl\bin\Release\DoLess.Commands.xml" target="lib\portable-net45+win8\DoLess.Commands.xml" />
+		
+		<!-- .NET Standard 1.3 -->
+		<file src="..\src\DoLess.Commands.NetStandard13\bin\Release\netstandard1.3\DoLess.Commands.dll" target="lib\netstandard13\DoLess.Commands.dll" />
+		<file src="..\src\DoLess.Commands.NetStandard13\bin\Release\netstandard1.3\DoLess.Commands.xml" target="lib\netstandard13\DoLess.Commands.xml" />
+	</files>
+</package>

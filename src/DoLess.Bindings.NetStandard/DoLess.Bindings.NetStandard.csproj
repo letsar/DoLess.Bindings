@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.1</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="..\DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <Reference Include="System.Dynamic.Runtime">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETPortable\v4.5\Profile\Profile7\System.Dynamic.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

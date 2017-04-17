@@ -1,0 +1,12 @@
+assembly-versioning-scheme: MajorMinorPatch
+assembly-informational-format: '{NuGetVersion}'
+mode: ContinuousDelivery
+tag-prefix: '[vV]'
+continuous-delivery-fallback-tag: ci
+branches:
+  master:
+    mode: ContinuousDelivery
+    tag: ''
+    increment: Patch
+ignore:
+  sha: []

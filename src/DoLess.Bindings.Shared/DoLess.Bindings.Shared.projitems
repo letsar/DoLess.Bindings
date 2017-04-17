@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>f0b6402c-aa96-413e-b8f2-3e03bcc4c415</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>DoLess.Bindings</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Binding.T2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Binding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventManagers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventHandlerList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\WeakReferenceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Check.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IBinding.T2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModelExtensions.cs" />
+  </ItemGroup>
+</Project>
