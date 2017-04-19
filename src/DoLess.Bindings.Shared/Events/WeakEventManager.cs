@@ -17,7 +17,7 @@ namespace DoLess.Bindings
         private static readonly Lazy<WeakEventManager<TEventSource, TEventArgs>> Instance =
             new Lazy<WeakEventManager<TEventSource, TEventArgs>>(() => new WeakEventManager<TEventSource, TEventArgs>());
 
-        private static readonly object StaticSource;
+        private static readonly object StaticSource = new object();
 
         /// <summary>
         /// Mapping from the source of the event to the list of handlers. This is a CWT to ensure it does not leak the source of the event.

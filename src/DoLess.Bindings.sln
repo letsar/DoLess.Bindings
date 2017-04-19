@@ -9,8 +9,15 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DoLess.Bindings.Shared", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoLess.Bindings.NetStandard", "DoLess.Bindings.NetStandard\DoLess.Bindings.NetStandard.csproj", "{6ED977B2-8E7F-475D-B3AE-959C4344F45E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoLess.Bindings.Droid", "DoLess.Bindings.Droid\DoLess.Bindings.Droid.csproj", "{3B656D99-3388-4632-8557-3065FD164F02}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{336506D2-0BC4-4330-97B0-FDB8ACD5A736}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoLess.Bindings.Tests", "DoLess.Bindings.Tests\DoLess.Bindings.Tests.csproj", "{E5264ABC-6BBD-4AAF-AF76-128FCEF1E34F}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems*{3b656d99-3388-4632-8557-3065fd164f02}*SharedItemsImports = 4
 		DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems*{60164bdf-59bf-4648-9561-0b798882ae5f}*SharedItemsImports = 4
 		DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems*{f0b6402c-aa96-413e-b8f2-3e03bcc4c415}*SharedItemsImports = 13
 	EndGlobalSection
@@ -27,8 +34,19 @@ Global
 		{6ED977B2-8E7F-475D-B3AE-959C4344F45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ED977B2-8E7F-475D-B3AE-959C4344F45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ED977B2-8E7F-475D-B3AE-959C4344F45E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B656D99-3388-4632-8557-3065FD164F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B656D99-3388-4632-8557-3065FD164F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B656D99-3388-4632-8557-3065FD164F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B656D99-3388-4632-8557-3065FD164F02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5264ABC-6BBD-4AAF-AF76-128FCEF1E34F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5264ABC-6BBD-4AAF-AF76-128FCEF1E34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5264ABC-6BBD-4AAF-AF76-128FCEF1E34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5264ABC-6BBD-4AAF-AF76-128FCEF1E34F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E5264ABC-6BBD-4AAF-AF76-128FCEF1E34F} = {336506D2-0BC4-4330-97B0-FDB8ACD5A736}
 	EndGlobalSection
 EndGlobal

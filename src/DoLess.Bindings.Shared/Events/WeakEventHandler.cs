@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using DoLess.Bindings.Extensions;
 
 namespace DoLess.Bindings.Events
 {

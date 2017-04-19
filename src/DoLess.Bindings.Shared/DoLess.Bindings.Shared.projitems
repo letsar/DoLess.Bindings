@@ -19,6 +19,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Check.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBinding.T2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IBindingDescription.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObservableProperties\ObservablePropertiesBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObservableProperties\ObservableProperty.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModelExtensions.cs" />
   </ItemGroup>
 </Project>
