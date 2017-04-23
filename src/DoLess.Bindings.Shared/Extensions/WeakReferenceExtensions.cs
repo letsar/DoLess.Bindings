@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DoLess.Bindings.Extensions
+namespace DoLess.Bindings
 {
     internal static class WeakReferenceExtensions
     {

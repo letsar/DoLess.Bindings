@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 
-namespace DoLess.Bindings.Events
+namespace DoLess.Bindings.EventsOld
 {
     internal class WeakEventHandlerList<TEventSource, TEventArgs>
         where TEventSource : class

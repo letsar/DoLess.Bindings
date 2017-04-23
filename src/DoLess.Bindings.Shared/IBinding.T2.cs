@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace DoLess.Bindings
@@ -8,7 +9,7 @@ namespace DoLess.Bindings
     /// Represents a binding between a source and a target.
     /// </summary>
     public interface IBinding<TSource, TTarget>
-        where TSource : class
+        where TSource : class, INotifyPropertyChanged
         where TTarget : class
     {
 

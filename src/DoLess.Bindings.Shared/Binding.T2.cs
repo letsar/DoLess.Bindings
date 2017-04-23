@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text;
 
 namespace DoLess.Bindings
 {
     internal class Binding<TSource, TTarget> : IBinding<TSource, TTarget>, IBindingDescription<TSource, TTarget>
-        where TSource : class
+        where TSource : class, INotifyPropertyChanged
         where TTarget : class
     {
         private readonly WeakReference<TSource> weakSource;
         private readonly WeakReference<TTarget> weakTarget;
+        
 
         public Binding(TSource source, TTarget target)
         {
@@ -22,6 +24,7 @@ namespace DoLess.Bindings
         public Binding<TSource, TTarget> SetSourceProperty<TProperty>(Expression<Func<TSource, TProperty>> sourceProperty)
         {
             // TODO.
+            
             return this;
         }
 

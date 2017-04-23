@@ -5,22 +5,22 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace DoLess.Bindings.ObservableProperties
+namespace DoLess.Bindings.Observation
 {
-    internal class ObservablePropertiesBuilder : ExpressionVisitor
+    internal class ObservedNodeBuilder : ExpressionVisitor
     {
         private const string IndexerMethodName = "get_Item";
         private const string IndexerName = "Item";
 
         private static readonly TypeInfo INotifyPropertyChangedTypeInfo = typeof(INotifyPropertyChanged).GetTypeInfo();
-        private ObservableProperty current;
+        private ObservedNode current;
 
-        public ObservablePropertiesBuilder()
+        public ObservedNodeBuilder()
         {
-            this.Root = ObservableProperty.CreateRoot();
+            this.Root = ObservedNode.CreateRoot();
         }
 
-        public ObservableProperty Root { get; }
+        public ObservedNode Root { get; }
 
         public override string ToString()
         {
@@ -54,9 +54,10 @@ namespace DoLess.Bindings.ObservableProperties
                 if (this.current != null)
                 {
                     this.current.GetOrSet(node.Method, IndexerName);
-                }
-                this.Visit(node.Arguments);
+                }                
             }
+
+            this.Visit(node.Arguments);
 
             return node;
         }
