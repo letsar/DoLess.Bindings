@@ -8,15 +8,15 @@ using DoLess.Bindings.Helpers;
 
 namespace DoLess.Bindings
 {
-    internal class BindingPropertyDescription<TSource, TTarget, TTargetProperty> :
-        BindingDescription<TSource, TTarget>,
-        IBindingPropertyDescription<TSource, TTarget, TTargetProperty>
+    internal class PropertyBinding<TSource, TTarget, TTargetProperty> :
+        Binding<TSource, TTarget>,
+        IPropertyBinding<TSource, TTarget, TTargetProperty>
         where TSource : class, INotifyPropertyChanged
         where TTarget : class
     {
         private readonly PropertyInfo targetPropertyInfo;
 
-        public BindingPropertyDescription(IBindingDescription<TSource, TTarget> bindingDescription, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression) :
+        public PropertyBinding(IBindingDescription<TSource, TTarget> bindingDescription, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression) :
             base((IHaveBindingSet<TSource, TTarget>)bindingDescription)
         {
             Check.NotNull(targetPropertyExpression, nameof(targetPropertyExpression));
@@ -24,14 +24,14 @@ namespace DoLess.Bindings
             this.targetPropertyInfo = targetPropertyExpression.GetPropertyInfo();
         }
 
-        public BindingPropertyDescription(BindingPropertyDescription<TSource, TTarget, TTargetProperty> bindingPropertyDescription) :
+        public PropertyBinding(PropertyBinding<TSource, TTarget, TTargetProperty> bindingPropertyDescription) :
             base(bindingPropertyDescription)
         {
             this.targetPropertyInfo = bindingPropertyDescription.targetPropertyInfo;
         }
 
-        public BindingPropertyDescription(IBindingPropertyDescription<TSource, TTarget, TTargetProperty> bindingPropertyDescription) :
-            this((BindingPropertyDescription<TSource, TTarget, TTargetProperty>)bindingPropertyDescription)
+        public PropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> bindingPropertyDescription) :
+            this((PropertyBinding<TSource, TTarget, TTargetProperty>)bindingPropertyDescription)
         { }
 
         protected TTargetProperty TargetProperty

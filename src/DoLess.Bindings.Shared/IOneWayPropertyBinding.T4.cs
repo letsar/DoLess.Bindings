@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DoLess.Bindings
 {
-    public interface IBindingOneWayPropertyDescription<TSource, TTarget, TTargetProperty, TSourceProperty>
+    public interface IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>
         where TSource : class, INotifyPropertyChanged
         where TTarget : class
     {

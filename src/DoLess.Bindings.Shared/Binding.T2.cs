@@ -1,42 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Text;
 
 namespace DoLess.Bindings
 {
-    internal class Binding<TSource, TTarget> : IBinding<TSource, TTarget>, IBindingDescription<TSource, TTarget>
+    internal class Binding<TSource, TTarget> :
+        IBindingDescription<TSource, TTarget>,
+        IHaveBindingSet<TSource, TTarget>
         where TSource : class, INotifyPropertyChanged
         where TTarget : class
     {
-        private readonly WeakReference<TSource> weakSource;
-        private readonly WeakReference<TTarget> weakTarget;
-        
-
-        public Binding(TSource source, TTarget target)
+        public Binding(BindingSet<TSource, TTarget> bindingSet)
         {
-            this.weakSource = new WeakReference<TSource>(source);
-            this.weakTarget = new WeakReference<TTarget>(target);
-
+            this.BindingSet = bindingSet;
         }
 
-        public Binding<TSource, TTarget> SetSourceProperty<TProperty>(Expression<Func<TSource, TProperty>> sourceProperty)
-        {
-            // TODO.
-            
-            return this;
-        }
+        public Binding(TSource source, TTarget target) :
+            this(new BindingSet<TSource, TTarget>(source, target))
+        { }
 
-        public Binding<TSource, TTarget> SetTargetProperty<TProperty>(Expression<Func<TTarget, TProperty>> targetProperty)
-        {
-            // TODO.
-            return this;
-        }
+        public Binding(IHaveBindingSet<TSource, TTarget> bindingSetOwner) :
+            this(bindingSetOwner?.BindingSet)
+        { }
 
-        public IBinding<TSource, TTarget> To<TProperty>(Expression<Func<TSource, TProperty>> sourceProperty)
-        {
-            return this.SetSourceProperty(sourceProperty);
-        }
+        public BindingSet<TSource, TTarget> BindingSet { get; }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DoLess.Bindings.Converters
 {
@@ -11,6 +9,7 @@ namespace DoLess.Bindings.Converters
     internal static class IdentityConverter<T>
     {
         #region Public Methods
+
         /// <summary>
         /// The instance of this identity function.
         /// </summary>
@@ -18,6 +17,7 @@ namespace DoLess.Bindings.Converters
         {
             get { return x => x; }
         }
-        #endregion
+
+        #endregion Public Methods
     }
 }

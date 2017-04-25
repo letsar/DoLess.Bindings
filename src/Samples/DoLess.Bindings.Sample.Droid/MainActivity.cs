@@ -50,6 +50,11 @@ namespace DoLess.Bindings.Sample.Droid
             this.ViewModel.Person.LastName = this.ViewModel.Person.LastName + "e";
         }
 
+        private string GetString(string s)
+        {
+            return s;
+        }
+
         //public void OnEvent<TextView>(Expression<Func<TextView, EventHandler>> expr)
         //{
 

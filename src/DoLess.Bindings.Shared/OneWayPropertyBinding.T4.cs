@@ -8,9 +8,9 @@ using DoLess.Bindings.Observation;
 
 namespace DoLess.Bindings
 {
-    internal class BindingOneWayPropertyDescription<TSource, TTarget, TTargetProperty, TSourceProperty> :
-        BindingPropertyDescription<TSource, TTarget, TTargetProperty>,
-        IBindingOneWayPropertyDescription<TSource, TTarget, TTargetProperty, TSourceProperty>
+    internal class OneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> :
+        PropertyBinding<TSource, TTarget, TTargetProperty>,
+        IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>
         where TSource : class, INotifyPropertyChanged
         where TTarget : class
     {
@@ -18,7 +18,7 @@ namespace DoLess.Bindings
         private readonly ObservedNode sourceRootNode;
         private readonly Func<TSourceProperty, TTargetProperty> converter;
 
-        public BindingOneWayPropertyDescription(IBindingPropertyDescription<TSource, TTarget, TTargetProperty> bindingPropertyDescription, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression, Func<TSourceProperty, TTargetProperty> converter) :
+        public OneWayPropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> bindingPropertyDescription, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression, Func<TSourceProperty, TTargetProperty> converter) :
             base(bindingPropertyDescription)
         {
             this.converter = converter;

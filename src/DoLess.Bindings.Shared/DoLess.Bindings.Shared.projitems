@@ -9,12 +9,11 @@
     <Import_RootNamespace>DoLess.Bindings</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Binding.T2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Binding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BindingOneWayPropertyDescription.T4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OneWayPropertyBinding.T4.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BindingSet.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BindingPropertyDescription.T3.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BindingDescription.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertyBinding.T3.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Binding.T2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IdentityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventHandlerOld.cs" />
@@ -27,18 +26,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\WeakEventHandlerExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\WeakReferenceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Check.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IOneWayPropertyBinding.T4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IPropertyBinding.T3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBinding.T3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBinding.T4.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBinding.T2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBindingPropertyDescription.T4.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBindingPropertyDescription.T3.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBindingDescription.T3.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBindingDescription.T4.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBindingDescription.T2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IHaveBindingSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observation\ObservedNodeBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observation\ObservedNode.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ViewModelExtensions.cs" />
   </ItemGroup>
 </Project>

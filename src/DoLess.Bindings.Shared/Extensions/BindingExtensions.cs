@@ -13,28 +13,28 @@ namespace DoLess.Bindings
             where TSource : class, INotifyPropertyChanged
             where TTarget : class
         {
-            return new BindingDescription<TSource, TTarget>(self, target);
+            return new Binding<TSource, TTarget>(self, target);
         }
 
-        public static IBindingPropertyDescription<TSource, TTarget, TTargetProperty> Property<TSource, TTarget, TTargetProperty>(this IBindingDescription<TSource, TTarget> self, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression)
+        public static IPropertyBinding<TSource, TTarget, TTargetProperty> Property<TSource, TTarget, TTargetProperty>(this IBindingDescription<TSource, TTarget> self, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression)
             where TSource : class, INotifyPropertyChanged
             where TTarget : class
         {
-            return new BindingPropertyDescription<TSource, TTarget, TTargetProperty>(self, targetPropertyExpression);
+            return new PropertyBinding<TSource, TTarget, TTargetProperty>(self, targetPropertyExpression);
         }
 
-        public static IBindingOneWayPropertyDescription<TSource, TTarget, TTargetProperty, TSourceProperty> To<TSource, TTarget, TTargetProperty, TSourceProperty>(this IBindingPropertyDescription<TSource, TTarget, TTargetProperty> self, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression, Func<TSourceProperty, TTargetProperty> converter)
+        public static IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> To<TSource, TTarget, TTargetProperty, TSourceProperty>(this IPropertyBinding<TSource, TTarget, TTargetProperty> self, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression, Func<TSourceProperty, TTargetProperty> converter)
             where TSource : class, INotifyPropertyChanged
             where TTarget : class
         {
-            return new BindingOneWayPropertyDescription<TSource, TTarget, TTargetProperty, TSourceProperty>(self, sourcePropertyExpression, converter);
+            return new OneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(self, sourcePropertyExpression, converter);
         }
 
-        public static IBindingOneWayPropertyDescription<TSource, TTarget, TProperty, TProperty> To<TSource, TTarget, TProperty>(this IBindingPropertyDescription<TSource, TTarget, TProperty> self, Expression<Func<TSource, TProperty>> sourcePropertyExpression)
+        public static IOneWayPropertyBinding<TSource, TTarget, TProperty, TProperty> To<TSource, TTarget, TProperty>(this IPropertyBinding<TSource, TTarget, TProperty> self, Expression<Func<TSource, TProperty>> sourcePropertyExpression)
             where TSource : class, INotifyPropertyChanged
             where TTarget : class
         {
-            return new BindingOneWayPropertyDescription<TSource, TTarget, TProperty, TProperty>(self, sourcePropertyExpression, IdentityConverter<TProperty>.Instance);
+            return new OneWayPropertyBinding<TSource, TTarget, TProperty, TProperty>(self, sourcePropertyExpression, IdentityConverter<TProperty>.Instance);
         }
     }
 }
