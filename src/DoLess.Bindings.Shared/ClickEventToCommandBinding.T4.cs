@@ -38,7 +38,9 @@ namespace DoLess.Bindings
                 this.canExecuteChangedWeakEventHandler = null;
             }
 
-            this.canExecuteChangedWeakEventHandler = new CanExecuteChangedWeakEventHandler(this.GetCommand(), this.OnCanExecuteChanged);
+            var command = this.GetCommand();
+            this.canExecuteChangedWeakEventHandler = new CanExecuteChangedWeakEventHandler(command, this.OnCanExecuteChanged);
+            this.OnCanExecuteChanged(command, EventArgs.Empty);
         }
 
         private void OnCanExecuteChanged(object sender, EventArgs args)

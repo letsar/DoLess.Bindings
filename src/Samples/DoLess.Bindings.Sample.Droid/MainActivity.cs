@@ -27,6 +27,7 @@ namespace DoLess.Bindings.Sample.Droid
             button.Click += this.Button_Click;
             Button commandButton = new Button(this);
             commandButton.Text = "CommandButton";
+            commandButton.Click += this.CommandButton_Click;
             Button cancelCommandButton = new Button(this);
             cancelCommandButton.Text = "CancelCommandButton";
             layout.AddView(textView);
@@ -49,7 +50,7 @@ namespace DoLess.Bindings.Sample.Droid
             this.ViewModel.Bind(commandButton)
                           .ClickTo(x => x.CancellableCommand);
 
-            this.ViewModel.Bind(commandButton)
+            this.ViewModel.Bind(cancelCommandButton)
                           .ClickTo(x => x.CancellableCommand.CancelCommand);
 
             //this.OnEvent(t => t.Click);
@@ -57,6 +58,11 @@ namespace DoLess.Bindings.Sample.Droid
             //this.ViewModel.Bind(textView, x => x.Text)
             //              .To(vm => vm.Name);   
 
+        }
+
+        private void CommandButton_Click(object sender, EventArgs e)
+        {
+            
         }
 
         private void Button_Click(object sender, EventArgs e)

@@ -32,14 +32,17 @@ namespace DoLess.Bindings
             base((IHaveBindingSet<TSource, TTarget>)binding)
         {
             this.eventName = binding.eventName;
-            this.weakEventHandler = binding.weakEventHandler;
+
+            // It's necessary to recreate the binding because otherwise, the delegate is not on the right object.
+            this.weakEventHandler = new DynamicWeakEventHandler<TTarget, TEventArgs>(this.BindingSet.Target, eventName, this.OnEventRaised);
         }
 
         public EventBinding(IEventBinding<TSource, TTarget, TEventArgs> binding) :
             this((EventBinding<TSource, TTarget, TEventArgs>)binding)
         {
         }
-
-        protected virtual void OnEventRaised(object sender, TEventArgs args) { }
+        protected virtual void OnEventRaised(object sender, TEventArgs args)
+        {
+        }
     }
 }

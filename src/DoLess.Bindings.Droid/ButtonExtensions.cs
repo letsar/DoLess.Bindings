@@ -22,7 +22,7 @@ namespace DoLess.Bindings
             where TCommand : ICommand
         {
             IEventBinding<TSource, TTarget, EventArgs> eventBinding = self.Event(nameof(Button.Click), EventArgs.Empty);
-            return new ClickEventToCommandBinding<TSource, TTarget, EventArgs, TCommand>(eventBinding, commandExpression, b => b.Clickable);
+            return new ClickEventToCommandBinding<TSource, TTarget, EventArgs, TCommand>(eventBinding, commandExpression, b => b.Enabled);
         }
     }
 }
