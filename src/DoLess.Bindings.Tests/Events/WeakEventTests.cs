@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace DoLess.Bindings.Tests.Events
@@ -18,6 +19,14 @@ namespace DoLess.Bindings.Tests.Events
             {
                 this.Event?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        private int changeCount = 0;
+
+        [SetUp]
+        public void Setup()
+        {
+            this.changeCount = 0;
         }
 
         public class WeakReference<TInstance, TSource, TEventArgs> where TInstance : class
@@ -76,6 +85,25 @@ namespace DoLess.Bindings.Tests.Events
 
             TriggerGC();
         }
+
+        [Test]
+        public void ShouldBeRaised()
+        {
+            EventSource source = new EventSource();
+            DynamicWeakEventHandler<EventSource, EventArgs> weakEventHandler = new DynamicWeakEventHandler<EventSource, EventArgs>(source, nameof(EventSource.Event), this.OnEvent);
+
+            this.changeCount.Should().Be(0);
+
+            source.Raise();
+
+            this.changeCount.Should().Be(1);
+        }
+
+        private void OnEvent(object sender, EventArgs args)
+        {
+            this.changeCount++;
+        }
+
 
         static void TriggerGC()
         {

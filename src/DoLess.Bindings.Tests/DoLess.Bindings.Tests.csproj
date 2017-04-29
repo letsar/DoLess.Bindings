@@ -63,6 +63,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\CastConverterTests.cs" />
     <Compile Include="Entities\ObservableEntities.cs" />
     <Compile Include="Events\WeakEventTests.cs" />
     <Compile Include="Observation\ObservedNodeTests.cs" />
@@ -73,17 +74,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DoLess.Bindings.Pcl\DoLess.Bindings.Pcl.csproj">
-      <Project>{60164bdf-59bf-4648-9561-0b798882ae5f}</Project>
-      <Name>DoLess.Bindings.Pcl</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DoLess.Bindings.Droid\DoLess.Bindings.Droid.csproj">
+      <Project>{3b656d99-3388-4632-8557-3065fd164f02}</Project>
+      <Name>DoLess.Bindings.Droid</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

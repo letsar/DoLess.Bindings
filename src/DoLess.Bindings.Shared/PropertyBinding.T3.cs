@@ -14,24 +14,24 @@ namespace DoLess.Bindings
         where TSource : class, INotifyPropertyChanged
         where TTarget : class
     {
-        private readonly PropertyInfo targetPropertyInfo;
+        protected readonly PropertyInfo targetPropertyInfo;
 
-        public PropertyBinding(IBindingDescription<TSource, TTarget> bindingDescription, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression) :
-            base((IHaveBindingSet<TSource, TTarget>)bindingDescription)
+        public PropertyBinding(IBinding<TSource, TTarget> binding, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression) :
+            base((IHaveBindingSet<TSource, TTarget>)binding)
         {
             Check.NotNull(targetPropertyExpression, nameof(targetPropertyExpression));
 
             this.targetPropertyInfo = targetPropertyExpression.GetPropertyInfo();
         }
 
-        public PropertyBinding(PropertyBinding<TSource, TTarget, TTargetProperty> bindingPropertyDescription) :
-            base(bindingPropertyDescription)
+        public PropertyBinding(PropertyBinding<TSource, TTarget, TTargetProperty> bindingProperty) :
+            base(bindingProperty)
         {
-            this.targetPropertyInfo = bindingPropertyDescription.targetPropertyInfo;
+            this.targetPropertyInfo = bindingProperty.targetPropertyInfo;
         }
 
-        public PropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> bindingPropertyDescription) :
-            this((PropertyBinding<TSource, TTarget, TTargetProperty>)bindingPropertyDescription)
+        public PropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> bindingProperty) :
+            this((PropertyBinding<TSource, TTarget, TTargetProperty>)bindingProperty)
         { }
 
         protected TTargetProperty TargetProperty

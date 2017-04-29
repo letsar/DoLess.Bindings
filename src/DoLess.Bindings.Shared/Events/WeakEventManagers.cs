@@ -31,5 +31,7 @@ namespace DoLess.Bindings.EventsOld
         {
             source.CollectionChanged -= this.DeliverEventFromObject;
         }
-    }    
+    }
+
+
 }

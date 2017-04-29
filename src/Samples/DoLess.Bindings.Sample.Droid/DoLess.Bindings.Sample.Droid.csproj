@@ -56,6 +56,9 @@
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DoLess.Commands, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DoLess.Commands.1.0.2\lib\netstandard1.3\DoLess.Commands.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
@@ -120,9 +123,9 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DoLess.Bindings.Pcl\DoLess.Bindings.Pcl.csproj">
-      <Project>{60164bdf-59bf-4648-9561-0b798882ae5f}</Project>
-      <Name>DoLess.Bindings.Pcl</Name>
+    <ProjectReference Include="..\..\DoLess.Bindings.Droid\DoLess.Bindings.Droid.csproj">
+      <Project>{3b656d99-3388-4632-8557-3065fd164f02}</Project>
+      <Name>DoLess.Bindings.Droid</Name>
     </ProjectReference>
     <ProjectReference Include="..\DoLess.Bindings.Sample.ViewModels\DoLess.Bindings.Sample.ViewModels.csproj">
       <Project>{5b5e0feb-6a58-4f3f-9ae2-caaad9096779}</Project>

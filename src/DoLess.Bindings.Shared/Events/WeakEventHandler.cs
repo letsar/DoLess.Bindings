@@ -18,13 +18,14 @@ namespace DoLess.Bindings
         where TEventSource : class
         where TEventArgs : EventArgs
     {
+        protected readonly string eventName;
         private readonly Action<object, object, TEventArgs> proxyEventHandler;
         private readonly object unsubscribeLock = new object();
         private readonly WeakReference<TEventSource> weakEventSource;
         private readonly WeakReference<object> weakEventTarget;
         private bool hasBeenUnsubscribed;
 
-        public WeakEventHandler(TEventSource eventSource, EventHandler<TEventArgs> handler)
+        public WeakEventHandler(TEventSource eventSource, EventHandler<TEventArgs> handler, string eventName = null)
         {
             Check.NotNull(eventSource, nameof(eventSource));
             Check.NotNull(handler, nameof(handler));
@@ -36,7 +37,8 @@ namespace DoLess.Bindings
 
             // Build an independent expression in order to loose all strong reference to handler.Target.
             this.proxyEventHandler = BuildHandlerExpression(handler.GetMethodInfo());
-
+            this.eventName = eventName;
+            
             this.StartListening(eventSource);
         }
 

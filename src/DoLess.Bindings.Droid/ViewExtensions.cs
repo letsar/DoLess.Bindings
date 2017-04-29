@@ -11,7 +11,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 
-namespace DoLess.Bindings.Droid
+namespace DoLess.Bindings
 {
     public static class ViewExtensions
     {

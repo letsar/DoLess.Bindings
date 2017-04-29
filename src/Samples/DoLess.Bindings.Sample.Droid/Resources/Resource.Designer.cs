@@ -26,6 +26,23 @@ namespace DoLess.Bindings.Sample.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::DoLess.Bindings.Droid.Resource.Attribute.layoutManager = global::DoLess.Bindings.Sample.Droid.Resource.Attribute.layoutManager;
+			global::DoLess.Bindings.Droid.Resource.Attribute.reverseLayout = global::DoLess.Bindings.Sample.Droid.Resource.Attribute.reverseLayout;
+			global::DoLess.Bindings.Droid.Resource.Attribute.spanCount = global::DoLess.Bindings.Sample.Droid.Resource.Attribute.spanCount;
+			global::DoLess.Bindings.Droid.Resource.Attribute.stackFromEnd = global::DoLess.Bindings.Sample.Droid.Resource.Attribute.stackFromEnd;
+			global::DoLess.Bindings.Droid.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame = global::DoLess.Bindings.Sample.Droid.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame;
+			global::DoLess.Bindings.Droid.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity = global::DoLess.Bindings.Sample.Droid.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity;
+			global::DoLess.Bindings.Droid.Resource.Dimension.item_touch_helper_swipe_escape_velocity = global::DoLess.Bindings.Sample.Droid.Resource.Dimension.item_touch_helper_swipe_escape_velocity;
+			global::DoLess.Bindings.Droid.Resource.Id.item_touch_helper_previous_elevation = global::DoLess.Bindings.Sample.Droid.Resource.Id.item_touch_helper_previous_elevation;
+			global::DoLess.Bindings.Droid.Resource.String.ApplicationName = global::DoLess.Bindings.Sample.Droid.Resource.String.ApplicationName;
+			global::DoLess.Bindings.Droid.Resource.String.Hello = global::DoLess.Bindings.Sample.Droid.Resource.String.Hello;
+			global::DoLess.Bindings.Droid.Resource.Styleable.RecyclerView = global::DoLess.Bindings.Sample.Droid.Resource.Styleable.RecyclerView;
+			global::DoLess.Bindings.Droid.Resource.Styleable.RecyclerView_android_descendantFocusability = global::DoLess.Bindings.Sample.Droid.Resource.Styleable.RecyclerView_android_descendantFocusability;
+			global::DoLess.Bindings.Droid.Resource.Styleable.RecyclerView_android_orientation = global::DoLess.Bindings.Sample.Droid.Resource.Styleable.RecyclerView_android_orientation;
+			global::DoLess.Bindings.Droid.Resource.Styleable.RecyclerView_layoutManager = global::DoLess.Bindings.Sample.Droid.Resource.Styleable.RecyclerView_layoutManager;
+			global::DoLess.Bindings.Droid.Resource.Styleable.RecyclerView_reverseLayout = global::DoLess.Bindings.Sample.Droid.Resource.Styleable.RecyclerView_reverseLayout;
+			global::DoLess.Bindings.Droid.Resource.Styleable.RecyclerView_spanCount = global::DoLess.Bindings.Sample.Droid.Resource.Styleable.RecyclerView_spanCount;
+			global::DoLess.Bindings.Droid.Resource.Styleable.RecyclerView_stackFromEnd = global::DoLess.Bindings.Sample.Droid.Resource.Styleable.RecyclerView_stackFromEnd;
 		}
 		
 		public partial class Animation

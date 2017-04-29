@@ -1,23 +1,17 @@
 ﻿using System;
 
-namespace DoLess.Bindings.Converters
+namespace DoLess.Bindings
 {
-    /// <summary>
-    /// Represents the identy converter.
-    /// This class is static for caching issues.
-    /// </summary>
-    internal static class IdentityConverter<T>
+    internal class IdentityConverter<T> : IConverter<T, T>
     {
-        #region Public Methods
-
-        /// <summary>
-        /// The instance of this identity function.
-        /// </summary>
-        public static Func<T, T> Instance
+        public T ConvertFromSource(T value)
         {
-            get { return x => x; }
+            return value;
         }
 
-        #endregion Public Methods
+        public T ConvertFromTarget(T value)
+        {
+            return value;
+        }
     }
 }

@@ -10,8 +10,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Binding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\StringCastConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\StructCastConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ClassCastConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClickEventToCommandBinding.T4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventToCommandBinding.T4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\DynamicWeakEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Bindings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Cache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverterFromTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverterFromSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IEventToCommandBinding.T4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IEventBinding.T3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OneWayPropertyBinding.T4.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BindingSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventBinding.T3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropertyBinding.T3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Binding.T2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IdentityConverter.cs" />

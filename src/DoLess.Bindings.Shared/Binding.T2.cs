@@ -6,7 +6,7 @@ using System.Text;
 namespace DoLess.Bindings
 {
     internal class Binding<TSource, TTarget> :
-        IBindingDescription<TSource, TTarget>,
+        IBinding<TSource, TTarget>,
         IHaveBindingSet<TSource, TTarget>
         where TSource : class, INotifyPropertyChanged
         where TTarget : class

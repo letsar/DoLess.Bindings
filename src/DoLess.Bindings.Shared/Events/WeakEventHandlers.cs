@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Input;
 
 namespace DoLess.Bindings
 {
@@ -19,6 +20,23 @@ namespace DoLess.Bindings
         protected override void StopListening(INotifyPropertyChanged source)
         {
             source.PropertyChanged -= this.OnEvent;
+        }
+    }
+
+    internal class CanExecuteChangedWeakEventHandler : WeakEventHandler<ICommand, EventArgs>
+    {
+        public CanExecuteChangedWeakEventHandler(ICommand eventSource, EventHandler<EventArgs> handler) : base(eventSource, handler)
+        {
+        }
+
+        protected override void StartListening(ICommand source)
+        {
+            source.CanExecuteChanged += this.OnEvent;
+        }
+
+        protected override void StopListening(ICommand source)
+        {
+            source.CanExecuteChanged -= this.OnEvent;
         }
     }
 }

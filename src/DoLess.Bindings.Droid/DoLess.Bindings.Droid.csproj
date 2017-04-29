@@ -56,8 +56,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonExtensions.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecificWeakEventHandlers.cs" />
     <Compile Include="ViewExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

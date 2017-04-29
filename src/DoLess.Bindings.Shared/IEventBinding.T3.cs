@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text;
+using System.Windows.Input;
 
 namespace DoLess.Bindings
 {
-    /// <summary>
-    /// Represents a binding between a source and a target.
-    /// </summary>
-    public interface IBinding<TSource, TTarget>
+    public interface IEventBinding<TSource, TTarget, TEventArgs>
         where TSource : class, INotifyPropertyChanged
         where TTarget : class
+        where TEventArgs : EventArgs
     {
-        
     }
 }
