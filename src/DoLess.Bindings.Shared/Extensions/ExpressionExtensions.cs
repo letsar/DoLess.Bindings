@@ -14,18 +14,12 @@ namespace DoLess.Bindings
             ObservedNodeBuilder builder = new ObservedNodeBuilder();
             builder.Visit(self);
             return builder.Root;
-        }
+        }        
 
-        public static PropertyInfo GetPropertyInfo<T, TProperty>(this Expression<Func<T, TProperty>> self)
+        public static BindingExpression<T, TProperty> GetBindingExpression<T, TProperty>(this Expression<Func<T, TProperty>> self, T source)
+            where T : class
         {
-            try
-            {
-                return (PropertyInfo)((MemberExpression)self.Body).Member;
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException("This is not a property expression", ex);
-            }
+            return new BindingExpression<T, TProperty>(source, self);
         }
     }
 }

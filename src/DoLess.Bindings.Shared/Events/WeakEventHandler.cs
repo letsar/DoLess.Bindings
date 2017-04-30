@@ -24,6 +24,12 @@ namespace DoLess.Bindings
         private readonly WeakReference<TEventSource> weakEventSource;
         private readonly WeakReference<object> weakEventTarget;
         private bool hasBeenUnsubscribed;
+        protected static readonly Type TEventSourceType;
+
+        static WeakEventHandler()
+        {
+            TEventSourceType = typeof(TEventSource);
+        }
 
         public WeakEventHandler(TEventSource eventSource, EventHandler<TEventArgs> handler, string eventName = null)
         {
@@ -38,7 +44,7 @@ namespace DoLess.Bindings
             // Build an independent expression in order to loose all strong reference to handler.Target.
             this.proxyEventHandler = BuildHandlerExpression(handler.GetMethodInfo());
             this.eventName = eventName;
-            
+
             this.StartListening(eventSource);
         }
 

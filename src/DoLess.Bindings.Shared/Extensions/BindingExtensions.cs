@@ -28,27 +28,43 @@ namespace DoLess.Bindings
             where TSource : class, INotifyPropertyChanged
             where TTarget : class
         {
-            var binding = new OneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(self, sourcePropertyExpression);
-
-
-            return binding;
+            return new OneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(self, sourcePropertyExpression)
+                       .WithConverter<ClassCastConverter<TSourceProperty, TTargetProperty>>();
         }
 
-        public static IOneWayPropertyBinding<TSource, TTarget, string, TSourceProperty> To<TSource, TTarget, TSourceProperty>(this IPropertyBinding<TSource, TTarget, string> self, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression)
+        //public static IOneWayPropertyBinding<TSource, TTarget, string, TSourceProperty> To<TSource, TTarget, TSourceProperty>(this IPropertyBinding<TSource, TTarget, string> self, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression)
+        //    where TSource : class, INotifyPropertyChanged
+        //    where TTarget : class
+        //{
+        //    return new OneWayPropertyBinding<TSource, TTarget, string, TSourceProperty>(self, sourcePropertyExpression)
+        //               .WithConverter<StringCastConverter<TSourceProperty>>();
+
+        //}
+
+        //public static IOneWayPropertyBinding<TSource, TTarget, TProperty, TProperty> To<TSource, TTarget, TProperty>(this IPropertyBinding<TSource, TTarget, TProperty> self, Expression<Func<TSource, TProperty>> sourcePropertyExpression)
+        //    where TSource : class, INotifyPropertyChanged
+        //    where TTarget : class
+        //{
+        //    return new OneWayPropertyBinding<TSource, TTarget, TProperty, TProperty>(self, sourcePropertyExpression)
+        //               .WithConverter<IdentityConverter<TProperty>>();
+        //}
+
+        //public static ITwoWayPropertyBinding<TSource, TTarget, TProperty, TProperty> TwoWay<TSource, TTarget, TProperty>(this IOneWayPropertyBinding<TSource, TTarget, TProperty, TProperty> self)
+        //    where TSource : class, INotifyPropertyChanged
+        //    where TTarget : class
+        //{
+        //    return ((OneWayPropertyBinding<TSource, TTarget, TProperty, TProperty>)self)
+        //            .CreateTwoWay()
+        //            .WithConverter<IdentityConverter<TProperty>>();
+        //}
+
+        public static ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> TwoWay<TSource, TTarget, TTargetProperty, TSourceProperty>(this IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> self)
             where TSource : class, INotifyPropertyChanged
             where TTarget : class
         {
-            return new OneWayPropertyBinding<TSource, TTarget, string, TSourceProperty>(self, sourcePropertyExpression)
-                       .WithConverter<StringCastConverter<TSourceProperty>>();
-
-        }
-
-        public static IOneWayPropertyBinding<TSource, TTarget, TProperty, TProperty> To<TSource, TTarget, TProperty>(this IPropertyBinding<TSource, TTarget, TProperty> self, Expression<Func<TSource, TProperty>> sourcePropertyExpression)
-            where TSource : class, INotifyPropertyChanged
-            where TTarget : class
-        {
-            return new OneWayPropertyBinding<TSource, TTarget, TProperty, TProperty>(self, sourcePropertyExpression)
-                       .WithConverter<IdentityConverter<TProperty>>();
+            return ((OneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>)self)
+                    .CreateTwoWay()
+                    .WithConverter<ClassCastConverter<TSourceProperty, TTargetProperty>>();
         }
 
         public static IEventBinding<TSource, TTarget, TEventArgs> Event<TSource, TTarget, TEventArgs>(this IBinding<TSource, TTarget> self, string eventName, TEventArgs defaultEventArgs = default(TEventArgs))
@@ -58,7 +74,6 @@ namespace DoLess.Bindings
         {
             return new EventBinding<TSource, TTarget, TEventArgs>(self, eventName);
         }
-
 
         public static IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> To<TSource, TTarget, TEventArgs, TCommand>(this IEventBinding<TSource, TTarget, TEventArgs> self, Expression<Func<TSource, TCommand>> commandExpression)
             where TSource : class, INotifyPropertyChanged

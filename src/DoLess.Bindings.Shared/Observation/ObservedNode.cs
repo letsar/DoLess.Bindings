@@ -95,6 +95,26 @@ namespace DoLess.Bindings.Observation
             }
         }
 
+        public void Unobserve()
+        {
+            if (this.IsObservable)
+            {
+                this.UnobserveInternal();
+            }
+        }
+
+        private void UnobserveInternal()
+        {
+            this.whenChanged = null;
+            this.weakHandler.Unsubscribe();
+            this.weakHandler = null;
+
+            foreach (var node in this.Nodes.Where(x => x.IsObservable))
+            {
+                node.UnobserveInternal();
+            }
+        }
+
         public bool Remove(string name)
         {
             Check.NotNull(name, nameof(name));
