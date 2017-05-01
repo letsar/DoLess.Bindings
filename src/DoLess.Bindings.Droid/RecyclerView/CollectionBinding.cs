@@ -22,6 +22,7 @@ namespace DoLess.Bindings
         public CollectionBinding(IPropertyBinding<TSource, TTarget, IEnumerable<TItemProperty>> propertyBinding, Expression<Func<TSource, IEnumerable<TItemProperty>>> itemsSourcePropertyExpression) :
             base(propertyBinding, itemsSourcePropertyExpression)
         {
+            this.WithConverter<IdentityConverter<IEnumerable<TItemProperty>>>();
         }
 
         public ICollectionBinding<TItemProperty> WithItemTemplateSelector<T>()

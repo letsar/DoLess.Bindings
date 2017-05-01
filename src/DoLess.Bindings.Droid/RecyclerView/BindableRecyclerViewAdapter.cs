@@ -13,6 +13,7 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Java.Lang;
 
 namespace DoLess.Bindings
 {
@@ -62,6 +63,36 @@ namespace DoLess.Bindings
             View view = LayoutInflater.From(parent.Context).Inflate(viewType, parent, false);
             BindableViewHolder<TItem> viewHolder = new BindableViewHolder<TItem>(view);
             return viewHolder;
+        }
+
+        public override void OnAttachedToRecyclerView(RecyclerView recyclerView)
+        {
+            base.OnAttachedToRecyclerView(recyclerView);
+        }
+
+        public override void OnDetachedFromRecyclerView(RecyclerView recyclerView)
+        {
+            base.OnDetachedFromRecyclerView(recyclerView);
+        }
+
+        public override bool OnFailedToRecycleView(Java.Lang.Object holder)
+        {
+            return base.OnFailedToRecycleView(holder);
+        }
+
+        public override void OnViewAttachedToWindow(Java.Lang.Object holder)
+        {
+            base.OnViewAttachedToWindow(holder);
+        }
+
+        public override void OnViewDetachedFromWindow(Java.Lang.Object holder)
+        {
+            base.OnViewDetachedFromWindow(holder);
+        }
+
+        public override void OnViewRecycled(Java.Lang.Object holder)
+        {
+            base.OnViewRecycled(holder);
         }
 
         public override int GetItemViewType(int position)

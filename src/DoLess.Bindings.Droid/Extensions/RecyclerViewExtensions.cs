@@ -22,21 +22,18 @@ namespace DoLess.Bindings
             var recyclerView = self.Target;
             var viewModel = self.Source;
 
-            BindableRecyclerViewAdapter<TItemProperty> adapter = null;
             if (recyclerView != null && viewModel != null)
             {
-                adapter = recyclerView.GetAdapter() as BindableRecyclerViewAdapter<TItemProperty>;
-
-                if (adapter == null)
-                {
-                    adapter = new BindableRecyclerViewAdapter<TItemProperty>();
-                    recyclerView.SetAdapter(adapter);
-                }
+                BindableRecyclerViewAdapter<TItemProperty> adapter = new BindableRecyclerViewAdapter<TItemProperty>();
 
                 var propertyBinding = new Binding<TSource, BindableRecyclerViewAdapter<TItemProperty>>(viewModel, adapter, self)
                                           .Property(x => x.ItemsSource);
 
-                return new CollectionBinding<TSource, BindableRecyclerViewAdapter<TItemProperty>, TItemProperty>(propertyBinding, itemsSourcePropertyExpression);
+                var binding = new CollectionBinding<TSource, BindableRecyclerViewAdapter<TItemProperty>, TItemProperty>(propertyBinding, itemsSourcePropertyExpression);
+
+                recyclerView.SetAdapter(adapter);
+
+                return binding;
             }
             else
             {

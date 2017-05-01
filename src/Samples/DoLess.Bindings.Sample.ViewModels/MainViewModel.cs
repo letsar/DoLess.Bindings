@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace DoLess.Bindings.Sample.ViewModels
 
         public PersonViewModel Person { get; set; }
 
-        public List<PersonViewModel> Persons { get; set; }
+        public ObservableCollection<PersonViewModel> Persons { get; set; }
 
         public ICancellableCommand CancellableCommand { get; }
 

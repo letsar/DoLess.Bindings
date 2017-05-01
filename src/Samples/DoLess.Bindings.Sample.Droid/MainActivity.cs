@@ -9,6 +9,8 @@ using System;
 using Android.Runtime;
 using Java.Lang;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace DoLess.Bindings.Sample.Droid
 {
@@ -48,6 +50,7 @@ namespace DoLess.Bindings.Sample.Droid
             cancelCommandButton.Text = "CancelCommandButton";
             EditText editText = new EditText(this);
             RecyclerView recyclerView = new RecyclerView(this);
+            recyclerView.SetLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.Vertical, false));
 
             layout.AddView(textView);
             layout.AddView(button);
@@ -66,14 +69,9 @@ namespace DoLess.Bindings.Sample.Droid
             this.ViewModel.Person.FirstName = "Bill";
             this.ViewModel.Person.LastName = "Gates";
 
-            this.ViewModel.Persons = new System.Collections.Generic.List<PersonViewModel>
-            {
-                new PersonViewModel("Bill", "Gates"),
-                new PersonViewModel("Steve", "Ballmer"),
-                new PersonViewModel("Satya", "Nadella"),
-                new PersonViewModel("Steve", "Jobs"),
-                new PersonViewModel("Tim", "Cook")
-            };
+            this.ViewModel.Persons = new ObservableCollection<PersonViewModel>(Enumerable.Range(1, 1000).Select(x => new PersonViewModel(x.ToString(), (x + 1).ToString())));
+
+            //recyclerView.SetAdapter(new Adapter1(Enumerable.Range(1, 50).Select(x => x.ToString()).ToArray()));
 
             this.Bind(textView)
                 .Property(x => x.Text)
@@ -103,6 +101,8 @@ namespace DoLess.Bindings.Sample.Droid
 
         }
 
+
+
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             throw new NotImplementedException();
@@ -125,7 +125,31 @@ namespace DoLess.Bindings.Sample.Droid
 
         private void Button_Click(object sender, EventArgs e)
         {
-            this.ViewModel.Person.FirstName = this.ViewModel.Person.LastName + "e";
+            this.ViewModel.Persons.Add(new PersonViewModel("FirstName", "LastName"));
+            //this.ViewModel.Persons = new ObservableCollection<PersonViewModel>
+            //{
+            //    new PersonViewModel("Bill", "Gates"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Satya", "Nadella"),
+            //    new PersonViewModel("Steve", "Jobs"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook"),
+            //    new PersonViewModel("Tim", "Cook")
+            //};
         }
 
         private string GetString(string s)
