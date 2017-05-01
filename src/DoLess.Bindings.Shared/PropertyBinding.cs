@@ -13,21 +13,23 @@ namespace DoLess.Bindings
         protected readonly BindingExpression<TTarget, TTargetProperty> targetProperty;
 
         public PropertyBinding(IBinding<TSource, TTarget> binding, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression) :
-            base((IHaveBindingSet<TSource, TTarget>)binding)
+            base((IBindingDescription<TSource, TTarget>)binding)
         {
             Check.NotNull(targetPropertyExpression, nameof(targetPropertyExpression));
 
-            this.targetProperty = targetPropertyExpression.GetBindingExpression(this.BindingSet.Target);
+            this.targetProperty = targetPropertyExpression.GetBindingExpression(this.Target);
         }
 
-        public PropertyBinding(PropertyBinding<TSource, TTarget, TTargetProperty> bindingProperty) :
-            base(bindingProperty)
+        public PropertyBinding(PropertyBinding<TSource, TTarget, TTargetProperty> propertyBinding) :
+            base(propertyBinding)
         {
-            this.targetProperty = bindingProperty.targetProperty;
+            this.targetProperty = propertyBinding.targetProperty;
+            propertyBinding.UnbindInternal();
         }
 
-        public PropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> bindingProperty) :
-            this((PropertyBinding<TSource, TTarget, TTargetProperty>)bindingProperty)
-        { }
+        public PropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> propertyBinding) :
+            this((PropertyBinding<TSource, TTarget, TTargetProperty>)propertyBinding)
+        {            
+        }        
     }
 }

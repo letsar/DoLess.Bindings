@@ -14,8 +14,8 @@ namespace DoLess.Bindings
     {
         private static readonly Type TargetType;
         private readonly BindingExpression<TSource, TSourceProperty> sourceProperty;
-        private readonly ObservedNode sourceRootNode;
-        private readonly DynamicWeakEventHandler<TTarget> targetPropertyChangedWeakEventHandler;
+        private ObservedNode sourceRootNode;
+        private DynamicWeakEventHandler<TTarget> targetPropertyChangedWeakEventHandler;
         private IConverter<TSourceProperty, TTargetProperty> converter;
         private bool isBinding;
         private object isBindingLock = new object();
@@ -25,17 +25,17 @@ namespace DoLess.Bindings
             TargetType = typeof(TTarget);
         }
 
-        public TwoWayPropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> bindingProperty, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression) :
-            base(bindingProperty)
+        public TwoWayPropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> propertyBinding, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression) :
+            base(propertyBinding)
         {
             Check.NotNull(sourcePropertyExpression, nameof(sourcePropertyExpression));
 
             this.isBinding = false;
-            this.sourceProperty = sourcePropertyExpression.GetBindingExpression(this.BindingSet.Source);
+            this.sourceProperty = sourcePropertyExpression.GetBindingExpression(this.Source);
             this.sourceRootNode = sourcePropertyExpression.AsObservedNode();
-            this.sourceRootNode.Observe(this.BindingSet.Source, this.OnSourceChanged);
+            this.sourceRootNode.Observe(this.Source, this.OnSourceChanged);
 
-            this.targetPropertyChangedWeakEventHandler = this.CreateHandlerForFirstExistingEvent(this.BindingSet.Target, this.targetProperty.Name + "Changed", "EditingDidEnd", "ValueChanged", "Changed");
+            this.targetPropertyChangedWeakEventHandler = this.CreateHandlerForFirstExistingEvent(this.Target, this.targetProperty.Name + "Changed", "EditingDidEnd", "ValueChanged", "Changed");                                    
         }
 
         public ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> WithConverter<T>()
@@ -125,6 +125,15 @@ namespace DoLess.Bindings
             {
                 this.isBinding = false;
             }
+        }
+
+        public override void UnbindInternal()
+        {
+            base.UnbindInternal();
+            this.sourceRootNode.Unobserve();
+            this.sourceRootNode = null;
+            this.targetPropertyChangedWeakEventHandler.Unsubscribe();
+            this.targetPropertyChangedWeakEventHandler = null;
         }
     }
 }

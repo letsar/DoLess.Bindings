@@ -1,6 +1,8 @@
 ﻿namespace DoLess.Bindings
 {
-    public interface ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>
+    public interface ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> :
+        IBinding,
+        ICanBind<TSource>
         where TSource : class
         where TTarget : class
     {

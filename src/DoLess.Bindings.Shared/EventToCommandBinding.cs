@@ -16,19 +16,17 @@ namespace DoLess.Bindings
         where TCommand : ICommand
     {
         private readonly Func<TSource, TCommand> getCommand;
-        private readonly Expression<Func<TSource, TCommand>> commandExpression;
-        private readonly ObservedNode sourceRootNode;
-        private IConverterFromSource<TEventArgs, object> argsToParameter;
+        private ObservedNode sourceRootNode;
+        private IConverterFromSource<TEventArgs, object> converter;
 
         public EventToCommandBinding(IEventBinding<TSource, TTarget, TEventArgs> binding, Expression<Func<TSource, TCommand>> commandExpression) :
             base(binding)
         {
             Check.NotNull(commandExpression, nameof(commandExpression));
 
-            this.commandExpression = commandExpression;
             this.getCommand = commandExpression.Compile();
             this.sourceRootNode = commandExpression.AsObservedNode();
-            this.sourceRootNode.Observe(this.BindingSet.Source, this.WhenCommandChanged);
+            this.sourceRootNode.Observe(this.Source, this.WhenCommandChanged);            
         }
 
         protected override void OnEventRaised(object sender, TEventArgs args)
@@ -46,7 +44,7 @@ namespace DoLess.Bindings
         protected ICommand GetCommand()
         {
             ICommand command = null;
-            TSource source = this.BindingSet.Source;
+            TSource source = this.Source;
             if (source != null)
             {
                 try
@@ -65,13 +63,27 @@ namespace DoLess.Bindings
         protected object GetCommandParameter(TEventArgs args)
         {
             object parameter = null;
-            if (this.argsToParameter != null)
+            if (this.converter != null)
             {
-                parameter = this.argsToParameter.ConvertFromSource(args);
+                parameter = this.converter.ConvertFromSource(args);
             }
             return parameter;
         }
 
+        public IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> WithConverter<T>()
+            where T : IConverterFromSource<TEventArgs, object>, new()
+        {
+            this.converter = Cache<T>.Instance;
+            return this;
+        }
+
         protected virtual void WhenCommandChanged() { }
+
+        public override void UnbindInternal()
+        {
+            base.UnbindInternal();
+            this.sourceRootNode.Unobserve();
+            this.sourceRootNode = null;
+        }
     }
 }

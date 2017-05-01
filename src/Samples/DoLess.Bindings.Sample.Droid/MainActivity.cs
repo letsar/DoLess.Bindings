@@ -64,15 +64,12 @@ namespace DoLess.Bindings.Sample.Droid
 
             this.Bind(textView)
                 .Property(x => x.Text)
-                .To(x => $"{x.Person.FirstName} {x.Person.LastName}");
-
-            this.Bind(commandButton)
-                .ClickTo(x => x.CancellableCommand);
-
-            this.Bind(cancelCommandButton)
-                .ClickTo(x => x.CancellableCommand.CancelCommand);
-
-            this.Bind(editText)
+                .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
+                .Bind(commandButton)
+                .ClickTo(x => x.CancellableCommand)
+                .Bind(cancelCommandButton)
+                .ClickTo(x => x.CancellableCommand.CancelCommand)
+                .Bind(editText)
                 .Property(x => x.Text)
                 .To(x => x.Person.FirstName)
                 .TwoWay();

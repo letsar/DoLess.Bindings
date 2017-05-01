@@ -7,7 +7,7 @@ namespace DoLess.Bindings
 {
     internal class ClickEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> :
         EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>,
-        IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>
+        IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>        
         where TSource : class
         where TTarget : class
         where TEventArgs : EventArgs
@@ -21,7 +21,7 @@ namespace DoLess.Bindings
         {
             Check.NotNull(canExecuteTargetPropertyExpression, nameof(canExecuteTargetPropertyExpression));
 
-            this.canExecuteTargetProperty = canExecuteTargetPropertyExpression.GetBindingExpression(this.BindingSet.Target);
+            this.canExecuteTargetProperty = canExecuteTargetPropertyExpression.GetBindingExpression(this.Target);
             this.WhenCommandChanged();
         }
 
@@ -49,6 +49,14 @@ namespace DoLess.Bindings
             {
                 this.canExecuteTargetProperty.Value = command.CanExecute(null);
             }
+        }
+
+        public override void UnbindInternal()
+        {
+            base.UnbindInternal();
+            this.canExecuteTargetProperty = null;
+            this.canExecuteChangedWeakEventHandler.Unsubscribe();
+            this.canExecuteChangedWeakEventHandler = null;
         }
     }
 }

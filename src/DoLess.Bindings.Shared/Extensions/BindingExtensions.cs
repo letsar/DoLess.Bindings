@@ -13,6 +13,13 @@ namespace DoLess.Bindings
             return new Binding<TSource, TTarget>(self.ViewModel, target);
         }
 
+        public static IBinding<TSource, TTarget> Bind<TSource, TTarget>(this ICanBind<TSource> self, TTarget target)
+            where TSource : class
+            where TTarget : class
+        {
+            return new Binding<TSource, TTarget>(self.Source, target, self);
+        }
+
         public static IBinding<TSource, TTarget> BindFromViewModel<TSource, TTarget>(this TSource self, TTarget target)
             where TSource : class
             where TTarget : class

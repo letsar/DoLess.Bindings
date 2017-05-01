@@ -12,23 +12,22 @@ namespace DoLess.Bindings
     {
         private readonly Func<TSource, TSourceProperty> getSourceProperty;
         private readonly Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression;
-        private readonly ObservedNode sourceRootNode;
+        private ObservedNode sourceRootNode;
         private IConverterFromSource<TSourceProperty, TTargetProperty> converter;
 
-        public OneWayPropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> bindingProperty, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression) :
-            base(bindingProperty)
+        public OneWayPropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> propertyBinding, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression) :
+            base(propertyBinding)
         {
             this.sourcePropertyExpression = sourcePropertyExpression;
             this.getSourceProperty = sourcePropertyExpression.Compile();
             this.sourceRootNode = sourcePropertyExpression.AsObservedNode();
-            this.sourceRootNode.Observe(this.BindingSet.Source, this.OnSourceChanged);
+            this.sourceRootNode.Observe(this.Source, this.OnSourceChanged);
         }
 
-        public TSourceProperty SourceProperty => this.getSourceProperty(this.BindingSet.Source);
+        public TSourceProperty SourceProperty => this.getSourceProperty(this.Source);
 
         public ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> CreateTwoWay()
-        {
-            this.sourceRootNode.Unobserve();
+        {            
             return new TwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(this, this.sourcePropertyExpression);
         }
 
@@ -59,6 +58,13 @@ namespace DoLess.Bindings
                     Bindings.LogError($"when trying to set the property '{this.targetProperty.Name}' of type '{typeof(TTarget).FullName}': {ex.ToString()}");
                 }
             }
+        }
+
+        public override void UnbindInternal()
+        {
+            base.UnbindInternal();
+            this.sourceRootNode.Unobserve();
+            this.sourceRootNode = null;
         }
     }
 }

@@ -1,24 +1,31 @@
-﻿namespace DoLess.Bindings
+﻿using System;
+
+namespace DoLess.Bindings
 {
     internal class Binding<TSource, TTarget> :
+        Binding,
         IBinding<TSource, TTarget>,
-        IHaveBindingSet<TSource, TTarget>
+        IBindingDescription<TSource, TTarget>
         where TSource : class
         where TTarget : class
     {
-        public Binding(BindingSet<TSource, TTarget> bindingSet)
+        private readonly WeakReference<TSource> weakSource;
+        private readonly WeakReference<TTarget> weakTarget;
+
+        public Binding(TSource source, TTarget target, IBinding linkedBinding = null) : base(linkedBinding)
         {
-            this.BindingSet = bindingSet;
+            this.weakSource = new WeakReference<TSource>(source);
+            this.weakTarget = new WeakReference<TTarget>(target);
         }
 
-        public Binding(TSource source, TTarget target) :
-            this(new BindingSet<TSource, TTarget>(source, target))
+        public Binding(IBindingDescription<TSource, TTarget> bindingDescription) :
+            this(bindingDescription?.Source, bindingDescription?.Target, bindingDescription?.LinkedBinding)
         { }
 
-        public Binding(IHaveBindingSet<TSource, TTarget> bindingSetOwner) :
-            this(bindingSetOwner?.BindingSet)
-        { }
+        public TSource Source => this.weakSource.GetOrDefault();
 
-        public BindingSet<TSource, TTarget> BindingSet { get; }
+        public TTarget Target => this.weakTarget.GetOrDefault();
+
+        public override void UnbindInternal() { }
     }
 }

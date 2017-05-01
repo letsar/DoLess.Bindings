@@ -14,25 +14,25 @@ namespace DoLess.Bindings
         private readonly Func<TTarget, EventHandler<TEventArgs>, WeakEventHandler<TTarget, TEventArgs>> weakEventHandlerFactory;
 
         public EventBinding(IBinding<TSource, TTarget> binding, string eventName) :
-            base((IHaveBindingSet<TSource, TTarget>)binding)
+            base((IBindingDescription<TSource, TTarget>)binding)
         {
             Check.NotNull(eventName, nameof(eventName));
-
+                        
             this.InitializeWeakEventHandler(eventName);
         }
 
         public EventBinding(IBinding<TSource, TTarget> binding, Func<TTarget, EventHandler<TEventArgs>, WeakEventHandler<TTarget, TEventArgs>> weakEventHandlerFactory) :
-            base((IHaveBindingSet<TSource, TTarget>)binding)
+            base((IBindingDescription<TSource, TTarget>)binding)
         {
             Check.NotNull(weakEventHandlerFactory, nameof(weakEventHandlerFactory));
 
             this.weakEventHandlerFactory = weakEventHandlerFactory;
-            this.weakEventHandler = this.weakEventHandlerFactory(this.BindingSet.Target, this.OnEventRaised);
+            this.weakEventHandler = this.weakEventHandlerFactory(this.Target, this.OnEventRaised);
         }
 
         public EventBinding(EventBinding<TSource, TTarget, TEventArgs> binding) :
-            base((IHaveBindingSet<TSource, TTarget>)binding)
-        {
+            base((IBindingDescription<TSource, TTarget>)binding)
+        {            
             if (binding.weakEventHandlerFactory == null)
             {
                 // It's necessary to recreate the binding because otherwise, the delegate is not on the right object.
@@ -40,8 +40,10 @@ namespace DoLess.Bindings
             }
             else
             {
-                this.weakEventHandler = binding.weakEventHandlerFactory(this.BindingSet.Target, this.OnEventRaised);
+                this.weakEventHandler = binding.weakEventHandlerFactory(this.Target, this.OnEventRaised);
             }
+
+            binding.UnbindInternal();
         }
 
         public EventBinding(IEventBinding<TSource, TTarget, TEventArgs> binding) :
@@ -57,7 +59,14 @@ namespace DoLess.Bindings
 
         protected virtual void InitializeWeakEventHandler(string eventName)
         {
-            this.weakEventHandler = new DynamicWeakEventHandler<TTarget, TEventArgs>(this.BindingSet.Target, eventName, this.OnEventRaised);
+            this.weakEventHandler = new DynamicWeakEventHandler<TTarget, TEventArgs>(this.Target, eventName, this.OnEventRaised);
+        }
+
+        public override void UnbindInternal()
+        {
+            base.UnbindInternal();
+            this.weakEventHandler.Unsubscribe();
+            this.weakEventHandler = null;            
         }
     }
 }
