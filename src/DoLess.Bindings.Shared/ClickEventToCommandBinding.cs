@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Windows.Input;
 using DoLess.Bindings.Helpers;
@@ -9,7 +8,7 @@ namespace DoLess.Bindings
     internal class ClickEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> :
         EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>,
         IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>
-        where TSource : class, INotifyPropertyChanged
+        where TSource : class
         where TTarget : class
         where TEventArgs : EventArgs
         where TCommand : ICommand
@@ -28,15 +27,18 @@ namespace DoLess.Bindings
 
         protected override void WhenCommandChanged()
         {
-            if (this.canExecuteChangedWeakEventHandler != null)
+            if (this.canExecuteTargetProperty != null)
             {
-                this.canExecuteChangedWeakEventHandler.Unsubscribe();
-                this.canExecuteChangedWeakEventHandler = null;
-            }
+                if (this.canExecuteChangedWeakEventHandler != null)
+                {
+                    this.canExecuteChangedWeakEventHandler.Unsubscribe();
+                    this.canExecuteChangedWeakEventHandler = null;
+                }
 
-            var command = this.GetCommand();
-            this.canExecuteChangedWeakEventHandler = new CanExecuteChangedWeakEventHandler(command, this.OnCanExecuteChanged);
-            this.OnCanExecuteChanged(command, EventArgs.Empty);
+                var command = this.GetCommand();
+                this.canExecuteChangedWeakEventHandler = new CanExecuteChangedWeakEventHandler(command, this.OnCanExecuteChanged);
+                this.OnCanExecuteChanged(command, EventArgs.Empty);
+            }
         }
 
         private void OnCanExecuteChanged(object sender, EventArgs args)

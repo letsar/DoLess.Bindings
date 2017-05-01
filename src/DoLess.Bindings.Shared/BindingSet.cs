@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
 
 namespace DoLess.Bindings
 {
     internal class BindingSet<TSource, TTarget>
-        where TSource : class, INotifyPropertyChanged
+        where TSource : class
         where TTarget : class
     {
         private readonly WeakReference<TSource> weakSource;

@@ -85,13 +85,17 @@ namespace DoLess.Bindings.Observation
             return weakHandlers;
         }
 
-        public void Observe(INotifyPropertyChanged source, Action whenChanged)
+        public void Observe(object source, Action whenChanged)
         {
-            Check.NotNull(whenChanged, nameof(whenChanged));
-
-            if (this.IsObservable)
+            var viewModel = source as INotifyPropertyChanged;
+            if (viewModel != null)
             {
-                this.ObserveInternal(source, whenChanged);
+                Check.NotNull(whenChanged, nameof(whenChanged));
+
+                if (this.IsObservable)
+                {
+                    this.ObserveInternal(viewModel, whenChanged);
+                }
             }
         }
 

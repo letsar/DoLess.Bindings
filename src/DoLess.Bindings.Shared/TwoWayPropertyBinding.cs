@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 using DoLess.Bindings.Helpers;
@@ -10,7 +9,7 @@ namespace DoLess.Bindings
     internal sealed class TwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> :
         PropertyBinding<TSource, TTarget, TTargetProperty>,
         ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>
-        where TSource : class, INotifyPropertyChanged
+        where TSource : class
         where TTarget : class
     {
         private static readonly Type TargetType;
@@ -43,6 +42,9 @@ namespace DoLess.Bindings
             where T : IConverter<TSourceProperty, TTargetProperty>, new()
         {
             this.converter = Cache<T>.Instance;
+
+            // The result may have changed.
+            this.OnSourceChanged();
             return this;
         }
 

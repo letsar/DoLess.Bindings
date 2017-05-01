@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq.Expressions;
 using DoLess.Bindings.Observation;
 
@@ -8,7 +7,7 @@ namespace DoLess.Bindings
     internal class OneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> :
         PropertyBinding<TSource, TTarget, TTargetProperty>,
         IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>
-        where TSource : class, INotifyPropertyChanged
+        where TSource : class
         where TTarget : class
     {
         private readonly Func<TSource, TSourceProperty> getSourceProperty;
@@ -37,6 +36,9 @@ namespace DoLess.Bindings
                     where T : IConverterFromSource<TSourceProperty, TTargetProperty>, new()
         {
             this.converter = Cache<T>.Instance;
+
+            // The result may have changed.
+            this.OnSourceChanged();
             return this;
         }
 

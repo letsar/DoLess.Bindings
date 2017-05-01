@@ -18,7 +18,7 @@ namespace DoLess.Bindings
     public static class ViewExtensions
     {
         public static IEventToCommandBinding<TSource, TTarget, EventArgs, TCommand> ClickTo<TSource, TTarget, TCommand>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, TCommand>> commandExpression)
-            where TSource : class, INotifyPropertyChanged
+            where TSource : class
             where TTarget : View
             where TCommand : ICommand
         {

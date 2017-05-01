@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-
-namespace DoLess.Bindings
+﻿namespace DoLess.Bindings
 {
     internal class Binding<TSource, TTarget> :
         IBinding<TSource, TTarget>,
         IHaveBindingSet<TSource, TTarget>
-        where TSource : class, INotifyPropertyChanged
+        where TSource : class
         where TTarget : class
     {
         public Binding(BindingSet<TSource, TTarget> bindingSet)

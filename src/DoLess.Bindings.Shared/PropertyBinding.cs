@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq.Expressions;
 using DoLess.Bindings.Helpers;
 
@@ -8,7 +7,7 @@ namespace DoLess.Bindings
     internal class PropertyBinding<TSource, TTarget, TTargetProperty> :
         Binding<TSource, TTarget>,
         IPropertyBinding<TSource, TTarget, TTargetProperty>
-        where TSource : class, INotifyPropertyChanged
+        where TSource : class
         where TTarget : class
     {
         protected readonly BindingExpression<TTarget, TTargetProperty> targetProperty;

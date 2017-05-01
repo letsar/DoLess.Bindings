@@ -55,6 +55,7 @@ namespace DoLess.Bindings.Sample.Droid
             SetContentView(layout);
 
             textView.Text = "Hello";
+            editText.Text = "bouh";
 
             this.ViewModel = new MainViewModel();
             this.ViewModel.Person = new PersonViewModel();

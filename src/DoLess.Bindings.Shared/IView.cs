@@ -7,7 +7,6 @@ namespace DoLess.Bindings
     /// </summary>
     /// <typeparam name="T">The type of the viewmodel.</typeparam>
     public interface IView<T>
-        where T : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets the view model.

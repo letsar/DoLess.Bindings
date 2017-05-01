@@ -11,7 +11,7 @@ namespace DoLess.Bindings
     public static class UIControlExtensions
     {
         public static IEventToCommandBinding<TSource, TTarget, EventArgs, TCommand> ClickTo<TSource, TTarget, TCommand>(IBinding<TSource, TTarget> self, Expression<Func<TSource, TCommand>> commandExpression)
-            where TSource : class, INotifyPropertyChanged
+            where TSource : class
             where TTarget : UIControl
             where TCommand : ICommand
         {

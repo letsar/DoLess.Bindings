@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
 using System.Windows.Input;
 using DoLess.Bindings.Helpers;
 using DoLess.Bindings.Observation;
@@ -13,7 +10,7 @@ namespace DoLess.Bindings
     internal class EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> :
         EventBinding<TSource, TTarget, TEventArgs>,
         IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>
-        where TSource : class, INotifyPropertyChanged
+        where TSource : class
         where TTarget : class
         where TEventArgs : EventArgs
         where TCommand : ICommand
