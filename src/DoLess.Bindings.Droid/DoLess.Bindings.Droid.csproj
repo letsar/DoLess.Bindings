@@ -10,8 +10,8 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DoLess.Bindings.Droid</RootNamespace>
-    <AssemblyName>DoLess.Bindings.Droid</AssemblyName>
+    <RootNamespace>DoLess.Bindings</RootNamespace>
+    <AssemblyName>DoLess.Bindings</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
@@ -57,10 +57,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ButtonExtensions.cs" />
+    <Compile Include="Extensions\RecyclerViewExtensions.cs" />
     <Compile Include="IItemTemplateSelector.cs" />
     <Compile Include="RecyclerView\BindableRecyclerViewAdapter.cs" />
     <Compile Include="RecyclerView\BindableViewHolder.cs" />
+    <Compile Include="RecyclerView\CollectionBinding.cs" />
+    <Compile Include="RecyclerView\IViewHolder.cs" />
     <Compile Include="RecyclerView\ICollectionBinding.cs" />
+    <Compile Include="RecyclerView\IViewHolderBinding.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Events\SpecificWeakEventHandlers.cs" />

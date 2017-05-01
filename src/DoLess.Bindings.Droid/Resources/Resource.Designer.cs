@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("DoLess.Bindings.Droid.Resource", IsApplication=false)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("DoLess.Bindings.Resource", IsApplication=false)]
 
-namespace DoLess.Bindings.Droid
+namespace DoLess.Bindings
 {
 	
 	

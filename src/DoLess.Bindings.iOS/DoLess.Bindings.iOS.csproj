@@ -8,9 +8,9 @@
     <ProjectGuid>{B9A032D1-B94C-485A-8C94-7B539868A4E3}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>DoLess.Bindings.iOS</RootNamespace>
+    <RootNamespace>DoLess.Bindings</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>DoLess.Bindings.iOS</AssemblyName>
+    <AssemblyName>DoLess.Bindings</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

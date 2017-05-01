@@ -20,6 +20,8 @@ namespace DoLess.Bindings.Sample.ViewModels
 
         public PersonViewModel Person { get; set; }
 
+        public List<PersonViewModel> Persons { get; set; }
+
         public ICancellableCommand CancellableCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,6 +35,17 @@ namespace DoLess.Bindings.Sample.ViewModels
     [ImplementPropertyChanged]
     public class PersonViewModel : INotifyPropertyChanged
     {
+        public PersonViewModel()
+        {
+
+        }
+
+        public PersonViewModel(string firstName, string lastName)
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+        }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

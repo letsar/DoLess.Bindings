@@ -10,38 +10,40 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace DoLess.Bindings.Droid.RecyclerView
+namespace DoLess.Bindings
 {
-    internal class BindableViewHolder<T>
+    internal class BindableViewHolder<T> : 
+        Android.Support.V7.Widget.RecyclerView.ViewHolder,
+        IViewHolder
     {
         private readonly Dictionary<int, View> views;
 
-        public BindableViewHolder()
+        public BindableViewHolder(View itemView) : base(itemView)
         {
             this.views = new Dictionary<int, View>();
         }
 
-
-        public TView GetView<TView>(int resourceId, View parent)
+        public TView GetView<TView>(int resourceId)
             where TView : View
         {
             View view = null;
             if (!this.views.TryGetValue(resourceId, out view))
             {
-                view = parent.FindViewById(resourceId);
+                view = this.ItemView.FindViewById(resourceId);
                 this.views[resourceId] = view;
             }
             return view as TView;
         }
 
-        public void Bind()
-        {
-
-        }
+        public IBinding Binding { get; set; }
 
         public void Unbind()
         {
-
+            if (this.Binding != null)
+            {
+                this.Binding.Unbind();
+                this.Binding = null;
+            }
         }
     }
 }

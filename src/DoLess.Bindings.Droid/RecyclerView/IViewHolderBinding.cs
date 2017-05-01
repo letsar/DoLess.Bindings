@@ -10,10 +10,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace DoLess.Bindings
+namespace DoLess.Bindings.Droid.RecyclerView
 {
-    public interface IItemTemplateSelector<TItem>
+    interface IViewHolderBinding<TSource, TItem>
     {
-        int GetLayoutId(TItem item);
+        
     }
 }

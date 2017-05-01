@@ -1,6 +1,7 @@
 ﻿namespace DoLess.Bindings
 {
-    internal interface IHaveLinkedBinding        
+    internal interface IHaveLinkedBinding:
+        IBinding
     {
         IBinding LinkedBinding { get; }
     }

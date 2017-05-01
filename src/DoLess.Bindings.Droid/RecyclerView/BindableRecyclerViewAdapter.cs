@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 using Android.App;
@@ -13,21 +14,22 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 
-namespace DoLess.Bindings.Droid.RecyclerView
+namespace DoLess.Bindings
 {
     internal class BindableRecyclerViewAdapter<TItem> :
-        Android.Support.V7.Widget.RecyclerView.Adapter,
-        ICollectionBinding<TItem>
+        Android.Support.V7.Widget.RecyclerView.Adapter
     {
         private IEnumerable<TItem> itemsSource;
-        private IItemTemplateSelector<TItem> itemTemplateSelector;
 
         public BindableRecyclerViewAdapter()
         {
-
         }
 
         public override int ItemCount => this.itemsSource.Count();
+
+        public IItemTemplateSelector<TItem> ItemTemplateSelector { get; set; }
+
+        public Func<TItem, IViewHolder, IBinding> ItemBinder { get; set; }
 
         public IEnumerable<TItem> ItemsSource
         {
@@ -35,27 +37,37 @@ namespace DoLess.Bindings.Droid.RecyclerView
             set { this.SetItemsSource(value); }
         }
 
-        public ICollectionBinding<TItem> WithItemTemplateSelector<T>()
-            where T : IItemTemplateSelector<TItem>, new()
-        {
-            this.itemTemplateSelector = Cache<T>.Instance;
-            return this;
-        }
-
-        public ICollectionBinding<TItem> WithItemTemplate(int resourceId)
-        {
-            this.itemTemplateSelector = new SingleItemTemplateSelector<TItem>(resourceId);
-            return this;
-        }
-
         public override void OnBindViewHolder(Android.Support.V7.Widget.RecyclerView.ViewHolder holder, int position)
         {
-            throw new NotImplementedException();
+            if (this.ItemBinder == null)
+            {
+                Bindings.LogError("there are no bindings defined for the items of this RecyclerView");
+            }
+            else
+            {
+                TItem viewModel = this.ItemsSource.ElementAtOrDefault(position);
+
+                BindableViewHolder<TItem> viewHolder = holder as BindableViewHolder<TItem>;
+                if (viewHolder != null)
+                {
+                    // Unbinds the previous bindings before setting the new one.
+                    viewHolder.Unbind();
+                    viewHolder.Binding = this.ItemBinder(viewModel, viewHolder);
+                }
+            }
         }
 
         public override Android.Support.V7.Widget.RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            throw new NotImplementedException();
+            View view = LayoutInflater.From(parent.Context).Inflate(viewType, parent, false);
+            BindableViewHolder<TItem> viewHolder = new BindableViewHolder<TItem>(view);
+            return viewHolder;
+        }
+
+        public override int GetItemViewType(int position)
+        {
+            // The view type will be the layout id.
+            return this.ItemTemplateSelector.GetLayoutId(this.ItemsSource.ElementAt(position));
         }
 
         private void Observe(INotifyCollectionChanged source)

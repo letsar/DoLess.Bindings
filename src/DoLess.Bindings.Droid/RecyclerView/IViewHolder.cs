@@ -12,8 +12,9 @@ using Android.Widget;
 
 namespace DoLess.Bindings
 {
-    public interface IItemTemplateSelector<TItem>
+    public interface IViewHolder
     {
-        int GetLayoutId(TItem item);
-    }
+        TView GetView<TView>(int resourceId)
+            where TView : View;
+    }        
 }

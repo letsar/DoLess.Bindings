@@ -1,11 +1,10 @@
 ﻿namespace DoLess.Bindings
 {
-    internal interface IBindingDescription<TSource, TTarget> :
+    internal interface IHaveLinkedBinding<TSource, TTarget> :
         IHaveLinkedBinding,
-        ICanBind<TSource>
+        IBinding<TSource, TTarget>
         where TSource : class
         where TTarget : class
     {
-        TTarget Target { get; }
     }
 }

@@ -47,11 +47,15 @@ namespace DoLess.Bindings.Sample.Droid
             Button cancelCommandButton = new Button(this);
             cancelCommandButton.Text = "CancelCommandButton";
             EditText editText = new EditText(this);
+            RecyclerView recyclerView = new RecyclerView(this);
+
             layout.AddView(textView);
             layout.AddView(button);
             layout.AddView(commandButton);
             layout.AddView(cancelCommandButton);
             layout.AddView(editText);
+            layout.AddView(recyclerView);
+
             SetContentView(layout);
 
             textView.Text = "Hello";
@@ -61,6 +65,15 @@ namespace DoLess.Bindings.Sample.Droid
             this.ViewModel.Person = new PersonViewModel();
             this.ViewModel.Person.FirstName = "Bill";
             this.ViewModel.Person.LastName = "Gates";
+
+            this.ViewModel.Persons = new System.Collections.Generic.List<PersonViewModel>
+            {
+                new PersonViewModel("Bill", "Gates"),
+                new PersonViewModel("Steve", "Ballmer"),
+                new PersonViewModel("Satya", "Nadella"),
+                new PersonViewModel("Steve", "Jobs"),
+                new PersonViewModel("Tim", "Cook")
+            };
 
             this.Bind(textView)
                 .Property(x => x.Text)
@@ -72,7 +85,16 @@ namespace DoLess.Bindings.Sample.Droid
                 .Bind(editText)
                 .Property(x => x.Text)
                 .To(x => x.Person.FirstName)
-                .TwoWay();
+                .TwoWay()
+                .Bind(recyclerView)
+                .ItemsSourceTo(x => x.Persons)
+                .WithItemTemplate(Resource.Layout.item_person)
+                .BindItemTo((vm, vh) => vm.BindFromViewModel(vh.GetView<TextView>(Resource.Id.item_person_firstname))
+                                          .Property(x => x.Text)
+                                          .To(x => x.FirstName)
+                                          .Bind(vh.GetView<TextView>(Resource.Id.item_person_lastname))
+                                          .Property(x => x.Text)
+                                          .To(x => x.LastName));
 
             //this.OnEvent(t => t.Click);
             //Bindings.WeakEventManager<TextView, EventArgs>.Current.AddHandler(textView, textView.Click);

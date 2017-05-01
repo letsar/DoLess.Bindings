@@ -24,10 +24,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverterFromTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverterFromSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IBinding.T1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEventToCommandBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEventBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ICanBind.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IHaveLinkedBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IHaveLinkedBinding.T1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IHaveLinkedBinding.T2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITwoWayPropertyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TwoWayPropertyBinding.cs" />
@@ -47,7 +49,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IOneWayPropertyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPropertyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBinding.T2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBindingDescription.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observation\ObservedNodeBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observation\ObservedNode.cs" />
   </ItemGroup>

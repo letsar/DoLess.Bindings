@@ -1,8 +1,7 @@
 ﻿namespace DoLess.Bindings
 {
-    public interface ICanBind<TSource> : IBinding
+    public interface ICanBind<TSource> : IBinding<TSource>
         where TSource : class
-    {
-        TSource Source { get; }
+    {        
     }
 }

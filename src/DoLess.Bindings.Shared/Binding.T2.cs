@@ -5,7 +5,7 @@ namespace DoLess.Bindings
     internal class Binding<TSource, TTarget> :
         Binding,
         IBinding<TSource, TTarget>,
-        IBindingDescription<TSource, TTarget>
+        IHaveLinkedBinding<TSource, TTarget>
         where TSource : class
         where TTarget : class
     {
@@ -18,8 +18,8 @@ namespace DoLess.Bindings
             this.weakTarget = new WeakReference<TTarget>(target);
         }
 
-        public Binding(IBindingDescription<TSource, TTarget> bindingDescription) :
-            this(bindingDescription?.Source, bindingDescription?.Target, bindingDescription?.LinkedBinding)
+        public Binding(IHaveLinkedBinding<TSource, TTarget> binding) :
+            this(binding?.Source, binding?.Target, binding?.LinkedBinding)
         { }
 
         public TSource Source => this.weakSource.GetOrDefault();
