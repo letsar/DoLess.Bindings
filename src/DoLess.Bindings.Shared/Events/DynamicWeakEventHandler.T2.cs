@@ -37,11 +37,11 @@ namespace DoLess.Bindings
 
         private void InitializeEventInfo(TEventSource eventSource)
         {
-            this.eventInfo = TEventSourceType.GetRuntimeEvent(this.eventName);
+            this.eventInfo = TEventSourceType.GetRuntimeEvent(this.EventName);
 
             if (this.eventInfo == null)
             {
-                throw new ArgumentException($"The type ${eventSource.GetType().FullName} does not contain an event named {this.eventName}.");
+                throw new ArgumentException($"The type ${eventSource.GetType().FullName} does not contain an event named {this.EventName}.");
             }
 
             // A method cannot be cast into EventHandler<TEventArgs> when TEventArgs inherits from EventArgs.

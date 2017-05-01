@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\DynamicWeakEventHandler.T1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventToCommandBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\DynamicWeakEventHandler.T2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Bindings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Cache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverter.cs" />
@@ -26,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IEventToCommandBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEventBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITwoWayPropertyBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TwoWayPropertyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OneWayPropertyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BindingSet.cs" />

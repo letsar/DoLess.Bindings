@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace DoLess.Bindings.Sample.Droid
 {
     [Activity(Label = "DoLess.Bindings.Sample.Droid", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : Activity, IView<MainViewModel>
     {
         private class ExceptHandler : Java.Lang.Object, Java.Lang.Thread.IUncaughtExceptionHandler
         {
@@ -61,20 +61,20 @@ namespace DoLess.Bindings.Sample.Droid
             this.ViewModel.Person.FirstName = "Bill";
             this.ViewModel.Person.LastName = "Gates";
 
-            this.ViewModel.Bind(textView)
-                          .Property(x => x.Text)
-                          .To(x => $"{x.Person.FirstName} {x.Person.LastName}");
+            this.Bind(textView)
+                .Property(x => x.Text)
+                .To(x => $"{x.Person.FirstName} {x.Person.LastName}");
 
-            this.ViewModel.Bind(commandButton)
-                          .ClickTo(x => x.CancellableCommand);
+            this.Bind(commandButton)
+                .ClickTo(x => x.CancellableCommand);
 
-            this.ViewModel.Bind(cancelCommandButton)
-                          .ClickTo(x => x.CancellableCommand.CancelCommand);
+            this.Bind(cancelCommandButton)
+                .ClickTo(x => x.CancellableCommand.CancelCommand);
 
-            this.ViewModel.Bind(editText)
-                          .Property(x => x.Text)
-                          .To(x => x.Person.FirstName)
-                          .TwoWay();
+            this.Bind(editText)
+                .Property(x => x.Text)
+                .To(x => x.Person.FirstName)
+                .TwoWay();
 
             //this.OnEvent(t => t.Click);
             //Bindings.WeakEventManager<TextView, EventArgs>.Current.AddHandler(textView, textView.Click);

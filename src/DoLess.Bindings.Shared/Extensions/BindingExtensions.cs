@@ -10,7 +10,14 @@ namespace DoLess.Bindings
 {
     public static class BindingExtensions
     {
-        public static IBinding<TSource, TTarget> Bind<TSource, TTarget>(this TSource self, TTarget target)
+        public static IBinding<TSource, TTarget> Bind<TSource, TTarget>(this IView<TSource> self, TTarget target)
+            where TSource : class, INotifyPropertyChanged
+            where TTarget : class
+        {
+            return new Binding<TSource, TTarget>(self.ViewModel, target);
+        }
+
+        public static IBinding<TSource, TTarget> BindFromViewModel<TSource, TTarget>(this TSource self, TTarget target)
             where TSource : class, INotifyPropertyChanged
             where TTarget : class
         {
@@ -31,32 +38,6 @@ namespace DoLess.Bindings
             return new OneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(self, sourcePropertyExpression)
                        .WithConverter<ClassCastConverter<TSourceProperty, TTargetProperty>>();
         }
-
-        //public static IOneWayPropertyBinding<TSource, TTarget, string, TSourceProperty> To<TSource, TTarget, TSourceProperty>(this IPropertyBinding<TSource, TTarget, string> self, Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression)
-        //    where TSource : class, INotifyPropertyChanged
-        //    where TTarget : class
-        //{
-        //    return new OneWayPropertyBinding<TSource, TTarget, string, TSourceProperty>(self, sourcePropertyExpression)
-        //               .WithConverter<StringCastConverter<TSourceProperty>>();
-
-        //}
-
-        //public static IOneWayPropertyBinding<TSource, TTarget, TProperty, TProperty> To<TSource, TTarget, TProperty>(this IPropertyBinding<TSource, TTarget, TProperty> self, Expression<Func<TSource, TProperty>> sourcePropertyExpression)
-        //    where TSource : class, INotifyPropertyChanged
-        //    where TTarget : class
-        //{
-        //    return new OneWayPropertyBinding<TSource, TTarget, TProperty, TProperty>(self, sourcePropertyExpression)
-        //               .WithConverter<IdentityConverter<TProperty>>();
-        //}
-
-        //public static ITwoWayPropertyBinding<TSource, TTarget, TProperty, TProperty> TwoWay<TSource, TTarget, TProperty>(this IOneWayPropertyBinding<TSource, TTarget, TProperty, TProperty> self)
-        //    where TSource : class, INotifyPropertyChanged
-        //    where TTarget : class
-        //{
-        //    return ((OneWayPropertyBinding<TSource, TTarget, TProperty, TProperty>)self)
-        //            .CreateTwoWay()
-        //            .WithConverter<IdentityConverter<TProperty>>();
-        //}
 
         public static ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> TwoWay<TSource, TTarget, TTargetProperty, TSourceProperty>(this IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> self)
             where TSource : class, INotifyPropertyChanged

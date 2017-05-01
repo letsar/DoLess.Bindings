@@ -39,11 +39,11 @@ namespace DoLess.Bindings
 
         private void InitializeEventInfo(TEventSource eventSource)
         {
-            this.eventInfo = TEventSourceType.GetRuntimeEvent(this.eventName);
+            this.eventInfo = TEventSourceType.GetRuntimeEvent(this.EventName);
 
             if (this.eventInfo == null)
             {
-                throw new ArgumentException($"The type ${eventSource.GetType().FullName} does not contain an event named {this.eventName}.");
+                throw new ArgumentException($"The type ${eventSource.GetType().FullName} does not contain an event named {this.EventName}.");
             }
 
             bool isClassicHandler = EventHandlerTypeInfo.IsAssignableFrom(eventInfo.EventHandlerType);

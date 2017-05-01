@@ -56,11 +56,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonExtensions.cs" />
+    <Compile Include="Extensions\ButtonExtensions.cs" />
+    <Compile Include="IItemTemplateSelector.cs" />
+    <Compile Include="RecyclerView\BindableRecyclerViewAdapter.cs" />
+    <Compile Include="RecyclerView\BindableViewHolder.cs" />
+    <Compile Include="RecyclerView\ICollectionBinding.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpecificWeakEventHandlers.cs" />
-    <Compile Include="ViewExtensions.cs" />
+    <Compile Include="Events\SpecificWeakEventHandlers.cs" />
+    <Compile Include="Extensions\ViewExtensions.cs" />
+    <Compile Include="SingleItemTemplateSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
