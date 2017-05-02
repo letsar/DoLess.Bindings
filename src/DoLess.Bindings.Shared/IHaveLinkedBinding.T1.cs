@@ -4,5 +4,7 @@
         IBinding
     {
         IBinding LinkedBinding { get; }
+
+        long Id { get; }
     }
 }

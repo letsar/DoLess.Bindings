@@ -4,6 +4,7 @@ using System.Reflection;
 
 namespace DoLess.Bindings
 {
+    [System.Diagnostics.DebuggerDisplay("{RawExpression}")]
     internal sealed class BindingExpression<TSource, TProperty>
         where TSource : class
     {
@@ -12,11 +13,12 @@ namespace DoLess.Bindings
         private readonly FieldInfo fieldInfo;
         private readonly Func<TSource, object> getPropertyOwner;
         private readonly Func<TProperty> get;
-        private readonly Action<TProperty> set;
+        private readonly Action<TProperty> set;        
 
         public BindingExpression(TSource source, Expression<Func<TSource, TProperty>> expression)
         {
             this.weakSource = new WeakReference<TSource>(source);
+            this.RawExpression = expression.ToString();
 
             try
             {
@@ -42,9 +44,11 @@ namespace DoLess.Bindings
             }
             catch (Exception ex)
             {
-                throw new ArgumentException("This is not a property expression", ex);
+                throw new ArgumentException($"'{this.RawExpression}' is not a property expression", ex);
             }
         }
+
+        public string RawExpression { get; }
 
         public string Name { get; }
 

@@ -4,16 +4,22 @@ using System.Text;
 
 namespace DoLess.Bindings
 {
-    internal abstract class Binding : IBinding, IHaveLinkedBinding
+    internal abstract class Binding : 
+        IBinding,
+        IHaveLinkedBinding
     {
-        public Binding(IBinding linkedBinding)
+        public Binding(IBinding linkedBinding, long id)
         {
             this.LinkedBinding = linkedBinding;
+            this.Id = id;
+            Bindings.Add(this);
         }
 
         public IBinding LinkedBinding { get; }
 
-        public virtual void Unbind()
+        public long Id { get; set; }
+
+        public void Unbind()
         {
             if (this.LinkedBinding != null)
             {

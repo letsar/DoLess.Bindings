@@ -32,9 +32,9 @@ namespace DoLess.Bindings
         {            
         }
 
-        public override void Unbind()
+        public override void UnbindInternal()
         {
-            base.Unbind();
+            base.UnbindInternal();
             this.targetProperty = null;
         }
     }

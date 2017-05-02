@@ -10,21 +10,21 @@ namespace DoLess.Bindings
             where TSource : class
             where TTarget : class
         {
-            return new Binding<TSource, TTarget>(self.ViewModel, target);
+            return new Binding<TSource, TTarget>(self.ViewModel, target, null);
         }
 
         public static IBinding<TSource, TTarget> Bind<TSource, TTarget>(this ICanBind<TSource> self, TTarget target)
             where TSource : class
             where TTarget : class
         {
-            return new Binding<TSource, TTarget>(self.Source, target, self);
+            return new Binding<TSource, TTarget>(self.Source, target, (IHaveLinkedBinding)self);
         }
 
         public static IBinding<TSource, TTarget> BindFromViewModel<TSource, TTarget>(this TSource self, TTarget target)
             where TSource : class
             where TTarget : class
         {
-            return new Binding<TSource, TTarget>(self, target);
+            return new Binding<TSource, TTarget>(self, target, null);
         }
 
         public static IPropertyBinding<TSource, TTarget, TTargetProperty> Property<TSource, TTarget, TTargetProperty>(this IBinding<TSource, TTarget> self, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression)

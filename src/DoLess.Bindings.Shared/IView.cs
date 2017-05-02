@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace DoLess.Bindings
+﻿namespace DoLess.Bindings
 {
     /// <summary>
     /// Represents a view holding a viewmodel.

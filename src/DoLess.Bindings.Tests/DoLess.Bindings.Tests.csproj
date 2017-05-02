@@ -66,6 +66,7 @@
     <Compile Include="Converters\CastConverterTests.cs" />
     <Compile Include="Entities\ObservableEntities.cs" />
     <Compile Include="Events\WeakEventTests.cs" />
+    <Compile Include="Helpers\IdentifierPoolTests.cs" />
     <Compile Include="Observation\ObservedNodeTests.cs" />
     <Compile Include="Observation\ObservedNodeBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />

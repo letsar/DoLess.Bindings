@@ -72,7 +72,7 @@ namespace DoLess.Bindings.Sample.Droid
             this.ViewModel.Persons = new ObservableCollection<PersonViewModel>(Enumerable.Range(1, 1000).Select(x => new PersonViewModel(x.ToString(), (x + 1).ToString())));
 
             //recyclerView.SetAdapter(new Adapter1(Enumerable.Range(1, 50).Select(x => x.ToString()).ToArray()));
-
+                        
             this.Bind(textView)
                 .Property(x => x.Text)
                 .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
@@ -98,10 +98,13 @@ namespace DoLess.Bindings.Sample.Droid
             //Bindings.WeakEventManager<TextView, EventArgs>.Current.AddHandler(textView, textView.Click);
             //this.ViewModel.Bind(textView, x => x.Text)
             //              .To(vm => vm.Name);   
-
+            Bindings.Failed += this.Bindings_Failed;
         }
 
-
+        private void Bindings_Failed(string obj)
+        {
+            throw new NotImplementedException();
+        }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {

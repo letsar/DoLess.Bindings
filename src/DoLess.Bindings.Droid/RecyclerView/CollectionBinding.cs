@@ -15,7 +15,7 @@ namespace DoLess.Bindings
 {
     internal class CollectionBinding<TSource, TTarget, TItemProperty> :
         OneWayPropertyBinding<TSource, TTarget, IEnumerable<TItemProperty>, IEnumerable<TItemProperty>>,
-        ICollectionBinding<TItemProperty>
+        ICollectionBinding<TSource, TItemProperty>
         where TSource : class
         where TTarget : BindableRecyclerViewAdapter<TItemProperty>
     {
@@ -25,7 +25,7 @@ namespace DoLess.Bindings
             this.WithConverter<IdentityConverter<IEnumerable<TItemProperty>>>();
         }
 
-        public ICollectionBinding<TItemProperty> WithItemTemplateSelector<T>()
+        public ICollectionBinding<TSource, TItemProperty> WithItemTemplateSelector<T>()
             where T : IItemTemplateSelector<TItemProperty>, new()
         {
             var target = this.Target;
@@ -36,7 +36,7 @@ namespace DoLess.Bindings
             return this;
         }
 
-        public ICollectionBinding<TItemProperty> WithItemTemplate(int resourceId)
+        public ICollectionBinding<TSource, TItemProperty> WithItemTemplate(int resourceId)
         {
             var target = this.Target;
             if (target != null)
@@ -46,7 +46,7 @@ namespace DoLess.Bindings
             return this;
         }
 
-        public ICollectionBinding<TItemProperty> BindItemTo(Func<TItemProperty, IViewHolder, IBinding> itemBinder)
+        public ICollectionBinding<TSource, TItemProperty> BindItemTo(Func<TItemProperty, IViewHolder, IBinding> itemBinder)
         {
             var target = this.Target;
             if (target != null)

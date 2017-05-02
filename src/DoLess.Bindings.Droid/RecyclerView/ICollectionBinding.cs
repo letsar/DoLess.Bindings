@@ -12,13 +12,16 @@ using Android.Widget;
 
 namespace DoLess.Bindings
 {
-    public interface ICollectionBinding<TItem>
+    public interface ICollectionBinding<TSource, TItemProperty> : 
+        IBinding,
+        ICanBind<TSource>
+        where TSource : class
     {
-        ICollectionBinding<TItem> WithItemTemplateSelector<T>() 
-            where T : IItemTemplateSelector<TItem>, new();
+        ICollectionBinding<TSource, TItemProperty> WithItemTemplateSelector<T>() 
+            where T : IItemTemplateSelector<TItemProperty>, new();
 
-        ICollectionBinding<TItem> WithItemTemplate(int resourceId);
+        ICollectionBinding<TSource, TItemProperty> WithItemTemplate(int resourceId);
 
-        ICollectionBinding<TItem> BindItemTo(Func<TItem, IViewHolder, IBinding> itemBinder);
+        ICollectionBinding<TSource, TItemProperty> BindItemTo(Func<TItemProperty, IViewHolder, IBinding> itemBinder);
     }
 }
