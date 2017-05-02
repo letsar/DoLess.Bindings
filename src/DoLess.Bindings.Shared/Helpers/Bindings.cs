@@ -60,6 +60,7 @@ namespace DoLess.Bindings
 
             foreach (var binding in bindings.Where(predicate))
             {
+                // When the unbind reaches the root, it removes itself.
                 binding.Unbind();
             }
         }

@@ -15,7 +15,7 @@ namespace DoLess.Bindings
             Bindings.Add(this);
         }
 
-        public IBinding LinkedBinding { get; }        
+        public IBinding LinkedBinding { get; private set; }        
 
         public long Id { get; set; }
 
@@ -24,6 +24,7 @@ namespace DoLess.Bindings
             if (this.LinkedBinding != null)
             {
                 this.LinkedBinding.Unbind();
+                this.LinkedBinding = null;
             }
             else
             {
