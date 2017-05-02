@@ -13,7 +13,7 @@ namespace DoLess.Bindings
         where TTarget : class
     {
         private static readonly Type TargetType;
-        private readonly BindingExpression<TSource, TSourceProperty> sourceProperty;
+        private BindingExpression<TSource, TSourceProperty> sourceProperty;
         private ObservedNode sourceRootNode;
         private DynamicWeakEventHandler<TTarget> targetPropertyChangedWeakEventHandler;
         private IConverter<TSourceProperty, TTargetProperty> converter;
@@ -134,6 +134,7 @@ namespace DoLess.Bindings
             this.sourceRootNode = null;
             this.targetPropertyChangedWeakEventHandler.Unsubscribe();
             this.targetPropertyChangedWeakEventHandler = null;
+            this.sourceProperty = null;
         }
     }
 }

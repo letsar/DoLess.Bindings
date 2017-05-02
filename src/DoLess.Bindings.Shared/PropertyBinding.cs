@@ -10,7 +10,7 @@ namespace DoLess.Bindings
         where TSource : class
         where TTarget : class
     {
-        protected readonly BindingExpression<TTarget, TTargetProperty> targetProperty;
+        protected BindingExpression<TTarget, TTargetProperty> targetProperty;
 
         public PropertyBinding(IBinding<TSource, TTarget> binding, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression) :
             base((IHaveLinkedBinding<TSource, TTarget>)binding)
@@ -30,6 +30,12 @@ namespace DoLess.Bindings
         public PropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> propertyBinding) :
             this((PropertyBinding<TSource, TTarget, TTargetProperty>)propertyBinding)
         {            
-        }        
+        }
+
+        public override void Unbind()
+        {
+            base.Unbind();
+            this.targetProperty = null;
+        }
     }
 }

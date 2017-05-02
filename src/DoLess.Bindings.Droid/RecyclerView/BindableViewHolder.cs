@@ -41,6 +41,7 @@ namespace DoLess.Bindings
         {
             if (this.Binding != null)
             {
+                // FIX: There is an binding deleted when unbind.
                 this.Binding.Unbind();
                 this.Binding = null;
             }
