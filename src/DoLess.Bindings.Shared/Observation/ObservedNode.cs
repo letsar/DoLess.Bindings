@@ -112,11 +112,14 @@ namespace DoLess.Bindings.Observation
             this.whenChanged = null;
             this.weakHandler.Unsubscribe();
             this.weakHandler = null;
+            this.propertyInfo = null;
 
             foreach (var node in this.Nodes.Where(x => x.IsObservable))
             {
                 node.UnobserveInternal();
             }
+
+            this.nodes.Clear();
         }
 
         public bool Remove(string name)

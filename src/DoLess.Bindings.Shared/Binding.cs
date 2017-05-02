@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DoLess.Bindings
 {
-    internal abstract class Binding : 
+    internal abstract class Binding :
         IBinding,
         IHaveLinkedBinding
     {
@@ -15,7 +15,7 @@ namespace DoLess.Bindings
             Bindings.Add(this);
         }
 
-        public IBinding LinkedBinding { get; }
+        public IBinding LinkedBinding { get; }        
 
         public long Id { get; set; }
 
@@ -25,9 +25,16 @@ namespace DoLess.Bindings
             {
                 this.LinkedBinding.Unbind();
             }
+            else
+            {
+                // End of the chain.
+                Bindings.Remove(this);
+            }
             this.UnbindInternal();
         }
 
         public abstract void UnbindInternal();
+
+        public abstract bool CanBePurged();
     }
 }

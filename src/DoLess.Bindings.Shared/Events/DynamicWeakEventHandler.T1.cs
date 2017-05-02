@@ -5,13 +5,13 @@ using System.Reflection;
 
 namespace DoLess.Bindings
 {
-    internal sealed class DynamicWeakEventHandler<TEventSource> : WeakEventHandler<TEventSource, EventArgs>
+    internal sealed class DynamicWeakEventHandler<TEventSource> : 
+        WeakEventHandler<TEventSource, EventArgs>
         where TEventSource : class
     {
+        private static readonly TypeInfo EventHandlerTypeInfo;
         private Delegate eventHandler;
         private EventInfo eventInfo;
-
-        private static readonly TypeInfo EventHandlerTypeInfo;
 
         static DynamicWeakEventHandler()
         {
@@ -35,26 +35,8 @@ namespace DoLess.Bindings
         protected override void StopListening(TEventSource source)
         {
             this.eventInfo.RemoveEventHandler(source, this.eventHandler);
-        }
-
-        private void InitializeEventInfo(TEventSource eventSource)
-        {
-            this.eventInfo = TEventSourceType.GetRuntimeEvent(this.EventName);
-
-            if (this.eventInfo == null)
-            {
-                throw new ArgumentException($"The type ${eventSource.GetType().FullName} does not contain an event named {this.EventName}.");
-            }
-
-            bool isClassicHandler = EventHandlerTypeInfo.IsAssignableFrom(eventInfo.EventHandlerType);
-            this.eventHandler = isClassicHandler ?
-                (EventHandler)this.OnEvent :
-                CreateGenericEventHandler(eventInfo, this.OnEvent);
-        }
-
-        private void OnEvent()
-        {
-            this.OnEvent(null, EventArgs.Empty);
+            this.eventInfo = null;
+            this.eventHandler = null;
         }
 
         /// <summary>
@@ -77,6 +59,26 @@ namespace DoLess.Bindings
             var lambda = Expression.Lambda(body, parameters);
 
             return Delegate.CreateDelegate(handlerType, lambda.Compile(), "Invoke", false);
+        }
+
+        private void InitializeEventInfo(TEventSource eventSource)
+        {
+            this.eventInfo = TEventSourceType.GetRuntimeEvent(this.EventName);
+
+            if (this.eventInfo == null)
+            {
+                throw new ArgumentException($"The type ${eventSource.GetType().FullName} does not contain an event named {this.EventName}.");
+            }
+
+            bool isClassicHandler = EventHandlerTypeInfo.IsAssignableFrom(eventInfo.EventHandlerType);
+            this.eventHandler = isClassicHandler ?
+                (EventHandler)this.OnEvent :
+                CreateGenericEventHandler(eventInfo, this.OnEvent);
+        }
+
+        private void OnEvent()
+        {
+            this.OnEvent(null, EventArgs.Empty);
         }
     }
 }

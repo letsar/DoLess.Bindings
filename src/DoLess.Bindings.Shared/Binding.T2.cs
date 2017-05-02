@@ -32,5 +32,10 @@ namespace DoLess.Bindings
         public TTarget Target => this.weakTarget.GetOrDefault();
 
         public override void UnbindInternal() { }
+
+        public sealed override bool CanBePurged()
+        {
+            return this.Source == null || this.Target == null;
+        }
     }
 }

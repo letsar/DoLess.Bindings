@@ -3,7 +3,8 @@ using System.Reflection;
 
 namespace DoLess.Bindings
 {
-    internal sealed class DynamicWeakEventHandler<TEventSource, TEventArgs> : WeakEventHandler<TEventSource, TEventArgs>
+    internal sealed class DynamicWeakEventHandler<TEventSource, TEventArgs> :
+        WeakEventHandler<TEventSource, TEventArgs>
         where TEventSource : class
         where TEventArgs : EventArgs
     {
@@ -33,6 +34,8 @@ namespace DoLess.Bindings
         protected override void StopListening(TEventSource source)
         {
             this.eventInfo.RemoveEventHandler(source, this.eventHandler);
+            this.eventInfo = null;
+            this.eventHandler = null;
         }
 
         private void InitializeEventInfo(TEventSource eventSource)

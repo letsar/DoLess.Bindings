@@ -17,13 +17,13 @@ namespace DoLess.Bindings
     internal abstract class WeakEventHandler<TEventSource, TEventArgs>
         where TEventSource : class
         where TEventArgs : EventArgs
-    {        
-        private readonly Action<object, object, TEventArgs> proxyEventHandler;
-        private readonly object unsubscribeLock = new object();
-        private readonly WeakReference<TEventSource> weakEventSource;
-        private readonly WeakReference<object> weakEventTarget;
-        private bool hasBeenUnsubscribed;
+    {
         protected static readonly Type TEventSourceType;
+        private readonly object unsubscribeLock = new object();
+        private bool hasBeenUnsubscribed;
+        private Action<object, object, TEventArgs> proxyEventHandler;
+        private WeakReference<TEventSource> weakEventSource;
+        private WeakReference<object> weakEventTarget;
 
         static WeakEventHandler()
         {
@@ -59,6 +59,9 @@ namespace DoLess.Bindings
                     if (eventSource != null)
                     {
                         this.StopListening(eventSource);
+                        this.proxyEventHandler = null;
+                        this.weakEventSource = null;
+                        this.weakEventTarget = null;                        
                     }
                     this.hasBeenUnsubscribed = true;
                 }
