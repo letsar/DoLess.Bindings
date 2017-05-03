@@ -1,5 +1,7 @@
 ﻿using System;
 using DoLess.Bindings.Helpers;
+using System.Linq.Expressions;
+using System.Windows.Input;
 
 namespace DoLess.Bindings
 {
@@ -17,7 +19,7 @@ namespace DoLess.Bindings
             base((IHaveLinkedBinding<TSource, TTarget>)binding)
         {
             Check.NotNull(eventName, nameof(eventName));
-                        
+
             this.InitializeWeakEventHandler(eventName);
         }
 
@@ -32,7 +34,7 @@ namespace DoLess.Bindings
 
         public EventBinding(EventBinding<TSource, TTarget, TEventArgs> binding) :
             base((IHaveLinkedBinding<TSource, TTarget>)binding)
-        {            
+        {
             if (binding.weakEventHandlerFactory == null)
             {
                 // It's necessary to recreate the binding because otherwise, the delegate is not on the right object.
@@ -66,7 +68,13 @@ namespace DoLess.Bindings
         {
             base.UnbindInternal();
             this.weakEventHandler.Unsubscribe();
-            this.weakEventHandler = null;            
+            this.weakEventHandler = null;
+        }
+
+        public IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> To<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+            where TCommand : ICommand
+        {
+            return new EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>(this, commandExpression);
         }
     }
 }

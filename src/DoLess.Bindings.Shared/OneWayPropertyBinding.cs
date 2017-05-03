@@ -26,11 +26,6 @@ namespace DoLess.Bindings
 
         public TSourceProperty SourceProperty => this.getSourceProperty(this.Source);
 
-        public ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> CreateTwoWay()
-        {            
-            return new TwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(this, this.sourcePropertyExpression);
-        }
-
         public IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> WithConverter<T>()
                     where T : IConverterFromSource<TSourceProperty, TTargetProperty>, new()
         {
@@ -65,6 +60,12 @@ namespace DoLess.Bindings
             base.UnbindInternal();
             this.sourceRootNode.Unobserve();
             this.sourceRootNode = null;
+        }
+
+        public ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> TwoWay()
+        {
+            return new TwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(this, this.sourcePropertyExpression)
+                      .WithConverter<ClassCastConverter<TSourceProperty, TTargetProperty>>();
         }
     }
 }

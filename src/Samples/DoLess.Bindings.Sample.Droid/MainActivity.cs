@@ -72,10 +72,10 @@ namespace DoLess.Bindings.Sample.Droid
             this.ViewModel.Persons = new ObservableCollection<PersonViewModel>(Enumerable.Range(1, 1000).Select(x => new PersonViewModel(x.ToString(), (x + 1).ToString())));
 
             //recyclerView.SetAdapter(new Adapter1(Enumerable.Range(1, 50).Select(x => x.ToString()).ToArray()));
-                        
+            
             this.Bind(textView)
                 .Property(x => x.Text)
-                .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
+                .To(x => $"{x.Person.FirstName} {x.Person.LastName}")                
                 .Bind(commandButton)
                 .ClickTo(x => x.CancellableCommand)
                 .Bind(cancelCommandButton)
@@ -128,7 +128,8 @@ namespace DoLess.Bindings.Sample.Droid
 
         private void Button_Click(object sender, EventArgs e)
         {
-            this.ViewModel.Persons.Add(new PersonViewModel("FirstName", "LastName"));
+            Bindings.Purge();
+            //this.ViewModel.Persons.Add(new PersonViewModel("FirstName", "LastName"));
             //this.ViewModel.Persons = new ObservableCollection<PersonViewModel>
             //{
             //    new PersonViewModel("Bill", "Gates"),

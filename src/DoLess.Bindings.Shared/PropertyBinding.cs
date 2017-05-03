@@ -37,5 +37,11 @@ namespace DoLess.Bindings
             base.UnbindInternal();
             this.targetProperty = null;
         }
+
+        public IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> To<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression)
+        {
+            return new OneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(this, sourcePropertyExpression)
+                       .WithConverter<ClassCastConverter<TSourceProperty, TTargetProperty>>();
+        }
     }
 }

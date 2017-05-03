@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace DoLess.Bindings
 {
@@ -36,6 +37,23 @@ namespace DoLess.Bindings
         public sealed override bool CanBePurged()
         {
             return this.Source == null || this.Target == null;
+        }
+
+        public IBinding<TSource, TNewTarget> Bind<TNewTarget>(TNewTarget target)
+            where TNewTarget : class
+        {
+            return new Binding<TSource, TNewTarget>(this.Source, target, (IHaveLinkedBinding)this);
+        }
+
+        public IPropertyBinding<TSource, TTarget, TTargetProperty> Property<TTargetProperty>(Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression)
+        {
+            return new PropertyBinding<TSource, TTarget, TTargetProperty>(this, targetPropertyExpression);
+        }
+
+        public IEventBinding<TSource, TTarget, TEventArgs> Event<TEventArgs>(string eventName)
+            where TEventArgs : EventArgs
+        {
+            return new EventBinding<TSource, TTarget, TEventArgs>(this, eventName);
         }
     }
 }

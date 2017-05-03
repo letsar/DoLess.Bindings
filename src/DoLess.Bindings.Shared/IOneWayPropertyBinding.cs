@@ -8,5 +8,7 @@
     {
         IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> WithConverter<T>()
             where T : IConverterFromSource<TSourceProperty, TTargetProperty>, new();
+
+        ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> TwoWay();        
     }
 }

@@ -44,12 +44,12 @@ namespace DoLess.Bindings
             }
         }
 
-        internal static void Reset()
+        public static void Reset()
         {
             Unbind(TrueForAll);
         }
 
-        internal static void Purge()
+        public static void Purge()
         {
             Unbind(TrueForCanBePurged);
         }
