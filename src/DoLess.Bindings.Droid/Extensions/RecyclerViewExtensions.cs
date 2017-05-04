@@ -18,6 +18,7 @@ namespace DoLess.Bindings
         public static ICollectionBinding<TSource, TItemProperty> ItemsSourceTo<TSource, TTarget, TItemProperty>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, IEnumerable<TItemProperty>>> itemsSourcePropertyExpression)
             where TSource : class
             where TTarget : Android.Support.V7.Widget.RecyclerView
+            where TItemProperty : class
         {
             var recyclerView = self.Target;
             var viewModel = self.Source;

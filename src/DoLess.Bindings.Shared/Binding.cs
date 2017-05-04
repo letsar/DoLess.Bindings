@@ -19,6 +19,8 @@ namespace DoLess.Bindings
 
         public long Id { get; set; }
 
+        public abstract object Creator { get; }
+
         public void Unbind()
         {
             if (this.LinkedBinding != null)

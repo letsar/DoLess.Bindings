@@ -18,6 +18,7 @@ namespace DoLess.Bindings
         ICollectionBinding<TSource, TItemProperty>
         where TSource : class
         where TTarget : BindableRecyclerViewAdapter<TItemProperty>
+        where TItemProperty : class
     {
         public CollectionBinding(IPropertyBinding<TSource, TTarget, IEnumerable<TItemProperty>> propertyBinding, Expression<Func<TSource, IEnumerable<TItemProperty>>> itemsSourcePropertyExpression) :
             base(propertyBinding, itemsSourcePropertyExpression)
@@ -46,7 +47,7 @@ namespace DoLess.Bindings
             return this;
         }
 
-        public ICollectionBinding<TSource, TItemProperty> BindItemTo(Func<TItemProperty, IViewHolder, IBinding> itemBinder)
+        public ICollectionBinding<TSource, TItemProperty> BindItemTo(Func<IViewHolder<TItemProperty>, IBinding> itemBinder)
         {
             var target = this.Target;
             if (target != null)

@@ -12,9 +12,18 @@ using Android.Widget;
 
 namespace DoLess.Bindings
 {
-    public interface IViewHolder
+    public interface IViewHolder<T> :IView<T>
+        where T : class
     {
         TView GetView<TView>(int resourceId)
             where TView : View;
-    }        
+
+        IBinding<T, TTarget> Bind<TTarget>(int resourceId)
+            where TTarget : View;
+
+        ///// <summary>
+        ///// Gets the view model.
+        ///// </summary>
+        //T ViewModel { get; }
+    }
 }

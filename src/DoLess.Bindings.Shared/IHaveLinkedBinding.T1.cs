@@ -6,5 +6,7 @@
         IBinding LinkedBinding { get; }
 
         long Id { get; }
+
+        object Creator { get; }
     }
 }

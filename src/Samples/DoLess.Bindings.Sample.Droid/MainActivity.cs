@@ -87,12 +87,12 @@ namespace DoLess.Bindings.Sample.Droid
                 .Bind(recyclerView)
                 .ItemsSourceTo(x => x.Persons)
                 .WithItemTemplate(Resource.Layout.item_person)
-                .BindItemTo((vm, vh) => vm.BindFromViewModel(vh.GetView<TextView>(Resource.Id.item_person_firstname))
-                                          .Property(x => x.Text)
-                                          .To(x => x.FirstName)
-                                          .Bind(vh.GetView<TextView>(Resource.Id.item_person_lastname))
-                                          .Property(x => x.Text)
-                                          .To(x => x.LastName));
+                .BindItemTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
+                                  .Property(x => x.Text)
+                                  .To(x => x.FirstName)
+                                  .Bind(v.GetView<TextView>(Resource.Id.item_person_lastname))
+                                  .Property(x => x.Text)
+                                  .To(x => x.LastName));
 
             //this.OnEvent(t => t.Click);
             //Bindings.WeakEventManager<TextView, EventArgs>.Current.AddHandler(textView, textView.Click);

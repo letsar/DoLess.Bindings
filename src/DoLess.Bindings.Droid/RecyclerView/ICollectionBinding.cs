@@ -16,12 +16,13 @@ namespace DoLess.Bindings
         IBinding,
         ICanBind<TSource>
         where TSource : class
+        where TItemProperty : class
     {
         ICollectionBinding<TSource, TItemProperty> WithItemTemplateSelector<T>() 
             where T : IItemTemplateSelector<TItemProperty>, new();
 
         ICollectionBinding<TSource, TItemProperty> WithItemTemplate(int resourceId);
 
-        ICollectionBinding<TSource, TItemProperty> BindItemTo(Func<TItemProperty, IViewHolder, IBinding> itemBinder);
+        ICollectionBinding<TSource, TItemProperty> BindItemTo(Func<IViewHolder<TItemProperty>, IBinding> itemBinder);            
     }
 }

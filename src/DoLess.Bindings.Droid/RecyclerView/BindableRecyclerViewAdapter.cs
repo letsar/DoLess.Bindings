@@ -19,6 +19,7 @@ namespace DoLess.Bindings
 {
     internal class BindableRecyclerViewAdapter<TItem> :
         Android.Support.V7.Widget.RecyclerView.Adapter
+        where TItem : class
     {
         private IEnumerable<TItem> itemsSource;
 
@@ -30,7 +31,7 @@ namespace DoLess.Bindings
 
         public IItemTemplateSelector<TItem> ItemTemplateSelector { get; set; }
 
-        public Func<TItem, IViewHolder, IBinding> ItemBinder { get; set; }
+        public Func<IViewHolder<TItem>, IBinding> ItemBinder { get; set; }
 
         public IEnumerable<TItem> ItemsSource
         {
@@ -53,7 +54,8 @@ namespace DoLess.Bindings
                 {
                     // Unbinds the previous bindings before setting the new one.
                     viewHolder.Unbind();
-                    viewHolder.Binding = this.ItemBinder(viewModel, viewHolder);
+                    viewHolder.ViewModel = viewModel;
+                    viewHolder.Binding = this.ItemBinder(viewHolder);
                 }
             }
         }

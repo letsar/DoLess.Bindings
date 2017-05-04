@@ -3,36 +3,45 @@ using System.Linq.Expressions;
 
 namespace DoLess.Bindings
 {
-    internal class Binding<TSource, TTarget> :
+    internal partial class Binding<TSource, TTarget> :
         Binding,
         IBinding<TSource, TTarget>,
         IHaveLinkedBinding<TSource, TTarget>
         where TSource : class
         where TTarget : class
     {
-        private readonly WeakReference<TSource> weakSource;
-        private readonly WeakReference<TTarget> weakTarget;
+        private WeakReference<TSource> weakSource;
+        private WeakReference<TTarget> weakTarget;
+        private WeakReference<object> weakCreator;
 
-        private Binding(TSource source, TTarget target, IBinding linkedBinding = null, long? id = null) :
+        private Binding(TSource source, TTarget target, IBinding linkedBinding = null, long? id = null, object creator = null) :
             base(linkedBinding, id.GetValueOrDefault())
         {
             this.weakSource = new WeakReference<TSource>(source);
             this.weakTarget = new WeakReference<TTarget>(target);
+            this.weakCreator = new WeakReference<object>(creator);
         }
 
-        public Binding(TSource source, TTarget target, IHaveLinkedBinding linkedBinding) :
-            this(source, target, linkedBinding, linkedBinding?.Id)
+        public Binding(TSource source, TTarget target, IHaveLinkedBinding linkedBinding, object creator = null) :
+            this(source, target, linkedBinding, linkedBinding?.Id, creator ?? linkedBinding?.Creator)
         { }
 
         public Binding(IHaveLinkedBinding<TSource, TTarget> binding) :
-            this(binding.Source, binding.Target, binding.LinkedBinding, binding.Id)
+            this(binding.Source, binding.Target, binding.LinkedBinding, binding.Id, binding.Creator)
         { }
 
         public TSource Source => this.weakSource.GetOrDefault();
 
         public TTarget Target => this.weakTarget.GetOrDefault();
 
-        public override void UnbindInternal() { }
+        public override object Creator => this.weakCreator.GetOrDefault();
+
+        public override void UnbindInternal()
+        {
+            this.weakSource = null;
+            this.weakTarget = null;
+            this.weakCreator = null;
+        }
 
         public sealed override bool CanBePurged()
         {

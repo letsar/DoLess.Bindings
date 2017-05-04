@@ -4,20 +4,13 @@ using System.Windows.Input;
 
 namespace DoLess.Bindings
 {
-    public static class BindingExtensions
+    public static partial class BindingExtensions
     {
         public static IBinding<TSource, TTarget> Bind<TSource, TTarget>(this IView<TSource> self, TTarget target)
             where TSource : class
             where TTarget : class
         {
-            return new Binding<TSource, TTarget>(self.ViewModel, target, null);
-        }
-
-        public static IBinding<TSource, TTarget> BindFromViewModel<TSource, TTarget>(this TSource self, TTarget target)
-            where TSource : class
-            where TTarget : class
-        {
-            return new Binding<TSource, TTarget>(self, target, null);
+            return new Binding<TSource, TTarget>(self.ViewModel, target, null, self);
         }
     }
 }
