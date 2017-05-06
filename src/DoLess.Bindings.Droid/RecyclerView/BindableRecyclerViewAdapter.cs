@@ -18,7 +18,8 @@ using Java.Lang;
 namespace DoLess.Bindings
 {
     internal class BindableRecyclerViewAdapter<TItem> :
-        Android.Support.V7.Widget.RecyclerView.Adapter
+        Android.Support.V7.Widget.RecyclerView.Adapter,
+        IRecyclerViewAdapter<TItem>
         where TItem : class
     {
         private IEnumerable<TItem> itemsSource;
@@ -56,12 +57,14 @@ namespace DoLess.Bindings
                 if (viewHolder != null)
                 {
                     // Unbinds the previous bindings before setting the new one.
-                    viewHolder.Unbind();
+                    viewHolder.Unbind();                   
+
                     viewHolder.ViewModel = viewModel;
+                    viewHolder.BindEvents();
                     viewHolder.Binding = this.ItemBinder(viewHolder);
-                }                
+                }
             }
-        }       
+        }
 
         public override Android.Support.V7.Widget.RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
@@ -82,16 +85,6 @@ namespace DoLess.Bindings
             this.ItemClick?.Invoke(this, e);
         }
 
-        public override void OnAttachedToRecyclerView(RecyclerView recyclerView)
-        {
-            base.OnAttachedToRecyclerView(recyclerView);
-        }
-
-        public override void OnDetachedFromRecyclerView(RecyclerView recyclerView)
-        {
-            base.OnDetachedFromRecyclerView(recyclerView);
-        }
-
         public override bool OnFailedToRecycleView(Java.Lang.Object holder)
         {
             return base.OnFailedToRecycleView(holder);
@@ -109,6 +102,11 @@ namespace DoLess.Bindings
 
         public override void OnViewRecycled(Java.Lang.Object holder)
         {
+            var viewHolder = holder as BindableViewHolder<TItem>;
+            if (viewHolder != null)
+            {
+                viewHolder.UnbindEvents();
+            }
             base.OnViewRecycled(holder);
         }
 

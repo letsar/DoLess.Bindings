@@ -61,7 +61,7 @@ namespace DoLess.Bindings
                 }
                 catch (Exception ex)
                 {
-                    Bindings.LogError($"when getting command for type '{typeof(TTarget).FullName}' on event '{this.EventName}': {ex.ToString()}");
+                    Bindings.LogError($"when getting command for type '{typeof(TSource).FullName}' on event '{this.EventName}': {ex.ToString()}");
                 }
             }
 

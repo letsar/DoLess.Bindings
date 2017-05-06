@@ -73,6 +73,8 @@ namespace DoLess.Bindings.Sample.Droid
 
             //recyclerView.SetAdapter(new Adapter1(Enumerable.Range(1, 50).Select(x => x.ToString()).ToArray()));
 
+            Bindings.Failed += this.Bindings_Failed;
+
             this.Bind(textView)
                 .Property(x => x.Text)
                 .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
@@ -94,14 +96,16 @@ namespace DoLess.Bindings.Sample.Droid
                                   .ClickTo(x => x.ChangeFirstNameCommand)
                                   .Bind(v.GetView<TextView>(Resource.Id.item_person_lastname))
                                   .Property(x => x.Text)
-                                  .To(x => x.LastName));
+                                  .To(x => x.LastName))
+                .ItemLongClickTo(x => x.SelectPersonCommand);
+                
                 
 
             //this.OnEvent(t => t.Click);
             //Bindings.WeakEventManager<TextView, EventArgs>.Current.AddHandler(textView, textView.Click);
             //this.ViewModel.Bind(textView, x => x.Text)
             //              .To(vm => vm.Name);   
-            Bindings.Failed += this.Bindings_Failed;
+            
         }
 
         private void Bindings_Failed(string obj)

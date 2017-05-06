@@ -65,6 +65,7 @@
     <Compile Include="RecyclerView\BindableRecyclerViewAdapter.cs" />
     <Compile Include="RecyclerView\BindableViewHolder.cs" />
     <Compile Include="RecyclerView\CollectionBinding.cs" />
+    <Compile Include="RecyclerView\IRecyclerViewAdapter.cs" />
     <Compile Include="RecyclerView\IViewHolder.cs" />
     <Compile Include="RecyclerView\ICollectionBinding.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

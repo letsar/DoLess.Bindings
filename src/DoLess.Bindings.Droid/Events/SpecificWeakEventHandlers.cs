@@ -41,39 +41,41 @@ namespace DoLess.Bindings
         }
     }
 
-    internal class ItemClickWeakEventHandler<TItemProperty> : WeakEventHandler<BindableRecyclerViewAdapter<TItemProperty>, EventArgs<TItemProperty>>        
+    internal class ItemClickWeakEventHandler<TTarget, TItemProperty> : WeakEventHandler<TTarget, EventArgs<TItemProperty>>      
+        where TTarget : class, IRecyclerViewAdapter<TItemProperty>
         where TItemProperty : class
     {
-        public ItemClickWeakEventHandler(BindableRecyclerViewAdapter<TItemProperty> eventSource, EventHandler<EventArgs<TItemProperty>> handler) :
-            base(eventSource, handler, nameof(BindableRecyclerViewAdapter<TItemProperty>.ItemClick))
+        public ItemClickWeakEventHandler(TTarget eventSource, EventHandler<EventArgs<TItemProperty>> handler) :
+            base(eventSource, handler, nameof(IRecyclerViewAdapter<TItemProperty>.ItemClick))
         {
         }
 
-        protected override void StartListening(BindableRecyclerViewAdapter<TItemProperty> source)
+        protected override void StartListening(TTarget source)
         {
             source.ItemClick += this.OnEvent;
         }
 
-        protected override void StopListening(BindableRecyclerViewAdapter<TItemProperty> source)
+        protected override void StopListening(TTarget source)
         {
             source.ItemClick -= this.OnEvent;
         }
     }
 
-    internal class ItemLongClickWeakEventHandler<TItemProperty> : WeakEventHandler<BindableRecyclerViewAdapter<TItemProperty>, EventArgs<TItemProperty>>        
+    internal class ItemLongClickWeakEventHandler<TTarget, TItemProperty> : WeakEventHandler<TTarget, EventArgs<TItemProperty>>
+        where TTarget : class, IRecyclerViewAdapter<TItemProperty>
         where TItemProperty : class
     {
-        public ItemLongClickWeakEventHandler(BindableRecyclerViewAdapter<TItemProperty> eventSource, EventHandler<EventArgs<TItemProperty>> handler) :
-            base(eventSource, handler, nameof(BindableRecyclerViewAdapter<TItemProperty>.ItemLongClick))
+        public ItemLongClickWeakEventHandler(TTarget eventSource, EventHandler<EventArgs<TItemProperty>> handler) :
+            base(eventSource, handler, nameof(IRecyclerViewAdapter<TItemProperty>.ItemLongClick))
         {
         }
 
-        protected override void StartListening(BindableRecyclerViewAdapter<TItemProperty> source)
+        protected override void StartListening(TTarget source)
         {
             source.ItemLongClick += this.OnEvent;
         }
 
-        protected override void StopListening(BindableRecyclerViewAdapter<TItemProperty> source)
+        protected override void StopListening(TTarget source)
         {
             source.ItemLongClick -= this.OnEvent;
         }

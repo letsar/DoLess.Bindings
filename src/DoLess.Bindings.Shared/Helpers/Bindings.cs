@@ -67,7 +67,7 @@ namespace DoLess.Bindings
 
         internal static void LogError(string message)
         {
-            Failed($"Binding error: '{message}'.");
+            Failed($"Binding error: {message}.");
         }
     }
 }

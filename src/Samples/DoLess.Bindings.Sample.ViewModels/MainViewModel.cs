@@ -17,6 +17,7 @@ namespace DoLess.Bindings.Sample.ViewModels
         public MainViewModel()
         {
             this.CancellableCommand = Command.CreateFromTask(this.ExecuteCancellableCommand);
+            this.SelectPersonCommand = Command.CreateFromAction<PersonViewModel>(this.SelectPerson);
         }
 
         public PersonViewModel Person { get; set; }
@@ -25,11 +26,18 @@ namespace DoLess.Bindings.Sample.ViewModels
 
         public ICancellableCommand CancellableCommand { get; }
 
+        public ICommand<PersonViewModel> SelectPersonCommand { get; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Task ExecuteCancellableCommand(CancellationToken ct)
         {
             return Task.Delay(3000, ct);
+        }
+
+        private void SelectPerson(PersonViewModel vm)
+        {
+            vm.LastName = vm.LastName + "fy";
         }
     }
 

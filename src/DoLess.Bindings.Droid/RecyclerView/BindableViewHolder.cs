@@ -27,9 +27,6 @@ namespace DoLess.Bindings
         {
             this.views = new Dictionary<int, View>();
             this.weakViewModel = new WeakReference<T>(null);
-
-            this.ItemView.Click += this.OnItemViewClick;
-            this.ItemView.LongClick += this.OnItemViewLongClick;
         }
 
         private void OnItemViewLongClick(object sender, View.LongClickEventArgs e)
@@ -68,15 +65,25 @@ namespace DoLess.Bindings
 
         public IBinding Binding { get; set; }
 
+
+        public void BindEvents()
+        {
+            this.ItemView.Click += this.OnItemViewClick;
+            this.ItemView.LongClick += this.OnItemViewLongClick;
+        }
+
+        public void UnbindEvents()
+        {
+            this.ItemView.Click -= this.OnItemViewClick;
+            this.ItemView.LongClick -= this.OnItemViewLongClick;
+        }
+
         public void Unbind()
         {
             if (this.Binding != null)
             {
                 this.Binding.Unbind();
-                this.Binding = null;
-
-                this.ItemView.Click -= this.OnItemViewClick;
-                this.ItemView.LongClick -= this.OnItemViewLongClick;
+                this.Binding = null;                
             }            
         }
     }
