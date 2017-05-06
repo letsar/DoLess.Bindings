@@ -18,15 +18,23 @@ namespace DoLess.Bindings
         private readonly Func<TSource, TCommand> getCommand;
         private ObservedNode sourceRootNode;
         private IConverterFromSource<TEventArgs, object> converter;
+        private CanExecuteChangedWeakEventHandler canExecuteChangedWeakEventHandler;
+        private BindingExpression<TTarget, bool> canExecuteTargetProperty;
 
-        public EventToCommandBinding(IEventBinding<TSource, TTarget, TEventArgs> binding, Expression<Func<TSource, TCommand>> commandExpression) :
+        public EventToCommandBinding(IEventBinding<TSource, TTarget, TEventArgs> binding, Expression<Func<TSource, TCommand>> commandExpression, Expression<Func<TTarget, bool>> canExecuteTargetPropertyExpression = null) :
             base(binding)
         {
             Check.NotNull(commandExpression, nameof(commandExpression));
 
             this.getCommand = commandExpression.Compile();
             this.sourceRootNode = commandExpression.AsObservedNode();
-            this.sourceRootNode.Observe(this.Source, this.WhenCommandChanged);            
+            this.sourceRootNode.Observe(this.Source, this.WhenCommandChanged);
+
+            if (canExecuteTargetPropertyExpression != null)
+            {
+                this.canExecuteTargetProperty = canExecuteTargetPropertyExpression.GetBindingExpression(this.Target);
+                this.WhenCommandChanged();
+            }
         }
 
         protected override void OnEventRaised(object sender, TEventArgs args)
@@ -77,13 +85,40 @@ namespace DoLess.Bindings
             return this;
         }
 
-        protected virtual void WhenCommandChanged() { }
+        protected void WhenCommandChanged()
+        {
+            if (this.canExecuteTargetProperty != null)
+            {
+                if (this.canExecuteChangedWeakEventHandler != null)
+                {
+                    this.canExecuteChangedWeakEventHandler.Unsubscribe();
+                    this.canExecuteChangedWeakEventHandler = null;
+                }
+
+                var command = this.GetCommand();
+                this.canExecuteChangedWeakEventHandler = new CanExecuteChangedWeakEventHandler(command, this.OnCanExecuteChanged);
+                this.OnCanExecuteChanged(command, EventArgs.Empty);
+            }
+        }
+
+        private void OnCanExecuteChanged(object sender, EventArgs args)
+        {
+            ICommand command = sender as ICommand;
+
+            if (command != null)
+            {
+                this.canExecuteTargetProperty.Value = command.CanExecute(null);
+            }
+        }
 
         public override void UnbindInternal()
         {
             base.UnbindInternal();
             this.sourceRootNode.Unobserve();
             this.sourceRootNode = null;
+            this.canExecuteTargetProperty = null;
+            this.canExecuteChangedWeakEventHandler.Unsubscribe();
+            this.canExecuteChangedWeakEventHandler = null;
         }
     }
 }

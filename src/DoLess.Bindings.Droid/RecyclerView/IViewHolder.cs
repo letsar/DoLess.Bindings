@@ -21,9 +21,6 @@ namespace DoLess.Bindings
         IBinding<T, TTarget> Bind<TTarget>(int resourceId)
             where TTarget : View;
 
-        ///// <summary>
-        ///// Gets the view model.
-        ///// </summary>
-        //T ViewModel { get; }
+        View ItemView { get;  }
     }
 }

@@ -23,6 +23,9 @@ namespace DoLess.Bindings
     {
         private IEnumerable<TItem> itemsSource;
 
+        public event EventHandler<EventArgs<TItem>> ItemClick;
+        public event EventHandler<EventArgs<TItem>> ItemLongClick;
+
         public BindableRecyclerViewAdapter()
         {
         }
@@ -56,15 +59,27 @@ namespace DoLess.Bindings
                     viewHolder.Unbind();
                     viewHolder.ViewModel = viewModel;
                     viewHolder.Binding = this.ItemBinder(viewHolder);
-                }
+                }                
             }
-        }
+        }       
 
         public override Android.Support.V7.Widget.RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View view = LayoutInflater.From(parent.Context).Inflate(viewType, parent, false);
             BindableViewHolder<TItem> viewHolder = new BindableViewHolder<TItem>(view);
+            viewHolder.Click += this.OnViewHolderClick;
+            viewHolder.LongClick += this.OnViewHolderLongClick;
             return viewHolder;
+        }
+
+        private void OnViewHolderLongClick(object sender, EventArgs<TItem> e)
+        {
+            this.ItemLongClick?.Invoke(this, e);
+        }
+
+        private void OnViewHolderClick(object sender, EventArgs<TItem> e)
+        {
+            this.ItemClick?.Invoke(this, e);
         }
 
         public override void OnAttachedToRecyclerView(RecyclerView recyclerView)

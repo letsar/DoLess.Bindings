@@ -22,8 +22,15 @@ namespace DoLess.Bindings
             where TTarget : View
             where TCommand : ICommand
         {
-            IEventBinding<TSource, TTarget, EventArgs> eventBinding = new EventBinding<TSource, TTarget, EventArgs>(self, (s, e) => new ClickWeakEventHandler<TTarget>(s, e));
-            return new ClickEventToCommandBinding<TSource, TTarget, EventArgs, TCommand>(eventBinding, commandExpression, b => b.Enabled);
+            return self.EventTo(commandExpression, (s, e) => new ClickWeakEventHandler<TTarget>(s, e), b => b.Enabled);
+        }
+
+        public static IEventToCommandBinding<TSource, TTarget, EventArgs, TCommand> LongClickTo<TSource, TTarget, TCommand>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, TCommand>> commandExpression)
+            where TSource : class
+            where TTarget : View
+            where TCommand : ICommand
+        {
+            return self.EventTo(commandExpression, (s, e) => new LongClickWeakEventHandler<TTarget>(s, e));
         }
     }
 }

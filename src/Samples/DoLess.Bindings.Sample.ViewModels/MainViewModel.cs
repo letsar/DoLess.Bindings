@@ -38,10 +38,10 @@ namespace DoLess.Bindings.Sample.ViewModels
     {
         public PersonViewModel()
         {
-
+            this.ChangeFirstNameCommand = Command.CreateFromAction(this.ChangeFirstName);
         }
 
-        public PersonViewModel(string firstName, string lastName)
+        public PersonViewModel(string firstName, string lastName) : this()
         {
             this.FirstName = firstName;
             this.LastName = lastName;
@@ -49,6 +49,13 @@ namespace DoLess.Bindings.Sample.ViewModels
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public ICommand ChangeFirstNameCommand { get; }
+
+        private void ChangeFirstName()
+        {
+            this.FirstName = this.FirstName + "fy";
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

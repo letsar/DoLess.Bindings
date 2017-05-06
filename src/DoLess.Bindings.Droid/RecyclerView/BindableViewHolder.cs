@@ -20,10 +20,26 @@ namespace DoLess.Bindings
         private readonly Dictionary<int, View> views;
         private readonly WeakReference<T> weakViewModel;
 
+        public event EventHandler<EventArgs<T>> Click;
+        public event EventHandler<EventArgs<T>> LongClick;
+
         public BindableViewHolder(View itemView) : base(itemView)
         {
             this.views = new Dictionary<int, View>();
             this.weakViewModel = new WeakReference<T>(null);
+
+            this.ItemView.Click += this.OnItemViewClick;
+            this.ItemView.LongClick += this.OnItemViewLongClick;
+        }
+
+        private void OnItemViewLongClick(object sender, View.LongClickEventArgs e)
+        {
+            this.LongClick?.Invoke(this, new EventArgs<T>(this.ViewModel));
+        }
+
+        private void OnItemViewClick(object sender, EventArgs e)
+        {
+            this.Click?.Invoke(this, new EventArgs<T>(this.ViewModel));
         }
 
         public IBinding<T, TTarget> Bind<TTarget>(int resourceId)
@@ -58,7 +74,10 @@ namespace DoLess.Bindings
             {
                 this.Binding.Unbind();
                 this.Binding = null;
-            }
+
+                this.ItemView.Click -= this.OnItemViewClick;
+                this.ItemView.LongClick -= this.OnItemViewLongClick;
+            }            
         }
     }
 }

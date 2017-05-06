@@ -72,10 +72,10 @@ namespace DoLess.Bindings.Sample.Droid
             this.ViewModel.Persons = new ObservableCollection<PersonViewModel>(Enumerable.Range(1, 1000).Select(x => new PersonViewModel(x.ToString(), (x + 1).ToString())));
 
             //recyclerView.SetAdapter(new Adapter1(Enumerable.Range(1, 50).Select(x => x.ToString()).ToArray()));
-            
+
             this.Bind(textView)
                 .Property(x => x.Text)
-                .To(x => $"{x.Person.FirstName} {x.Person.LastName}")                
+                .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
                 .Bind(commandButton)
                 .ClickTo(x => x.CancellableCommand)
                 .Bind(cancelCommandButton)
@@ -90,9 +90,12 @@ namespace DoLess.Bindings.Sample.Droid
                 .BindItemTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
                                   .Property(x => x.Text)
                                   .To(x => x.FirstName)
+                                  .Bind(v.ItemView)
+                                  .ClickTo(x => x.ChangeFirstNameCommand)
                                   .Bind(v.GetView<TextView>(Resource.Id.item_person_lastname))
                                   .Property(x => x.Text)
                                   .To(x => x.LastName));
+                
 
             //this.OnEvent(t => t.Click);
             //Bindings.WeakEventManager<TextView, EventArgs>.Current.AddHandler(textView, textView.Click);

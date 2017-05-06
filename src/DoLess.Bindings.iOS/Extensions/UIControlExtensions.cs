@@ -16,7 +16,7 @@ namespace DoLess.Bindings
             where TCommand : ICommand
         {
             IEventBinding<TSource, TTarget, EventArgs> eventBinding = new EventBinding<TSource, TTarget, EventArgs>(self, (s, e) => new ClickWeakEventHandler<TTarget>(s, e));
-            return new ClickEventToCommandBinding<TSource, TTarget, EventArgs, TCommand>(eventBinding, commandExpression, b => b.Enabled);
+            return new EventToCommandBinding<TSource, TTarget, EventArgs, TCommand>(eventBinding, commandExpression, b => b.Enabled);
         }
     }
 }

@@ -74,7 +74,7 @@ namespace DoLess.Bindings
         public IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> To<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand
         {
-            return new EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>(this, commandExpression);
+            return new EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>(this, commandExpression, null);
         }
     }
 }

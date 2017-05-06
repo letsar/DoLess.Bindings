@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System.Windows.Input;
 
 namespace DoLess.Bindings
 {
@@ -56,5 +57,19 @@ namespace DoLess.Bindings
             }
             return this;
         }
+
+        //public IEventToCommandBinding<TSource, Android.Support.V7.Widget.RecyclerView, EventArgs<TItemProperty>, TCommand> ItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        //    where TCommand : ICommand
+        //{
+        //    return this.EventTo<TSource, Android.Support.V7.Widget.RecyclerView, TCommand, TItemProperty>(commandExpression, (s, e) => new ItemClickWeakEventHandler<TItemProperty>(s, e))
+        //               .WithConverter<EventArgsConverter<EventArgs<TItemProperty>, TItemProperty>>();
+        //}
+
+        //public IEventToCommandBinding<TSource, Android.Support.V7.Widget.RecyclerView, EventArgs<TItemProperty>, TCommand> ItemLongClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        //    where TCommand : ICommand
+        //{
+        //    return this.EventTo<TSource, Android.Support.V7.Widget.RecyclerView, TCommand, TItemProperty>(commandExpression, (s, e) => new ItemLongClickWeakEventHandler<TItemProperty>(s, e))
+        //               .WithConverter<EventArgsConverter<EventArgs<TItemProperty>, TItemProperty>>();
+        //}
     }
 }

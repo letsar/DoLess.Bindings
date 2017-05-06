@@ -11,11 +11,12 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Binding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BindingExpression.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EventArgsConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringCastConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StructCastConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ClassCastConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ClickEventToCommandBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\DynamicWeakEventHandler.T1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\EventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventToCommandBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\DynamicWeakEventHandler.T2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerableExtensions.cs" />
