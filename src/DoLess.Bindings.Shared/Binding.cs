@@ -8,10 +8,10 @@ namespace DoLess.Bindings
         IBinding,
         IHaveLinkedBinding
     {
-        public Binding(IBinding linkedBinding, long id)
+        public Binding(IBinding linkedBinding)
         {
             this.LinkedBinding = linkedBinding;
-            this.Id = id;
+            this.Id = linkedBinding == null ? 0 : linkedBinding.Id;
             Bindings.Add(this);
         }
 
