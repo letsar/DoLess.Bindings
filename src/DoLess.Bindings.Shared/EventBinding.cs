@@ -16,7 +16,7 @@ namespace DoLess.Bindings
         private readonly Func<TTarget, EventHandler<TEventArgs>, WeakEventHandler<TTarget, TEventArgs>> weakEventHandlerFactory;
 
         public EventBinding(IBinding<TSource, TTarget> binding, string eventName) :
-            base((IHaveLinkedBinding<TSource, TTarget>)binding)
+            base((Binding<TSource, TTarget>)binding)
         {
             Check.NotNull(eventName, nameof(eventName));
 
@@ -24,7 +24,7 @@ namespace DoLess.Bindings
         }
 
         public EventBinding(IBinding<TSource, TTarget> binding, Func<TTarget, EventHandler<TEventArgs>, WeakEventHandler<TTarget, TEventArgs>> weakEventHandlerFactory) :
-            base((IHaveLinkedBinding<TSource, TTarget>)binding)
+            base((Binding<TSource, TTarget>)binding)
         {
             Check.NotNull(weakEventHandlerFactory, nameof(weakEventHandlerFactory));
 
@@ -33,7 +33,7 @@ namespace DoLess.Bindings
         }
 
         public EventBinding(EventBinding<TSource, TTarget, TEventArgs> binding) :
-            base((IHaveLinkedBinding<TSource, TTarget>)binding)
+            base((Binding<TSource, TTarget>)binding)
         {
             if (binding.weakEventHandlerFactory == null)
             {

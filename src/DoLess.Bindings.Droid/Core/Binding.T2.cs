@@ -7,8 +7,8 @@ namespace DoLess.Bindings
 {
     internal partial class Binding<TSource, TTarget>
     {
-        public Binding(IViewHolder<TSource> viewHolder, TTarget target, IHaveLinkedBinding linkedBinding) :
-            this(viewHolder.ViewModel, target, linkedBinding, linkedBinding?.Id, viewHolder)
+        public Binding(IViewHolder<TSource> viewHolder, TTarget target, Binding linkedBinding) :
+            this(viewHolder.ViewModel, target, linkedBinding, viewHolder)
         {
         }
 

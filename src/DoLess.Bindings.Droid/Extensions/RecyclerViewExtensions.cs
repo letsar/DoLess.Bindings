@@ -27,7 +27,7 @@ namespace DoLess.Bindings
             {
                 BindableRecyclerViewAdapter<TItemProperty> adapter = new BindableRecyclerViewAdapter<TItemProperty>();
 
-                var propertyBinding = new Binding<TSource, IRecyclerViewAdapter<TItemProperty>>(viewModel, adapter, (IHaveLinkedBinding)self)
+                var propertyBinding = new Binding<TSource, IRecyclerViewAdapter<TItemProperty>>(viewModel, adapter, self)
                                           .Property(x => x.ItemsSource);
 
                 var binding = new CollectionBinding<TSource, IRecyclerViewAdapter<TItemProperty>, TItemProperty>(propertyBinding, itemsSourcePropertyExpression);

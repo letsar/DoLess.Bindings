@@ -13,7 +13,7 @@ namespace DoLess.Bindings
         protected BindingExpression<TTarget, TTargetProperty> targetProperty;
 
         public PropertyBinding(IBinding<TSource, TTarget> binding, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression) :
-            base((IHaveLinkedBinding<TSource, TTarget>)binding)
+            base((Binding<TSource, TTarget>)binding)
         {
             Check.NotNull(targetPropertyExpression, nameof(targetPropertyExpression));
 
