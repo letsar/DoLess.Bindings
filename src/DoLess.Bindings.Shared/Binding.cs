@@ -5,21 +5,23 @@ using System.Text;
 namespace DoLess.Bindings
 {
     internal abstract class Binding :
-        IBinding,
-        IHaveLinkedBinding
+        IBinding
     {
-        public Binding(IBinding linkedBinding)
+        private WeakReference<object> weakCreator;
+
+        public Binding(IBinding linkedBinding, object creator)
         {
             this.LinkedBinding = linkedBinding;
             this.Id = linkedBinding == null ? 0 : linkedBinding.Id;
+            this.weakCreator = new WeakReference<object>(creator);
             Bindings.Add(this);
         }
 
-        public IBinding LinkedBinding { get; private set; }        
+        public IBinding LinkedBinding { get; private set; }
 
         public long Id { get; set; }
 
-        public abstract object Creator { get; }
+        public object Creator => this.weakCreator.GetOrDefault();
 
         public void Unbind()
         {
@@ -36,7 +38,10 @@ namespace DoLess.Bindings
             this.UnbindInternal();
         }
 
-        public abstract void UnbindInternal();
+        public virtual void UnbindInternal()
+        {
+            this.weakCreator = null;
+        }
 
         public abstract bool CanBePurged();
     }
