@@ -56,16 +56,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\CollectionViewAdapter.cs" />
+    <Compile Include="Adapters\BindableBaseAdapter.cs" />
+    <Compile Include="Adapters\IBindableAdapter.cs" />
+    <Compile Include="Adapters\INotifyItemChanged.cs" />
+    <Compile Include="Adapters\INotifyDataSetChanged.cs" />
+    <Compile Include="Adapters\ICollectionViewAdapter.cs" />
     <Compile Include="Core\Binding.T2.cs" />
     <Compile Include="Core\ICanBind.cs" />
     <Compile Include="Extensions\BindingExtensions.cs" />
     <Compile Include="Extensions\ButtonExtensions.cs" />
     <Compile Include="Extensions\RecyclerViewExtensions.cs" />
+    <Compile Include="Helpers\ItemCollection.cs" />
     <Compile Include="IItemTemplateSelector.cs" />
     <Compile Include="RecyclerView\BindableRecyclerViewAdapter.cs" />
-    <Compile Include="RecyclerView\BindableViewHolder.cs" />
+    <Compile Include="Adapters\BindableViewHolder.cs" />
     <Compile Include="RecyclerView\CollectionBinding.cs" />
-    <Compile Include="RecyclerView\IRecyclerViewAdapter.cs" />
     <Compile Include="RecyclerView\IViewHolder.cs" />
     <Compile Include="RecyclerView\ICollectionBinding.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

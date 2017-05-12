@@ -8,7 +8,7 @@ namespace DoLess.Bindings
     {
         internal static IEventToCommandBinding<TSource, TTarget, EventArgs<TItemProperty>, TCommand> EventTo<TSource, TTarget, TCommand, TItemProperty>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, TCommand>> commandExpression, Func<TTarget, EventHandler<EventArgs<TItemProperty>>, WeakEventHandler<TTarget, EventArgs<TItemProperty>>> weakEventHandlerFactory, Expression<Func<TTarget, bool>> canExecutePropertyExpression = null)
             where TSource : class
-            where TTarget : class, IRecyclerViewAdapter<TItemProperty>
+            where TTarget : class, IBindableAdapter<TItemProperty>
             where TCommand : ICommand
             where TItemProperty : class
         {

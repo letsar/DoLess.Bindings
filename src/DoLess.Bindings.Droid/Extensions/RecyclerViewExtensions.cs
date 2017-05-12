@@ -15,7 +15,7 @@ namespace DoLess.Bindings
 {
     public static class RecyclerViewExtensions
     {
-        public static ICollectionBinding<TSource, IRecyclerViewAdapter<TItemProperty>, TItemProperty> ItemsSourceTo<TSource, TTarget, TItemProperty>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, IEnumerable<TItemProperty>>> itemsSourcePropertyExpression)
+        public static ICollectionBinding<TSource, IBindableAdapter<TItemProperty>, TItemProperty> ItemsSourceTo<TSource, TTarget, TItemProperty>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, IEnumerable<TItemProperty>>> itemsSourcePropertyExpression)
             where TSource : class
             where TTarget : Android.Support.V7.Widget.RecyclerView
             where TItemProperty : class
@@ -27,10 +27,10 @@ namespace DoLess.Bindings
             {
                 BindableRecyclerViewAdapter<TItemProperty> adapter = new BindableRecyclerViewAdapter<TItemProperty>();
 
-                var propertyBinding = new Binding<TSource, IRecyclerViewAdapter<TItemProperty>>(viewModel, adapter, self)
-                                          .Property(x => x.ItemsSource);
+                var propertyBinding = new Binding<TSource, IBindableAdapter<TItemProperty>>(viewModel, adapter, self)
+                                          .Property(x => x.CollectionViewAdapter.ItemsSource);
 
-                var binding = new CollectionBinding<TSource, IRecyclerViewAdapter<TItemProperty>, TItemProperty>(propertyBinding, itemsSourcePropertyExpression);
+                var binding = new CollectionBinding<TSource, IBindableAdapter<TItemProperty>, TItemProperty>(propertyBinding, itemsSourcePropertyExpression);
 
                 recyclerView.SetAdapter(adapter);
 

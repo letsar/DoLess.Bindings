@@ -78,23 +78,29 @@ namespace DoLess.Bindings.Sample.Droid
             this.Bind(textView)
                 .Property(x => x.Text)
                 .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
+
                 .Bind(commandButton)
                 .ClickTo(x => x.CancellableCommand)
+
                 .Bind(cancelCommandButton)
                 .ClickTo(x => x.CancellableCommand.CancelCommand)
+
                 .Bind(editText)
                 .Property(x => x.Text)
                 .To(x => x.Person.FirstName)
                 .TwoWay()
+
                 .Bind(recyclerView)
                 .ItemsSourceTo(x => x.Persons)
                 .WithItemTemplate(Resource.Layout.item_person)
                 .BindItemTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
                                   .Property(x => x.Text)
                                   .To(x => x.FirstName)
+
                                   .Bind(v.ItemView)
                                   .ClickTo(x => x.ChangeFirstNameCommand)
-                                  .Bind(v.GetView<TextView>(Resource.Id.item_person_lastname))
+
+                                  .Bind<TextView>(Resource.Id.item_person_lastname)
                                   .Property(x => x.Text)
                                   .To(x => x.LastName))
                 .ItemLongClickTo(x => x.SelectPersonCommand);

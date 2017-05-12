@@ -18,157 +18,41 @@ using Java.Lang;
 namespace DoLess.Bindings
 {
     internal class BindableRecyclerViewAdapter<TItem> :
-        Android.Support.V7.Widget.RecyclerView.Adapter,
-        IRecyclerViewAdapter<TItem>
+        Android.Support.V7.Widget.RecyclerView.Adapter,        
+        IBindableAdapter<TItem>,
+        INotifyItemChanged
         where TItem : class
-    {
-        private IEnumerable<TItem> itemsSource;
-
-        public event EventHandler<EventArgs<TItem>> ItemClick;
-        public event EventHandler<EventArgs<TItem>> ItemLongClick;
+    {        
+        private readonly CollectionViewAdapter<TItem> collectionViewAdapter;        
 
         public BindableRecyclerViewAdapter()
         {
+            this.collectionViewAdapter = new CollectionViewAdapter<TItem>(this);
         }
 
-        public override int ItemCount => this.itemsSource.Count();
+        public ICollectionViewAdapter<TItem> CollectionViewAdapter => this.collectionViewAdapter;
 
-        public IItemTemplateSelector<TItem> ItemTemplateSelector { get; set; }
+        public override int ItemCount => this.collectionViewAdapter.ItemCount;
 
-        public Func<IViewHolder<TItem>, IBinding> ItemBinder { get; set; }
-
-        public IEnumerable<TItem> ItemsSource
+        public override int GetItemViewType(int position)
         {
-            get { return this.itemsSource; }
-            set { this.SetItemsSource(value); }
+            return this.collectionViewAdapter.GetItemViewType(position);
         }
 
         public override void OnBindViewHolder(Android.Support.V7.Widget.RecyclerView.ViewHolder holder, int position)
         {
-            if (this.ItemBinder == null)
-            {
-                Bindings.LogError("there are no bindings defined for the items of this RecyclerView");
-            }
-            else
-            {
-                TItem viewModel = this.ItemsSource.ElementAtOrDefault(position);
-
-                BindableViewHolder<TItem> viewHolder = holder as BindableViewHolder<TItem>;
-                if (viewHolder != null)
-                {
-                    // Unbinds the previous bindings before setting the new one.
-                    viewHolder.Unbind();                   
-
-                    viewHolder.ViewModel = viewModel;
-                    viewHolder.BindEvents();
-                    viewHolder.Binding = this.ItemBinder(viewHolder);
-                }
-            }
+            this.collectionViewAdapter.BindViewHolder(holder as BindableViewHolder<TItem>, position);
         }
 
         public override Android.Support.V7.Widget.RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            View view = LayoutInflater.From(parent.Context).Inflate(viewType, parent, false);
-            BindableViewHolder<TItem> viewHolder = new BindableViewHolder<TItem>(view);
-            viewHolder.Click += this.OnViewHolderClick;
-            viewHolder.LongClick += this.OnViewHolderLongClick;
-            return viewHolder;
-        }
-
-        private void OnViewHolderLongClick(object sender, EventArgs<TItem> e)
-        {
-            this.ItemLongClick?.Invoke(this, e);
-        }
-
-        private void OnViewHolderClick(object sender, EventArgs<TItem> e)
-        {
-            this.ItemClick?.Invoke(this, e);
-        }
-
-        public override bool OnFailedToRecycleView(Java.Lang.Object holder)
-        {
-            return base.OnFailedToRecycleView(holder);
-        }
-
-        public override void OnViewAttachedToWindow(Java.Lang.Object holder)
-        {
-            base.OnViewAttachedToWindow(holder);
-        }
-
-        public override void OnViewDetachedFromWindow(Java.Lang.Object holder)
-        {
-            base.OnViewDetachedFromWindow(holder);
-        }
+            return this.collectionViewAdapter.CreateViewHolder(parent, viewType);
+        }       
 
         public override void OnViewRecycled(Java.Lang.Object holder)
         {
-            var viewHolder = holder as BindableViewHolder<TItem>;
-            if (viewHolder != null)
-            {
-                viewHolder.UnbindEvents();
-            }
+            this.collectionViewAdapter.RecycleViewHolder(holder);
             base.OnViewRecycled(holder);
-        }
-
-        public override int GetItemViewType(int position)
-        {
-            // The view type will be the layout id.
-            return this.ItemTemplateSelector.GetLayoutId(this.ItemsSource.ElementAt(position));
-        }
-
-        private void Observe(INotifyCollectionChanged source)
-        {
-            if (source != null)
-            {
-                source.CollectionChanged += this.OnItemsSourceCollectionChanged;
-            }
-        }
-
-        private void OnItemsSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    this.NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    this.NotifyItemRangeRemoved(e.OldStartingIndex, e.OldItems.Count);
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    this.NotifyItemRangeChanged(e.NewStartingIndex, e.NewItems.Count);
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    for (var i = 0; i < e.NewItems.Count; i++)
-                    {
-                        this.NotifyItemMoved(e.OldStartingIndex + i, e.NewStartingIndex + i);
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    this.NotifyDataSetChanged();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void SetItemsSource(IEnumerable<TItem> itemsSource)
-        {
-            if (this.itemsSource != null)
-            {
-                this.Unobserve(this.itemsSource as INotifyCollectionChanged);
-            }
-
-            this.itemsSource = itemsSource;
-            this.Observe(this.itemsSource as INotifyCollectionChanged);
-            this.NotifyDataSetChanged();
-        }
-
-        private void Unobserve(INotifyCollectionChanged source)
-        {
-            if (source != null)
-            {
-                source.CollectionChanged -= this.OnItemsSourceCollectionChanged;
-            }
         }
     }
 }

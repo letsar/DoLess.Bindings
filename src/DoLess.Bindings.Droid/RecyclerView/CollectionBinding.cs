@@ -18,7 +18,7 @@ namespace DoLess.Bindings
         OneWayPropertyBinding<TSource, TTarget, IEnumerable<TItemProperty>, IEnumerable<TItemProperty>>,
         ICollectionBinding<TSource, TTarget, TItemProperty>
         where TSource : class
-        where TTarget : class, IRecyclerViewAdapter<TItemProperty>
+        where TTarget : class, IBindableAdapter<TItemProperty>
         where TItemProperty : class
     {
         public CollectionBinding(IPropertyBinding<TSource, TTarget, IEnumerable<TItemProperty>> propertyBinding, Expression<Func<TSource, IEnumerable<TItemProperty>>> itemsSourcePropertyExpression) :
@@ -30,7 +30,7 @@ namespace DoLess.Bindings
         public ICollectionBinding<TSource, TTarget, TItemProperty> WithItemTemplateSelector<T>()
             where T : IItemTemplateSelector<TItemProperty>, new()
         {
-            var target = this.Target as BindableRecyclerViewAdapter<TItemProperty>;
+            var target = this.Target?.CollectionViewAdapter as CollectionViewAdapter<TItemProperty>;
             if (target != null)
             {
                 target.ItemTemplateSelector = Cache<T>.Instance;
@@ -40,7 +40,7 @@ namespace DoLess.Bindings
 
         public ICollectionBinding<TSource, TTarget, TItemProperty> WithItemTemplate(int resourceId)
         {
-            var target = this.Target as BindableRecyclerViewAdapter<TItemProperty>;
+            var target = this.Target?.CollectionViewAdapter as CollectionViewAdapter<TItemProperty>;
             if (target != null)
             {
                 target.ItemTemplateSelector = new SingleItemTemplateSelector<TItemProperty>(resourceId);
@@ -50,7 +50,7 @@ namespace DoLess.Bindings
 
         public ICollectionBinding<TSource, TTarget, TItemProperty> BindItemTo(Func<IViewHolder<TItemProperty>, IBinding> itemBinder)
         {
-            var target = this.Target as BindableRecyclerViewAdapter<TItemProperty>;
+            var target = this.Target?.CollectionViewAdapter as CollectionViewAdapter<TItemProperty>;
             if (target != null)
             {
                 target.ItemBinder = itemBinder;

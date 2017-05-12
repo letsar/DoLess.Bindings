@@ -42,42 +42,42 @@ namespace DoLess.Bindings
     }
 
     internal class ItemClickWeakEventHandler<TTarget, TItemProperty> : WeakEventHandler<TTarget, EventArgs<TItemProperty>>      
-        where TTarget : class, IRecyclerViewAdapter<TItemProperty>
+        where TTarget : class, IBindableAdapter<TItemProperty>
         where TItemProperty : class
     {
         public ItemClickWeakEventHandler(TTarget eventSource, EventHandler<EventArgs<TItemProperty>> handler) :
-            base(eventSource, handler, nameof(IRecyclerViewAdapter<TItemProperty>.ItemClick))
+            base(eventSource, handler, nameof(ICollectionViewAdapter<TItemProperty>.ItemClick))
         {
         }
 
         protected override void StartListening(TTarget source)
         {
-            source.ItemClick += this.OnEvent;
+            source.CollectionViewAdapter.ItemClick += this.OnEvent;
         }
 
         protected override void StopListening(TTarget source)
         {
-            source.ItemClick -= this.OnEvent;
+            source.CollectionViewAdapter.ItemClick -= this.OnEvent;
         }
     }
 
     internal class ItemLongClickWeakEventHandler<TTarget, TItemProperty> : WeakEventHandler<TTarget, EventArgs<TItemProperty>>
-        where TTarget : class, IRecyclerViewAdapter<TItemProperty>
+        where TTarget : class, IBindableAdapter<TItemProperty>
         where TItemProperty : class
     {
         public ItemLongClickWeakEventHandler(TTarget eventSource, EventHandler<EventArgs<TItemProperty>> handler) :
-            base(eventSource, handler, nameof(IRecyclerViewAdapter<TItemProperty>.ItemLongClick))
+            base(eventSource, handler, nameof(ICollectionViewAdapter<TItemProperty>.ItemLongClick))
         {
         }
 
         protected override void StartListening(TTarget source)
         {
-            source.ItemLongClick += this.OnEvent;
+            source.CollectionViewAdapter.ItemLongClick += this.OnEvent;
         }
 
         protected override void StopListening(TTarget source)
         {
-            source.ItemLongClick -= this.OnEvent;
+            source.CollectionViewAdapter.ItemLongClick -= this.OnEvent;
         }
     }
 }

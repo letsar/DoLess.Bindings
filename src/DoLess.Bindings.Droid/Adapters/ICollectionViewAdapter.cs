@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace DoLess.Bindings
 {
-    public interface IRecyclerViewAdapter<TItem>
+    public interface ICollectionViewAdapter<TItem>
         where TItem : class
     {
         event EventHandler<EventArgs<TItem>> ItemClick;

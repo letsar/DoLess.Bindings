@@ -20,6 +20,7 @@ namespace DoLess.Bindings
         }
 
         public static event Action<string> Failed = delegate { };
+        public static event Action<string> Warning = delegate { };
 
         internal static void Add(Binding binding)
         {
@@ -68,6 +69,11 @@ namespace DoLess.Bindings
         internal static void LogError(string message)
         {
             Failed($"Binding error: {message}.");
+        }
+
+        internal static void LogWarning(string message)
+        {
+            Warning($"Binding warning: {message}.");
         }
     }
 }
