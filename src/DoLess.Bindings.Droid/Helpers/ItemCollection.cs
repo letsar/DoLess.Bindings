@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 
 namespace DoLess.Bindings
 {
     internal class ItemCollection<TItem>
         where TItem : class
     {
-        private IEnumerable<TItem> itemsSource;
         private readonly INotifyDataSetChanged notifier;
         private readonly INotifyItemChanged notifier2;
+
+        private IEnumerable<TItem> itemsSource;
 
         public ItemCollection(INotifyDataSetChanged owner)
         {
@@ -22,6 +24,8 @@ namespace DoLess.Bindings
             get { return this.itemsSource; }
             set { this.SetItemsSource(value); }
         }
+
+        public TItem this[int position] => this.ItemsSource.ElementAtOrDefault(position);
 
         private void Observe(INotifyCollectionChanged source)
         {
@@ -96,6 +100,6 @@ namespace DoLess.Bindings
             {
                 source.CollectionChanged -= this.OnItemsSourceCollectionChanged;
             }
-        }
+        }  
     }
 }

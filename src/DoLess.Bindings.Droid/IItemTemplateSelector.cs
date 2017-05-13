@@ -12,8 +12,8 @@ using Android.Widget;
 
 namespace DoLess.Bindings
 {
-    public interface IItemTemplateSelector<TItem>
+    public interface IItemTemplateSelector
     {
-        int GetLayoutId(TItem item);
+        int GetLayoutId(object item);
     }
 }

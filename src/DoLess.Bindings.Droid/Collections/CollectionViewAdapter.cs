@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System.Collections;
 
 namespace DoLess.Bindings
 {
@@ -31,12 +32,13 @@ namespace DoLess.Bindings
         public event EventHandler<EventArgs<TItem>> ItemClick;
         public event EventHandler<EventArgs<TItem>> ItemLongClick;
 
-        public TItem this[int position] => this.itemCollection.ItemsSource.ElementAtOrDefault(position);
+        public TItem this[int position] => this.itemCollection[position];
 
         public int ItemCount => this.itemCollection.ItemsSource.Count();
 
-        public IItemTemplateSelector<TItem> ItemTemplateSelector { get; private set; }
-                
+        public IItemTemplateSelector ItemTemplateSelector { get; private set; }
+
+        public IItemTemplateSelector GroupItemTemplateSelector { get; private set; }
 
         public Func<IBindableView<TItem>, IBinding> ItemBinder { get; private set; }
 
@@ -47,7 +49,7 @@ namespace DoLess.Bindings
         }
 
         public ICollectionViewAdapter<TItem> WithItemTemplateSelector<T>()
-            where T : IItemTemplateSelector<TItem>, new()
+            where T : IItemTemplateSelector, new()
         {
             this.ItemTemplateSelector = Cache<T>.Instance;
             return this;
@@ -55,7 +57,26 @@ namespace DoLess.Bindings
 
         public ICollectionViewAdapter<TItem> WithItemTemplate(int resourceId)
         {
-            this.ItemTemplateSelector = new SingleItemTemplateSelector<TItem>(resourceId);
+            this.ItemTemplateSelector = new SingleItemTemplateSelector(resourceId);
+            return this;
+        }
+
+
+        public ICollectionViewAdapter<TItem> WithGroupItemTemplateSelector<T>()
+            where T : IItemTemplateSelector, new()
+        {
+            this.GroupItemTemplateSelector = Cache<T>.Instance;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the layout that will be used to render all the group items.
+        /// </summary>
+        /// <param name="resourceId">The id of the layout.</param>
+        /// <returns></returns>
+        public ICollectionViewAdapter<TItem> WithGroupItemTemplate(int resourceId)
+        {
+            this.GroupItemTemplateSelector = new SingleItemTemplateSelector(resourceId);
             return this;
         }
 
@@ -64,7 +85,6 @@ namespace DoLess.Bindings
             this.ItemBinder = binder;
             return this;
         }
-
 
         public long GetItemId(int position)
         {
@@ -145,6 +165,16 @@ namespace DoLess.Bindings
         {
             // The view type will be the layout id.
             return this.ItemTemplateSelector.GetLayoutId(this.ItemsSource.ElementAt(position));
+        }
+
+        public object GetGroupItem(int groupPosition, int itemPosition)
+        {
+            return (this[groupPosition] as IEnumerable).InternalElementAt(itemPosition);
+        }
+
+        public int GetChildrenCount(int groupPosition)
+        {
+            return (this[groupPosition] as IEnumerable).InternalCount();
         }
     }
 }

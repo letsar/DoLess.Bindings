@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PersonViewModel.cs" />
+    <Compile Include="ExpandableViewModel.cs" />
     <Compile Include="RecyclerViewModel.cs" />
     <Compile Include="TextsViewModel.cs" />
     <Compile Include="ButtonsViewModel.cs" />

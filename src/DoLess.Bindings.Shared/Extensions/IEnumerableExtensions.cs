@@ -7,7 +7,7 @@ namespace DoLess.Bindings
 {
     internal static class IEnumerableExtensions
     {
-        public static int Count(this IEnumerable self)
+        public static int InternalCount(this IEnumerable self)
         {
             if (self == null)
             {
@@ -27,6 +27,28 @@ namespace DoLess.Bindings
                 count++;
             }
             return count;
+        }
+
+        public static System.Object InternalElementAt(this IEnumerable self, int position)
+        {
+            if (self == null)
+            {
+                return null;
+            }
+
+            var itemsList = self as IList;
+            if (itemsList != null)
+            {
+                return itemsList[position];
+            }
+
+            var enumerator = self.GetEnumerator();
+            for (var i = 0; i <= position; i++)
+            {
+                enumerator.MoveNext();
+            }
+
+            return enumerator.Current;
         }
     }
 }

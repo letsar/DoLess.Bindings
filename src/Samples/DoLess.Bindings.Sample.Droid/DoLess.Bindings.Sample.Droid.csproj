@@ -100,6 +100,7 @@
   <ItemGroup>
     <Compile Include="Adapter1.cs" />
     <Compile Include="Views\BaseActivity.cs" />
+    <Compile Include="Views\ExpandableListViewActivity.cs" />
     <Compile Include="Views\RecyclerViewActivity.cs" />
     <Compile Include="Views\TextsActivity.cs" />
     <Compile Include="Views\MainActivity.cs" />
@@ -122,6 +123,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_recyclerview.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_expandablelistview.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\header_person.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

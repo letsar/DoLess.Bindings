@@ -1,6 +1,6 @@
 namespace DoLess.Bindings
 {
-    internal class SingleItemTemplateSelector<TItem> : IItemTemplateSelector<TItem>
+    internal class SingleItemTemplateSelector : IItemTemplateSelector
     {
         private readonly int resourceId;
 
@@ -9,7 +9,7 @@ namespace DoLess.Bindings
             this.resourceId = resourceId;
         }
 
-        public int GetLayoutId(TItem item)
+        public int GetLayoutId(object item)
         {
             return this.resourceId;
         }

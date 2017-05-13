@@ -56,12 +56,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapters\CollectionViewAdapter.cs" />
-    <Compile Include="Adapters\BindableBaseAdapter.cs" />
-    <Compile Include="Adapters\IBindableAdapter.cs" />
-    <Compile Include="Adapters\INotifyItemChanged.cs" />
-    <Compile Include="Adapters\INotifyDataSetChanged.cs" />
-    <Compile Include="Adapters\ICollectionViewAdapter.cs" />
+    <Compile Include="Collections\BindableBaseExpandableListAdapter.cs" />
+    <Compile Include="Collections\CollectionViewAdapter.cs" />
+    <Compile Include="Collections\BindableBaseAdapter.cs" />
+    <Compile Include="Collections\IBindableAdapter.cs" />
+    <Compile Include="Collections\INotifyItemChanged.cs" />
+    <Compile Include="Collections\INotifyDataSetChanged.cs" />
+    <Compile Include="Collections\ICollectionViewAdapter.cs" />
     <Compile Include="BindableView.cs" />
     <Compile Include="Core\Binding.T2.cs" />
     <Compile Include="Core\IBindableView.T1.cs" />
@@ -72,11 +73,11 @@
     <Compile Include="Extensions\RecyclerViewExtensions.cs" />
     <Compile Include="Helpers\ItemCollection.cs" />
     <Compile Include="IItemTemplateSelector.cs" />
-    <Compile Include="RecyclerView\BindableRecyclerViewAdapter.cs" />
-    <Compile Include="Adapters\BindableViewHolder.cs" />
-    <Compile Include="RecyclerView\CollectionBinding.cs" />
+    <Compile Include="Collections\BindableRecyclerViewAdapter.cs" />
+    <Compile Include="Collections\BindableViewHolder.cs" />
+    <Compile Include="Core\CollectionBinding.cs" />
     <Compile Include="Core\IBindableView.T2.cs" />
-    <Compile Include="RecyclerView\ICollectionBinding.cs" />
+    <Compile Include="Core\ICollectionBinding.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Events\SpecificWeakEventHandlers.cs" />

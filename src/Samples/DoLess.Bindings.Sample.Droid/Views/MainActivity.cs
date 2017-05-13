@@ -43,6 +43,7 @@ namespace DoLess.Bindings.Sample.Droid
             this.FindViewById<Button>(Resource.Id.main_buttons).Click += (s, e) => this.StartActivity(typeof(ButtonsActivity));
             this.FindViewById<Button>(Resource.Id.main_texts).Click += (s, e) => this.StartActivity(typeof(TextsActivity));
             this.FindViewById<Button>(Resource.Id.main_recyclerview).Click += (s, e) => this.StartActivity(typeof(RecyclerViewActivity));
+            this.FindViewById<Button>(Resource.Id.main_expandablelistview).Click += (s, e) => this.StartActivity(typeof(ExpandableListViewActivity));
 
             Bindings.Trace += this.Bindings_Failed;           
 

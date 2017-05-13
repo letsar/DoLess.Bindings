@@ -29,7 +29,7 @@ namespace DoLess.Bindings
         /// <typeparam name="T">The type of the ItemTemplateSelector</typeparam>
         /// <returns></returns>
         ICollectionViewAdapter<TItem> WithItemTemplateSelector<T>()
-            where T : IItemTemplateSelector<TItem>, new();
+            where T : IItemTemplateSelector, new();
 
         /// <summary>
         /// Sets the layout that will be used to render all the items.
@@ -37,6 +37,21 @@ namespace DoLess.Bindings
         /// <param name="resourceId">The id of the layout.</param>
         /// <returns></returns>
         ICollectionViewAdapter<TItem> WithItemTemplate(int resourceId);
+
+        /// <summary>
+        /// Sets the <see cref="IItemTemplateSelector{TItem}"/> that will be used to render the group items.
+        /// </summary>
+        /// <typeparam name="T">The type of the ItemTemplateSelector</typeparam>
+        /// <returns></returns>
+        ICollectionViewAdapter<TItem> WithGroupItemTemplateSelector<T>()
+            where T : IItemTemplateSelector, new();
+
+        /// <summary>
+        /// Sets the layout that will be used to render all the group items.
+        /// </summary>
+        /// <param name="resourceId">The id of the layout.</param>
+        /// <returns></returns>
+        ICollectionViewAdapter<TItem> WithGroupItemTemplate(int resourceId);
 
         /// <summary>
         /// Sets the function used to bind the data to the items.
