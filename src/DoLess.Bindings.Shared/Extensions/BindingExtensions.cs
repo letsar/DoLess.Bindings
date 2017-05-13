@@ -10,7 +10,9 @@ namespace DoLess.Bindings
             where TSource : class
             where TTarget : class
         {
-            return new Binding<TSource, TTarget>(self.ViewModel, target, null, self);
+            var binding = new Binding<TSource, TTarget>(self.ViewModel, target);
+            Bindings.SetPayload(binding, self);
+            return binding;
         }
 
         internal static IEventToCommandBinding<TSource, TTarget, EventArgs, TCommand> EventTo<TSource, TTarget, TCommand>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, TCommand>> commandExpression, Func<TTarget, EventHandler<EventArgs>, WeakEventHandler<TTarget, EventArgs>> weakEventHandlerFactory, Expression<Func<TTarget, bool>> canExecutePropertyExpression = null)

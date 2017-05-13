@@ -35,15 +35,36 @@ namespace DoLess.Bindings
 
         public int ItemCount => this.itemCollection.ItemsSource.Count();
 
-        public IItemTemplateSelector<TItem> ItemTemplateSelector { get; set; }
+        public IItemTemplateSelector<TItem> ItemTemplateSelector { get; private set; }
+                
 
-        public Func<IViewHolder<TItem>, IBinding> ItemBinder { get; set; }
+        public Func<IViewHolder<TItem>, IBinding> ItemBinder { get; private set; }
 
         public IEnumerable<TItem> ItemsSource
         {
             get { return this.itemCollection.ItemsSource; }
             set { this.itemCollection.ItemsSource = value; }
         }
+
+        public ICollectionViewAdapter<TItem> WithItemTemplateSelector<T>()
+            where T : IItemTemplateSelector<TItem>, new()
+        {
+            this.ItemTemplateSelector = Cache<T>.Instance;
+            return this;
+        }
+
+        public ICollectionViewAdapter<TItem> WithItemTemplate(int resourceId)
+        {
+            this.ItemTemplateSelector = new SingleItemTemplateSelector<TItem>(resourceId);
+            return this;
+        }
+
+        public ICollectionViewAdapter<TItem> BindItemTo(Func<IViewHolder<TItem>, IBinding> binder)
+        {
+            this.ItemBinder = binder;
+            return this;
+        }
+
 
         public long GetItemId(int position)
         {

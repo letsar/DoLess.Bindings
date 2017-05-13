@@ -7,21 +7,16 @@ namespace DoLess.Bindings
     internal abstract class Binding :
         IBinding
     {
-        private WeakReference<object> weakCreator;
-
-        public Binding(IBinding linkedBinding, object creator)
+        public Binding(IBinding linkedBinding)
         {
             this.LinkedBinding = linkedBinding;
-            this.Id = linkedBinding == null ? 0 : linkedBinding.Id;
-            this.weakCreator = new WeakReference<object>(creator);
+            this.Id = linkedBinding == null ? 0 : linkedBinding.Id;            
             Bindings.Add(this);
         }
 
         public IBinding LinkedBinding { get; private set; }
 
-        public long Id { get; set; }
-
-        public object Creator => this.weakCreator.GetOrDefault();
+        public long Id { get; set; }        
 
         public void Unbind()
         {
@@ -39,8 +34,7 @@ namespace DoLess.Bindings
         }
 
         public virtual void UnbindInternal()
-        {
-            this.weakCreator = null;
+        {            
         }
 
         public abstract bool CanBePurged();

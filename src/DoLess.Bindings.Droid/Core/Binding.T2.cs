@@ -8,14 +8,15 @@ namespace DoLess.Bindings
     internal partial class Binding<TSource, TTarget>
     {
         public Binding(IViewHolder<TSource> viewHolder, TTarget target, Binding linkedBinding) :
-            this(viewHolder.ViewModel, target, linkedBinding, viewHolder)
+            this(viewHolder.ViewModel, target, linkedBinding)
         {
+            Bindings.SetPayload(this, viewHolder);
         }
 
         public IBinding<TSource, TNewTarget> Bind<TNewTarget>(int resourceId)
             where TNewTarget : View
         {
-            var creator = this.Creator;
+            var creator = Bindings.GetPayload(this);
             TNewTarget target = null;
             if (creator == null)
             {

@@ -83,8 +83,8 @@ namespace DoLess.Bindings
             if (this.Binding != null)
             {
                 this.Binding.Unbind();
-                this.Binding = null;                
-            }            
+                this.Binding = null;
+            }
         }
     }
 }

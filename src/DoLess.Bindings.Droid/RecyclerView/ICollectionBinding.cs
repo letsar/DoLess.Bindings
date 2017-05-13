@@ -21,17 +21,12 @@ namespace DoLess.Bindings
         where TTarget : class
         where TItemProperty : class
     {
-        ICollectionBinding<TSource, TTarget, TItemProperty> WithItemTemplateSelector<T>()
-            where T : IItemTemplateSelector<TItemProperty>, new();
-
-        ICollectionBinding<TSource, TTarget, TItemProperty> WithItemTemplate(int resourceId);
-
-        ICollectionBinding<TSource, TTarget, TItemProperty> BindItemTo(Func<IViewHolder<TItemProperty>, IBinding> itemBinder);
+        ICollectionBinding<TSource, TTarget, TItemProperty> Configure(Action<ICollectionViewAdapter<TItemProperty>> configurator);       
 
         IEventToCommandBinding<TSource, TTarget, EventArgs<TItemProperty>, TCommand> ItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand;
 
         IEventToCommandBinding<TSource, TTarget, EventArgs<TItemProperty>, TCommand> ItemLongClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
-            where TCommand : ICommand;
+            where TCommand : ICommand;        
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using DoLess.Bindings.Helpers;
 
 namespace DoLess.Bindings
 {
@@ -15,9 +14,7 @@ namespace DoLess.Bindings
         public PropertyBinding(IBinding<TSource, TTarget> binding, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression) :
             base((Binding<TSource, TTarget>)binding)
         {
-            Check.NotNull(targetPropertyExpression, nameof(targetPropertyExpression));
-
-            this.targetProperty = targetPropertyExpression.GetBindingExpression(this.Target);
+            this.targetProperty = targetPropertyExpression?.GetBindingExpression(this.Target);
         }
 
         public PropertyBinding(PropertyBinding<TSource, TTarget, TTargetProperty> propertyBinding) :
@@ -29,7 +26,7 @@ namespace DoLess.Bindings
 
         public PropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> propertyBinding) :
             this((PropertyBinding<TSource, TTarget, TTargetProperty>)propertyBinding)
-        {            
+        {
         }
 
         public override void UnbindInternal()
@@ -41,7 +38,7 @@ namespace DoLess.Bindings
         public IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> To<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression)
         {
             return new OneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(this, sourcePropertyExpression)
-                       .WithConverter<ClassCastConverter<TSourceProperty, TTargetProperty>>();
+                      .WithConverter<ClassCastConverter<TSourceProperty, TTargetProperty>>();
         }
     }
 }

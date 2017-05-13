@@ -8,19 +8,22 @@ namespace DoLess.Bindings
     {
         private static readonly IdentifierPool IdPool;
         private static readonly Dictionary<long, Binding> AllBindings;
+        private static readonly Dictionary<long, WeakReference<object>> Payloads;
+
         private static readonly Func<Binding, bool> TrueForAll;
         private static readonly Func<Binding, bool> TrueForCanBePurged;
 
         static Bindings()
         {
             AllBindings = new Dictionary<long, Binding>();
+            Payloads = new Dictionary<long, WeakReference<object>>();
+
             IdPool = new IdentifierPool();
             TrueForAll = x => true;
             TrueForCanBePurged = x => x.CanBePurged();
         }
 
-        public static event Action<string> Failed = delegate { };
-        public static event Action<string> Warning = delegate { };
+        public static event EventHandler<BindingTraceEventArgs> Trace = delegate { };
 
         internal static void Add(Binding binding)
         {
@@ -35,12 +38,27 @@ namespace DoLess.Bindings
             }
         }
 
+        internal static void SetPayload(Binding binding, object payload)
+        {
+            Payloads[binding.Id] = new WeakReference<object>(payload);
+        }
+
+        internal static object GetPayload(Binding binding)
+        {
+            WeakReference<object> weakReference = null;
+            Payloads.TryGetValue(binding.Id, out weakReference);
+            return weakReference?.GetOrDefault();
+        }
+
         internal static void Remove(Binding binding)
         {
             if (binding != null && binding.Id > 0)
             {
-                AllBindings.Remove(binding.Id);
-                IdPool.Recycle(binding.Id);
+                var id = binding.Id;
+                AllBindings.Remove(id);
+                Payloads.Remove(id);
+
+                IdPool.Recycle(id);
                 binding.Id = 0;
             }
         }
@@ -68,12 +86,17 @@ namespace DoLess.Bindings
 
         internal static void LogError(string message)
         {
-            Failed($"Binding error: {message}.");
+            Log(BindingTraceEventType.Error, message);
         }
 
         internal static void LogWarning(string message)
         {
-            Warning($"Binding warning: {message}.");
+            Log(BindingTraceEventType.Warning, message);
+        }
+
+        private static void Log(BindingTraceEventType type, string message)
+        {
+            Trace(null, new BindingTraceEventArgs(type, message));
         }
     }
 }

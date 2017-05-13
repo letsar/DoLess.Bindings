@@ -67,8 +67,11 @@ namespace DoLess.Bindings
         public override void UnbindInternal()
         {
             base.UnbindInternal();
-            this.weakEventHandler.Unsubscribe();
-            this.weakEventHandler = null;
+            if (this.weakEventHandler != null)
+            {
+                this.weakEventHandler.Unsubscribe();
+                this.weakEventHandler = null;
+            }
         }
 
         public IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> To<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)

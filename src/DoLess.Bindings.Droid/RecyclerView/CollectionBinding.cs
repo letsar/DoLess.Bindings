@@ -27,36 +27,15 @@ namespace DoLess.Bindings
             this.WithConverter<IdentityConverter<IEnumerable<TItemProperty>>>();
         }
 
-        public ICollectionBinding<TSource, TTarget, TItemProperty> WithItemTemplateSelector<T>()
-            where T : IItemTemplateSelector<TItemProperty>, new()
+        public ICollectionBinding<TSource, TTarget, TItemProperty> Configure(Action<ICollectionViewAdapter<TItemProperty>> configurator)
         {
-            var target = this.Target?.CollectionViewAdapter as CollectionViewAdapter<TItemProperty>;
-            if (target != null)
+            var adapter = this.Target?.CollectionViewAdapter;
+            if (adapter != null && configurator != null)
             {
-                target.ItemTemplateSelector = Cache<T>.Instance;
+                configurator(adapter);
             }
             return this;
-        }
-
-        public ICollectionBinding<TSource, TTarget, TItemProperty> WithItemTemplate(int resourceId)
-        {
-            var target = this.Target?.CollectionViewAdapter as CollectionViewAdapter<TItemProperty>;
-            if (target != null)
-            {
-                target.ItemTemplateSelector = new SingleItemTemplateSelector<TItemProperty>(resourceId);
-            }
-            return this;
-        }
-
-        public ICollectionBinding<TSource, TTarget, TItemProperty> BindItemTo(Func<IViewHolder<TItemProperty>, IBinding> itemBinder)
-        {
-            var target = this.Target?.CollectionViewAdapter as CollectionViewAdapter<TItemProperty>;
-            if (target != null)
-            {
-                target.ItemBinder = itemBinder;
-            }
-            return this;
-        }
+        }        
 
         public IEventToCommandBinding<TSource, TTarget, EventArgs<TItemProperty>, TCommand> ItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand

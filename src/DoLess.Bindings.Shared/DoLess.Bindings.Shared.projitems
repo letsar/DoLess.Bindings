@@ -26,7 +26,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverterFromTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverterFromSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Data.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindingTraceEventType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\IdentifierPool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindingTraceEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBinding.T1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEventToCommandBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEventBinding.cs" />

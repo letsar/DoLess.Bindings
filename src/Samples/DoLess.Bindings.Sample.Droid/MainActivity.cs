@@ -73,7 +73,7 @@ namespace DoLess.Bindings.Sample.Droid
 
             //recyclerView.SetAdapter(new Adapter1(Enumerable.Range(1, 50).Select(x => x.ToString()).ToArray()));
 
-            Bindings.Failed += this.Bindings_Failed;
+            Bindings.Trace += this.Bindings_Failed;
 
             this.Bind(textView)
                 .Property(x => x.Text)
@@ -92,31 +92,26 @@ namespace DoLess.Bindings.Sample.Droid
 
                 .Bind(recyclerView)
                 .ItemsSourceTo(x => x.Persons)
-                .WithItemTemplate(Resource.Layout.item_person)
-                .BindItemTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
-                                  .Property(x => x.Text)
-                                  .To(x => x.FirstName)
+                .Configure(a => a.WithItemTemplate(Resource.Layout.item_person)
+                                 .BindItemTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
+                                                   .Property(x => x.Text)
+                                                   .To(x => x.FirstName)
 
-                                  .Bind(v.ItemView)
-                                  .ClickTo(x => x.ChangeFirstNameCommand)
+                                                   .Bind(v.ItemView)
+                                                   .ClickTo(x => x.ChangeFirstNameCommand)
 
-                                  .Bind<TextView>(Resource.Id.item_person_lastname)
-                                  .Property(x => x.Text)
-                                  .To(x => x.LastName))
-                .ItemLongClickTo(x => x.SelectPersonCommand);
-                
-                
-
-            //this.OnEvent(t => t.Click);
-            //Bindings.WeakEventManager<TextView, EventArgs>.Current.AddHandler(textView, textView.Click);
-            //this.ViewModel.Bind(textView, x => x.Text)
-            //              .To(vm => vm.Name);   
-            
+                                                   .Bind<TextView>(Resource.Id.item_person_lastname)
+                                                   .Property(x => x.Text)
+                                                   .To(x => x.LastName)))
+                .ItemLongClickTo(x => x.SelectPersonCommand);           
         }
 
-        private void Bindings_Failed(string obj)
+        private void Bindings_Failed(object sender, BindingTraceEventArgs obj)
         {
-            throw new NotImplementedException();
+            if (obj.EventType == BindingTraceEventType.Error)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

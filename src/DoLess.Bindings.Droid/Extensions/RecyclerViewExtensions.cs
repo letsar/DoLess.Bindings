@@ -15,7 +15,7 @@ namespace DoLess.Bindings
 {
     public static class RecyclerViewExtensions
     {
-        public static ICollectionBinding<TSource, IBindableAdapter<TItemProperty>, TItemProperty> ItemsSourceTo<TSource, TTarget, TItemProperty>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, IEnumerable<TItemProperty>>> itemsSourcePropertyExpression)
+        public static ICollectionBinding<TSource, IBindableAdapter<TItemProperty>, TItemProperty> ItemsSourceTo<TSource, TTarget, TItemProperty>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, IEnumerable<TItemProperty>>> itemsSourcePropertyExpression, IBindableAdapter<TItemProperty> adapter = null)
             where TSource : class
             where TTarget : Android.Support.V7.Widget.RecyclerView
             where TItemProperty : class
@@ -25,21 +25,34 @@ namespace DoLess.Bindings
 
             if (recyclerView != null && viewModel != null)
             {
-                BindableRecyclerViewAdapter<TItemProperty> adapter = new BindableRecyclerViewAdapter<TItemProperty>();
+                if (adapter == null)
+                {
+                    adapter = new BindableRecyclerViewAdapter<TItemProperty>();
+                }
 
-                var propertyBinding = new Binding<TSource, IBindableAdapter<TItemProperty>>(viewModel, adapter, self)
-                                          .Property(x => x.CollectionViewAdapter.ItemsSource);
+                var recyclerViewAdapter = adapter as Android.Support.V7.Widget.RecyclerView.Adapter;
+                if (recyclerViewAdapter != null)
+                {
+                    var propertyBinding = new Binding<TSource, IBindableAdapter<TItemProperty>>(viewModel, adapter, self)
+                                             .Property(x => x.CollectionViewAdapter.ItemsSource);  
 
-                var binding = new CollectionBinding<TSource, IBindableAdapter<TItemProperty>, TItemProperty>(propertyBinding, itemsSourcePropertyExpression);
+                    var binding = new CollectionBinding<TSource, IBindableAdapter<TItemProperty>, TItemProperty>(propertyBinding, itemsSourcePropertyExpression);
 
-                recyclerView.SetAdapter(adapter);
+                    recyclerView.SetAdapter(recyclerViewAdapter);
 
-                return binding;
+                    return binding;
+                }
+                else
+                {
+                    Bindings.LogError($"the adapter of type {adapter.GetType().FullName} does not inherit from RecyclerView.Adapter.");                    
+                }
             }
-            else
-            {
-                return null;
-            }
-        }
+
+            var emptyPropertyBinding = new Binding<TSource, IBindableAdapter<TItemProperty>>(viewModel, null, self)
+                                          .Property<IEnumerable<TItemProperty>>(x => null);
+
+            var emptyBinding = new CollectionBinding<TSource, IBindableAdapter<TItemProperty>, TItemProperty>(emptyPropertyBinding, itemsSourcePropertyExpression);
+            return emptyBinding;
+        }        
     }
 }

@@ -12,15 +12,15 @@ namespace DoLess.Bindings
         private WeakReference<TSource> weakSource;
         private WeakReference<TTarget> weakTarget;        
 
-        public Binding(TSource source, TTarget target, IBinding linkedBinding = null, object creator = null) :
-            base(linkedBinding, creator)
+        public Binding(TSource source, TTarget target, IBinding linkedBinding = null) :
+            base(linkedBinding)
         {
             this.weakSource = new WeakReference<TSource>(source);
             this.weakTarget = new WeakReference<TTarget>(target);            
         }
 
         public Binding(Binding<TSource, TTarget> binding) :
-            this(binding.Source, binding.Target, binding.LinkedBinding, binding.Creator)
+            this(binding.Source, binding.Target, binding)
         { }
 
         public TSource Source => this.weakSource.GetOrDefault();

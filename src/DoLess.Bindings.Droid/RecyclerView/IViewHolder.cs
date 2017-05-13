@@ -12,7 +12,8 @@ using Android.Widget;
 
 namespace DoLess.Bindings
 {
-    public interface IViewHolder<T> :IView<T>
+    public interface IViewHolder<T> : 
+        IView<T>
         where T : class
     {
         TView GetView<TView>(int resourceId)
@@ -21,6 +22,6 @@ namespace DoLess.Bindings
         IBinding<T, TTarget> Bind<TTarget>(int resourceId)
             where TTarget : View;
 
-        View ItemView { get;  }
+        View ItemView { get; }
     }
 }
