@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 namespace DoLess.Bindings.Sample.Droid
 {
     [Activity(Label = "DoLess.Bindings.Sample.Droid", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity, IView<MainViewModel>
+    public class MainActivity : Activity
     {
         private class ExceptHandler : Java.Lang.Object, Java.Lang.Thread.IUncaughtExceptionHandler
         {
@@ -29,40 +29,42 @@ namespace DoLess.Bindings.Sample.Droid
         {
             base.OnCreate(bundle);
 
-            // Set our view from the "main" layout resource
-            // SetContentView (Resource.Layout.Main);
-
             AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
             AndroidEnvironment.UnhandledExceptionRaiser += this.AndroidEnvironment_UnhandledExceptionRaiser;
             Java.Lang.Thread.DefaultUncaughtExceptionHandler = new ExceptHandler();
             TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
 
-            LinearLayout layout = new LinearLayout(this);
-            layout.Orientation = Orientation.Vertical;
-            TextView textView = new TextView(this);
-            Button button = new Button(this);
-            button.Text = "Change";
-            button.Click += this.Button_Click;
-            Button commandButton = new Button(this);
-            commandButton.Text = "CommandButton";
-            commandButton.Click += this.CommandButton_Click;
-            Button cancelCommandButton = new Button(this);
-            cancelCommandButton.Text = "CancelCommandButton";
-            EditText editText = new EditText(this);
-            RecyclerView recyclerView = new RecyclerView(this);
-            recyclerView.SetLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.Vertical, false));
+            // Set our view from the "main" layout resource
+            SetContentView (Resource.Layout.Main);
 
-            layout.AddView(textView);
-            layout.AddView(button);
-            layout.AddView(commandButton);
-            layout.AddView(cancelCommandButton);
-            layout.AddView(editText);
-            layout.AddView(recyclerView);
+            
 
-            SetContentView(layout);
+            //LinearLayout layout = new LinearLayout(this);
+            //layout.Orientation = Orientation.Vertical;
+            //TextView textView = new TextView(this);
+            //Button button = new Button(this);
+            //button.Text = "Change";
+            //button.Click += this.Button_Click;
+            //Button commandButton = new Button(this);
+            //commandButton.Text = "CommandButton";
+            //commandButton.Click += this.CommandButton_Click;
+            //Button cancelCommandButton = new Button(this);
+            //cancelCommandButton.Text = "CancelCommandButton";
+            //EditText editText = new EditText(this);
+            //RecyclerView recyclerView = new RecyclerView(this);
+            this.FindViewById<RecyclerView>(Resource.Id.recyclerView1).SetLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.Vertical, false));
 
-            textView.Text = "Hello";
-            editText.Text = "bouh";
+            //layout.AddView(textView);
+            //layout.AddView(button);
+            //layout.AddView(commandButton);
+            //layout.AddView(cancelCommandButton);
+            //layout.AddView(editText);
+            //layout.AddView(recyclerView);
+
+            //SetContentView(layout);
+
+            //textView.Text = "Hello";
+            //editText.Text = "bouh";
 
             this.ViewModel = new MainViewModel();
             this.ViewModel.Person = new PersonViewModel();
@@ -75,35 +77,67 @@ namespace DoLess.Bindings.Sample.Droid
 
             Bindings.Trace += this.Bindings_Failed;
 
-            this.Bind(textView)
+            this.CreateBindableView(this.ViewModel)
+                .Bind<TextView>(Resource.Id.textView1)
                 .Property(x => x.Text)
                 .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
-
-                .Bind(commandButton)
+                
+                .Bind<Button>(Resource.Id.button2)
                 .ClickTo(x => x.CancellableCommand)
 
-                .Bind(cancelCommandButton)
+                .Bind<Button>(Resource.Id.button3)
                 .ClickTo(x => x.CancellableCommand.CancelCommand)
 
-                .Bind(editText)
+                .Bind<EditText>(Resource.Id.editText1)
                 .Property(x => x.Text)
                 .To(x => x.Person.FirstName)
                 .TwoWay()
 
-                .Bind(recyclerView)
+                .Bind<RecyclerView>(Resource.Id.recyclerView1)
                 .ItemsSourceTo(x => x.Persons)
                 .Configure(a => a.WithItemTemplate(Resource.Layout.item_person)
                                  .BindItemTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
                                                    .Property(x => x.Text)
                                                    .To(x => x.FirstName)
 
-                                                   .Bind(v.ItemView)
+                                                   .Bind(v.View)
                                                    .ClickTo(x => x.ChangeFirstNameCommand)
 
                                                    .Bind<TextView>(Resource.Id.item_person_lastname)
                                                    .Property(x => x.Text)
                                                    .To(x => x.LastName)))
-                .ItemLongClickTo(x => x.SelectPersonCommand);           
+                .ItemLongClickTo(x => x.SelectPersonCommand);
+
+            //this.CreateBindableView(this.ViewModel)
+            //    .Bind(textView)
+            //    .Property(x => x.Text)
+            //    .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
+
+            //    .Bind(commandButton)
+            //    .ClickTo(x => x.CancellableCommand)
+
+            //    .Bind(cancelCommandButton)
+            //    .ClickTo(x => x.CancellableCommand.CancelCommand)
+
+            //    .Bind(editText)
+            //    .Property(x => x.Text)
+            //    .To(x => x.Person.FirstName)
+            //    .TwoWay()
+
+            //    .Bind(recyclerView)
+            //    .ItemsSourceTo(x => x.Persons)
+            //    .Configure(a => a.WithItemTemplate(Resource.Layout.item_person)
+            //                     .BindItemTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
+            //                                       .Property(x => x.Text)
+            //                                       .To(x => x.FirstName)
+
+            //                                       .Bind(v.View)
+            //                                       .ClickTo(x => x.ChangeFirstNameCommand)
+
+            //                                       .Bind<TextView>(Resource.Id.item_person_lastname)
+            //                                       .Property(x => x.Text)
+            //                                       .To(x => x.LastName)))
+            //    .ItemLongClickTo(x => x.SelectPersonCommand);           
         }
 
         private void Bindings_Failed(object sender, BindingTraceEventArgs obj)

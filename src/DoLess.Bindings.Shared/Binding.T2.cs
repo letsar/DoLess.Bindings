@@ -23,6 +23,13 @@ namespace DoLess.Bindings
             this(binding.Source, binding.Target, binding)
         { }
 
+        public static Binding<TSource, TTarget> CreateFromBindableView(IBindableView<TSource> bindableView, TTarget target)
+        {
+            var binding = new Binding<TSource, TTarget>(bindableView.ViewModel, target);
+            Bindings.SetBindableView(binding, bindableView);
+            return binding;
+        }
+
         public TSource Source => this.weakSource.GetOrDefault();
 
         public TTarget Target => this.weakTarget.GetOrDefault();        

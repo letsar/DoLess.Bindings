@@ -38,7 +38,7 @@ namespace DoLess.Bindings
         public IItemTemplateSelector<TItem> ItemTemplateSelector { get; private set; }
                 
 
-        public Func<IViewHolder<TItem>, IBinding> ItemBinder { get; private set; }
+        public Func<IBindableView<TItem>, IBinding> ItemBinder { get; private set; }
 
         public IEnumerable<TItem> ItemsSource
         {
@@ -59,7 +59,7 @@ namespace DoLess.Bindings
             return this;
         }
 
-        public ICollectionViewAdapter<TItem> BindItemTo(Func<IViewHolder<TItem>, IBinding> binder)
+        public ICollectionViewAdapter<TItem> BindItemTo(Func<IBindableView<TItem>, IBinding> binder)
         {
             this.ItemBinder = binder;
             return this;

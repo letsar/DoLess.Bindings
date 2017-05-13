@@ -8,7 +8,7 @@ namespace DoLess.Bindings
     {
         private static readonly IdentifierPool IdPool;
         private static readonly Dictionary<long, Binding> AllBindings;
-        private static readonly Dictionary<long, WeakReference<object>> Payloads;
+        private static readonly Dictionary<long, WeakReference<IBindableView>> BindableViews;
 
         private static readonly Func<Binding, bool> TrueForAll;
         private static readonly Func<Binding, bool> TrueForCanBePurged;
@@ -16,7 +16,7 @@ namespace DoLess.Bindings
         static Bindings()
         {
             AllBindings = new Dictionary<long, Binding>();
-            Payloads = new Dictionary<long, WeakReference<object>>();
+            BindableViews = new Dictionary<long, WeakReference<IBindableView>>();
 
             IdPool = new IdentifierPool();
             TrueForAll = x => true;
@@ -38,15 +38,15 @@ namespace DoLess.Bindings
             }
         }
 
-        internal static void SetPayload(Binding binding, object payload)
+        internal static void SetBindableView(Binding binding, IBindableView bindableView)
         {
-            Payloads[binding.Id] = new WeakReference<object>(payload);
+            BindableViews[binding.Id] = new WeakReference<IBindableView>(bindableView);
         }
 
-        internal static object GetPayload(Binding binding)
+        internal static IBindableView GetBindableView(Binding binding)
         {
-            WeakReference<object> weakReference = null;
-            Payloads.TryGetValue(binding.Id, out weakReference);
+            WeakReference<IBindableView> weakReference = null;
+            BindableViews.TryGetValue(binding.Id, out weakReference);
             return weakReference?.GetOrDefault();
         }
 
@@ -56,7 +56,7 @@ namespace DoLess.Bindings
             {
                 var id = binding.Id;
                 AllBindings.Remove(id);
-                Payloads.Remove(id);
+                BindableViews.Remove(id);
 
                 IdPool.Recycle(id);
                 binding.Id = 0;

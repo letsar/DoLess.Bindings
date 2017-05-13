@@ -12,37 +12,39 @@ using Android.Widget;
 
 namespace DoLess.Bindings
 {
-    internal class BindableViewHolder<T> :
+    internal class BindableViewHolder<TViewModel> :
         Android.Support.V7.Widget.RecyclerView.ViewHolder,
-        IViewHolder<T>
-        where T : class
+        IBindableView<TViewModel>
+        where TViewModel : class
     {
         private readonly Dictionary<int, View> views;
-        private readonly WeakReference<T> weakViewModel;
+        private readonly WeakReference<TViewModel> weakViewModel;
 
-        public event EventHandler<EventArgs<T>> Click;
-        public event EventHandler<EventArgs<T>> LongClick;
+        public event EventHandler<EventArgs<TViewModel>> Click;
+        public event EventHandler<EventArgs<TViewModel>> LongClick;
+
+        public View View => this.ItemView;
 
         public BindableViewHolder(View itemView) : base(itemView)
         {
             this.views = new Dictionary<int, View>();
-            this.weakViewModel = new WeakReference<T>(null);
+            this.weakViewModel = new WeakReference<TViewModel>(null);
         }
 
         private void OnItemViewLongClick(object sender, View.LongClickEventArgs e)
         {
-            this.LongClick?.Invoke(this, new EventArgs<T>(this.ViewModel));
+            this.LongClick?.Invoke(this, new EventArgs<TViewModel>(this.ViewModel));
         }
 
         private void OnItemViewClick(object sender, EventArgs e)
         {
-            this.Click?.Invoke(this, new EventArgs<T>(this.ViewModel));
+            this.Click?.Invoke(this, new EventArgs<TViewModel>(this.ViewModel));
         }
 
-        public IBinding<T, TTarget> Bind<TTarget>(int resourceId)
+        public IBinding<TViewModel, TTarget> Bind<TTarget>(int resourceId)
             where TTarget : View
         {
-            return new Binding<T, TTarget>(this, this.GetView<TTarget>(resourceId), null);
+            return Binding<TViewModel, TTarget>.CreateFromBindableView(this, this.GetView<TTarget>(resourceId));
         }
 
         public TView GetView<TView>(int resourceId)
@@ -57,7 +59,7 @@ namespace DoLess.Bindings
             return view as TView;
         }
 
-        public T ViewModel
+        public TViewModel ViewModel
         {
             get { return this.weakViewModel.GetOrDefault(); }
             set { this.weakViewModel.SetTarget(value); }

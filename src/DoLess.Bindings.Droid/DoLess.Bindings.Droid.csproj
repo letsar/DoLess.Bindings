@@ -62,8 +62,11 @@
     <Compile Include="Adapters\INotifyItemChanged.cs" />
     <Compile Include="Adapters\INotifyDataSetChanged.cs" />
     <Compile Include="Adapters\ICollectionViewAdapter.cs" />
+    <Compile Include="BindableView.cs" />
     <Compile Include="Core\Binding.T2.cs" />
+    <Compile Include="Core\IBindableView.T1.cs" />
     <Compile Include="Core\ICanBind.cs" />
+    <Compile Include="Extensions\ActivityExtensions.cs" />
     <Compile Include="Extensions\BindingExtensions.cs" />
     <Compile Include="Extensions\ButtonExtensions.cs" />
     <Compile Include="Extensions\RecyclerViewExtensions.cs" />
@@ -72,7 +75,7 @@
     <Compile Include="RecyclerView\BindableRecyclerViewAdapter.cs" />
     <Compile Include="Adapters\BindableViewHolder.cs" />
     <Compile Include="RecyclerView\CollectionBinding.cs" />
-    <Compile Include="RecyclerView\IViewHolder.cs" />
+    <Compile Include="Core\IBindableView.T2.cs" />
     <Compile Include="RecyclerView\ICollectionBinding.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

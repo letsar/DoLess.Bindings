@@ -43,6 +43,6 @@ namespace DoLess.Bindings
         /// </summary>
         /// <param name="binder">The function used to bind</param>
         /// <returns></returns>
-        ICollectionViewAdapter<TItem> BindItemTo(Func<IViewHolder<TItem>, IBinding> binder);
+        ICollectionViewAdapter<TItem> BindItemTo(Func<IBindableView<TItem>, IBinding> binder);
     }
 }

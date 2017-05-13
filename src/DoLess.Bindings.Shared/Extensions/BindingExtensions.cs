@@ -6,13 +6,11 @@ namespace DoLess.Bindings
 {
     public static partial class BindingExtensions
     {
-        public static IBinding<TSource, TTarget> Bind<TSource, TTarget>(this IView<TSource> self, TTarget target)
+        public static IBinding<TSource, TTarget> Bind<TSource, TTarget>(this IBindableView<TSource> self, TTarget target)
             where TSource : class
             where TTarget : class
         {
-            var binding = new Binding<TSource, TTarget>(self.ViewModel, target);
-            Bindings.SetPayload(binding, self);
-            return binding;
+            return Binding<TSource, TTarget>.CreateFromBindableView(self, target);
         }
 
         internal static IEventToCommandBinding<TSource, TTarget, EventArgs, TCommand> EventTo<TSource, TTarget, TCommand>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, TCommand>> commandExpression, Func<TTarget, EventHandler<EventArgs>, WeakEventHandler<TTarget, EventArgs>> weakEventHandlerFactory, Expression<Func<TTarget, bool>> canExecutePropertyExpression = null)

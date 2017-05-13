@@ -17,6 +17,12 @@ namespace DoLess.Bindings
 {
     public static class ViewExtensions
     {
+        internal static IBindableView<TSource> CreateBindableView<TSource>(this View self, TSource viewModel)
+            where TSource : class
+        {
+            return new BindableView<TSource>(self, viewModel);
+        }
+
         public static IEventToCommandBinding<TSource, TTarget, EventArgs, TCommand> ClickTo<TSource, TTarget, TCommand>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, TCommand>> commandExpression)
             where TSource : class
             where TTarget : View
