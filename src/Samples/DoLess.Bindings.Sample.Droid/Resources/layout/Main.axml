@@ -5,37 +5,25 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:actionBarNavMode="list">
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:text="Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1" />
-    <Button
-        android:text="Change"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button1" />
-    <Button
-        android:text="Command"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button2" />
-    <Button
-        android:text="CancelCommand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button3" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText1" />
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recyclerView1" />
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
+  <Button
+      android:text="Buttons"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/main_buttons" />
+  <Button
+      android:text="Texts"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/main_texts" />
+  <Button
+      android:text="RecyclerView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/main_recyclerview" />
+
 </LinearLayout>

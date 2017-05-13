@@ -39,6 +39,10 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PersonViewModel.cs" />
+    <Compile Include="RecyclerViewModel.cs" />
+    <Compile Include="TextsViewModel.cs" />
+    <Compile Include="ButtonsViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
