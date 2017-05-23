@@ -1,57 +1,53 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Support.V7.Widget;
 using Android.Views;
-using Android.Widget;
-using Java.Lang;
+using System.Collections.Generic;
 
 namespace DoLess.Bindings
 {
     internal class BindableRecyclerViewAdapter<TItem> :
-        Android.Support.V7.Widget.RecyclerView.Adapter,        
-        IBindableAdapter<TItem>,
+        Android.Support.V7.Widget.RecyclerView.Adapter,
+        ICollectionViewAdapter<TItem>,
         INotifyItemChanged
         where TItem : class
-    {        
-        private readonly CollectionViewAdapter<TItem> collectionViewAdapter;        
+    {
+        private readonly ViewBinder<TItem> itemBinder;
+        private readonly ItemCollection<TItem> itemCollection;
 
         public BindableRecyclerViewAdapter()
         {
-            this.collectionViewAdapter = new CollectionViewAdapter<TItem>(this);
+            this.itemCollection = new ItemCollection<TItem>(this);
+            this.itemBinder = new ViewBinder<TItem>();
         }
 
-        public ICollectionViewAdapter<TItem> CollectionViewAdapter => this.collectionViewAdapter;
+        public IViewBinder<TItem> ItemBinder => this.itemBinder;
 
-        public override int ItemCount => this.collectionViewAdapter.ItemCount;
+        public override int ItemCount => this.itemCollection.Count;
+
+        public IEnumerable<TItem> ItemsSource
+        {
+            get { return this.itemCollection.ItemsSource; }
+            set { this.itemCollection.ItemsSource = value; }
+        }
+
+        public TItem this[int position] => this.itemCollection[position];
 
         public override int GetItemViewType(int position)
         {
-            return this.collectionViewAdapter.GetItemViewType(position);
+            return this.itemBinder.GetLayoutId(this[position]);
         }
 
         public override void OnBindViewHolder(Android.Support.V7.Widget.RecyclerView.ViewHolder holder, int position)
         {
-            this.collectionViewAdapter.BindViewHolder(holder as BindableViewHolder<TItem>, position);
+            this.itemBinder.BindViewHolder(holder as BindableViewHolder<TItem>, this[position]);
         }
 
         public override Android.Support.V7.Widget.RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            return this.collectionViewAdapter.CreateViewHolder(parent, viewType);
-        }       
+            return this.itemBinder.CreateViewHolder(parent, viewType);
+        }
 
         public override void OnViewRecycled(Java.Lang.Object holder)
         {
-            this.collectionViewAdapter.RecycleViewHolder(holder);
+            this.itemBinder.RecycleViewHolder(holder);
             base.OnViewRecycled(holder);
         }
     }

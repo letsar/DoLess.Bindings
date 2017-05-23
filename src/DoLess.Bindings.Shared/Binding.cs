@@ -10,13 +10,13 @@ namespace DoLess.Bindings
         public Binding(IBinding linkedBinding)
         {
             this.LinkedBinding = linkedBinding;
-            this.Id = linkedBinding == null ? 0 : linkedBinding.Id;            
+            this.Id = linkedBinding == null ? 0 : linkedBinding.Id;
             Bindings.Add(this);
         }
 
-        public IBinding LinkedBinding { get; private set; }
+        public IBinding LinkedBinding { get; protected set; }
 
-        public long Id { get; set; }        
+        public long Id { get; set; }
 
         public void Unbind()
         {
@@ -34,7 +34,7 @@ namespace DoLess.Bindings
         }
 
         public virtual void UnbindInternal()
-        {            
+        {
         }
 
         public abstract bool CanBePurged();

@@ -27,24 +27,26 @@ namespace DoLess.Bindings.Sample.Droid.Views
 
             this.SetToolbarTitle("RecyclerView");
             this.ViewModel = new RecyclerViewModel();
-            this.ViewModel.InitializePersones();
-            
+            this.ViewModel.InitializePersons();
+
 
             this.CreateBindableView(this.ViewModel)
-                 .Bind<RecyclerView>(Resource.Id.activity_recyclerview_recyclerView)
-                 .ItemsSourceTo(x => x.Persons)
-                 .Configure(a => a.WithItemTemplate(Resource.Layout.item_person)
-                                  .BindItemTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
-                                                    .Property(x => x.Text)
-                                                    .To(x => x.FirstName)
+                .Bind<RecyclerView>(Resource.Id.activity_recyclerview_recyclerView)
+                .ItemsSourceTo(x => x.Persons)
+                .ConfigureItem(x => x.WithDataTemplate(Resource.Layout.item_person));
+                
+                //.ConfigureItem(b => b.WithDataTemplate(Resource.Layout.item_person)
+                //                     .BindTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
+                //                     .Property(x => x.Text)
+                //                     .To(x => x.FirstName)
 
-                                                    .Bind(v.View)
-                                                    .ClickTo(x => x.ChangeFirstNameCommand)
+                //                     .Bind(v.View)
+                //                     .ClickTo(x => x.ChangeFirstNameCommand)
 
-                                                    .Bind<TextView>(Resource.Id.item_person_lastname)
-                                                    .Property(x => x.Text)
-                                                    .To(x => x.LastName)))
-                 .ItemLongClickTo(x => x.SelectPersonCommand);
+                //                     .Bind<TextView>(Resource.Id.item_person_lastname)
+                //                     .Property(x => x.Text)
+                //                     .To(x => x.LastName)))
+                //.ItemLongClickTo(x => x.SelectPersonCommand);
         }
 
         public RecyclerViewModel ViewModel { get; set; }

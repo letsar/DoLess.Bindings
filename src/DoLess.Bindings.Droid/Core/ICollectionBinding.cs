@@ -14,19 +14,19 @@ using System.Windows.Input;
 
 namespace DoLess.Bindings
 {
-    public interface ICollectionBinding<TSource, TTarget, TItemProperty> :
-        IBinding<TSource, TTarget>,
+    public interface ICollectionBinding<TSource, TTarget, TItem> :
+        IBinding,
         ICanBind<TSource>
         where TSource : class
         where TTarget : class
-        where TItemProperty : class
+        where TItem : class
     {
-        ICollectionBinding<TSource, TTarget, TItemProperty> Configure(Action<ICollectionViewAdapter<TItemProperty>> configurator);       
+        ICollectionBinding<TSource, TTarget, TItem> ConfigureItem(Action<IViewBinder<TItem>> configurator);       
 
-        IEventToCommandBinding<TSource, TTarget, EventArgs<TItemProperty>, TCommand> ItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        IEventToCommandBinding<TSource, TTarget, EventArgs<TItem>, TCommand> ItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand;
 
-        IEventToCommandBinding<TSource, TTarget, EventArgs<TItemProperty>, TCommand> ItemLongClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        IEventToCommandBinding<TSource, TTarget, EventArgs<TItem>, TCommand> ItemLongClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand;        
     }
 }

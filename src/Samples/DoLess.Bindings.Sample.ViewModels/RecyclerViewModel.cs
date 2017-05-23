@@ -22,7 +22,7 @@ namespace DoLess.Bindings.Sample.ViewModels
 
         public ICommand<PersonViewModel> SelectPersonCommand { get; }
 
-        public void InitializePersones()
+        public void InitializePersons()
         {
             this.Persons = new ObservableCollection<PersonViewModel>(Enumerable.Range(1, 1000).Select(x => new PersonViewModel(x.ToString(), (x + 1).ToString())));
         }

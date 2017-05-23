@@ -27,6 +27,8 @@ namespace DoLess.Bindings
 
         public TItem this[int position] => this.ItemsSource.ElementAtOrDefault(position);
 
+        public int Count => this.ItemsSource.Count();
+
         private void Observe(INotifyCollectionChanged source)
         {
             if (source != null)

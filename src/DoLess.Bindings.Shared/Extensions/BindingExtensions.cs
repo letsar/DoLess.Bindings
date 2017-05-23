@@ -13,13 +13,18 @@ namespace DoLess.Bindings
             return Binding<TSource, TTarget>.CreateFromBindableView(self, target);
         }
 
-        internal static IEventToCommandBinding<TSource, TTarget, EventArgs, TCommand> EventTo<TSource, TTarget, TCommand>(this IBinding<TSource, TTarget> self, Expression<Func<TSource, TCommand>> commandExpression, Func<TTarget, EventHandler<EventArgs>, WeakEventHandler<TTarget, EventArgs>> weakEventHandlerFactory, Expression<Func<TTarget, bool>> canExecutePropertyExpression = null)
+        internal static IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> EventTo<TSource, TTarget, TEventArgs, TCommand>(
+            this IBinding<TSource, TTarget> self,
+            Expression<Func<TSource, TCommand>> commandExpression,
+            Func<TTarget, EventHandler<TEventArgs>, WeakEventHandler<TTarget, TEventArgs>> weakEventHandlerFactory,
+            Expression<Func<TTarget, bool>> canExecutePropertyExpression = null)
             where TSource : class
             where TTarget : class
+            where TEventArgs : EventArgs
             where TCommand : ICommand
         {
-            IEventBinding<TSource, TTarget, EventArgs> eventBinding = new EventBinding<TSource, TTarget, EventArgs>(self, weakEventHandlerFactory);
-            return new EventToCommandBinding<TSource, TTarget, EventArgs, TCommand>(eventBinding, commandExpression, canExecutePropertyExpression);
+            IEventBinding<TSource, TTarget, TEventArgs> eventBinding = new EventBinding<TSource, TTarget, TEventArgs>(self, weakEventHandlerFactory);            
+            return new EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>(eventBinding, commandExpression, canExecutePropertyExpression);
         }
     }
 }

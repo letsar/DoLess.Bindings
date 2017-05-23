@@ -56,23 +56,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\ICollectionViewAdapter.T2.cs" />
+    <Compile Include="Collections\ICollectionViewAdapter.T1.cs" />
     <Compile Include="Collections\BindableBaseExpandableListAdapter.cs" />
-    <Compile Include="Collections\CollectionViewAdapter.cs" />
+    <Compile Include="Collections\IViewBinder.cs" />
+    <Compile Include="Collections\ViewBinder.cs" />
     <Compile Include="Collections\BindableBaseAdapter.cs" />
-    <Compile Include="Collections\IBindableAdapter.cs" />
     <Compile Include="Collections\INotifyItemChanged.cs" />
     <Compile Include="Collections\INotifyDataSetChanged.cs" />
-    <Compile Include="Collections\ICollectionViewAdapter.cs" />
     <Compile Include="BindableView.cs" />
     <Compile Include="Core\Binding.T2.cs" />
+    <Compile Include="Core\CollectionBinding.T4.cs" />
     <Compile Include="Core\IBindableView.T1.cs" />
     <Compile Include="Core\ICanBind.cs" />
+    <Compile Include="Core\ICollectionBinding.T4.cs" />
     <Compile Include="Extensions\ActivityExtensions.cs" />
     <Compile Include="Extensions\BindingExtensions.cs" />
     <Compile Include="Extensions\ButtonExtensions.cs" />
+    <Compile Include="Extensions\ExpandableListViewExtensions.cs" />
     <Compile Include="Extensions\RecyclerViewExtensions.cs" />
     <Compile Include="Helpers\ItemCollection.cs" />
-    <Compile Include="IItemTemplateSelector.cs" />
+    <Compile Include="IDataTemplateSelector.cs" />
     <Compile Include="Collections\BindableRecyclerViewAdapter.cs" />
     <Compile Include="Collections\BindableViewHolder.cs" />
     <Compile Include="Core\CollectionBinding.cs" />
@@ -82,7 +86,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Events\SpecificWeakEventHandlers.cs" />
     <Compile Include="Extensions\ViewExtensions.cs" />
-    <Compile Include="SingleItemTemplateSelector.cs" />
+    <Compile Include="SingleDataTemplateSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -91,6 +95,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

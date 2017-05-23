@@ -30,8 +30,8 @@ namespace DoLess.Bindings.Sample.Droid.Views
 
             this.CreateBindableView(this.ViewModel)
 
-                .Bind<TextView>(Resource.Id.activity_texts_textview)
-                .Property(x => x.Text)
+                .Bind<TextView>(Resource.Id.activity_texts_textview)                                
+                .Property(x => x.Text)                
                 .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
 
                 .Bind<EditText>(Resource.Id.activity_texts_edittext)

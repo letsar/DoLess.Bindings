@@ -1,14 +1,6 @@
+using Android.Views;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace DoLess.Bindings
 {
@@ -20,31 +12,35 @@ namespace DoLess.Bindings
         private readonly Dictionary<int, View> views;
         private readonly WeakReference<TViewModel> weakViewModel;
 
-        public event EventHandler<EventArgs<TViewModel>> Click;
-        public event EventHandler<EventArgs<TViewModel>> LongClick;
-
-        public View View => this.ItemView;
-
         public BindableViewHolder(View itemView) : base(itemView)
         {
             this.views = new Dictionary<int, View>();
             this.weakViewModel = new WeakReference<TViewModel>(null);
         }
 
-        private void OnItemViewLongClick(object sender, View.LongClickEventArgs e)
-        {
-            this.LongClick?.Invoke(this, new EventArgs<TViewModel>(this.ViewModel));
-        }
+        public event EventHandler<EventArgs<TViewModel>> Click;
+        public event EventHandler<EventArgs<TViewModel>> LongClick;
 
-        private void OnItemViewClick(object sender, EventArgs e)
+        public IBinding Binding { get; set; }
+
+        public View View => this.ItemView;
+
+        public TViewModel ViewModel
         {
-            this.Click?.Invoke(this, new EventArgs<TViewModel>(this.ViewModel));
+            get { return this.weakViewModel.GetOrDefault(); }
+            set { this.weakViewModel.SetTarget(value); }
         }
 
         public IBinding<TViewModel, TTarget> Bind<TTarget>(int resourceId)
             where TTarget : View
         {
             return Binding<TViewModel, TTarget>.CreateFromBindableView(this, this.GetView<TTarget>(resourceId));
+        }
+
+        public void BindEvents()
+        {
+            this.ItemView.Click += this.OnItemViewClick;
+            this.ItemView.LongClick += this.OnItemViewLongClick;
         }
 
         public TView GetView<TView>(int resourceId)
@@ -59,19 +55,13 @@ namespace DoLess.Bindings
             return view as TView;
         }
 
-        public TViewModel ViewModel
+        public void Unbind()
         {
-            get { return this.weakViewModel.GetOrDefault(); }
-            set { this.weakViewModel.SetTarget(value); }
-        }
-
-        public IBinding Binding { get; set; }
-
-
-        public void BindEvents()
-        {
-            this.ItemView.Click += this.OnItemViewClick;
-            this.ItemView.LongClick += this.OnItemViewLongClick;
+            if (this.Binding != null)
+            {
+                this.Binding.Unbind();
+                this.Binding = null;
+            }
         }
 
         public void UnbindEvents()
@@ -80,13 +70,14 @@ namespace DoLess.Bindings
             this.ItemView.LongClick -= this.OnItemViewLongClick;
         }
 
-        public void Unbind()
+        private void OnItemViewClick(object sender, EventArgs e)
         {
-            if (this.Binding != null)
-            {
-                this.Binding.Unbind();
-                this.Binding = null;
-            }
+            this.Click?.Invoke(this, new EventArgs<TViewModel>(this.ViewModel));
+        }
+
+        private void OnItemViewLongClick(object sender, View.LongClickEventArgs e)
+        {
+            this.LongClick?.Invoke(this, new EventArgs<TViewModel>(this.ViewModel));
         }
     }
 }

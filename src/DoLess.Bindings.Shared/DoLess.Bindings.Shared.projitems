@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Binding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BindingChain.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BindingExpression.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EventArgsConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringCastConverter.cs" />

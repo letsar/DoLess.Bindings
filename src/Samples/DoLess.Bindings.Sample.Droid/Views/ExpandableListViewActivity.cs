@@ -26,24 +26,21 @@ namespace DoLess.Bindings.Sample.Droid.Views
 
             this.SetToolbarTitle("ExpandableListView");
             this.ViewModel = new ExpandableViewModel();
-            this.ViewModel.InitializePersones();
-            
+            this.ViewModel.InitializePersons();
+
 
             //this.CreateBindableView(this.ViewModel)
-            //     .Bind<RecyclerView>(Resource.Id.activity_recyclerview_recyclerView)
+            //     .Bind<ExpandableListView>(Resource.Id.activity_expandablelistview_expandablelistview)
             //     .ItemsSourceTo(x => x.Persons)
-            //     .Configure(a => a.WithItemTemplate(Resource.Layout.item_person)
-            //                      .BindItemTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
+            //     .ConfigureItem(a => a.WithDataTemplate(Resource.Layout.item_person)
+            //                          .BindTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
             //                                        .Property(x => x.Text)
-            //                                        .To(x => x.FirstName)
-
-            //                                        .Bind(v.View)
-            //                                        .ClickTo(x => x.ChangeFirstNameCommand)
+            //                                        .To(x => x.FirstName)                                                    
 
             //                                        .Bind<TextView>(Resource.Id.item_person_lastname)
             //                                        .Property(x => x.Text)
             //                                        .To(x => x.LastName)))
-            //     .ItemLongClickTo(x => x.SelectPersonCommand);
+                 
         }
 
         public ExpandableViewModel ViewModel { get; set; }

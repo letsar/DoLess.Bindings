@@ -1,54 +1,47 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using System.Windows.Input;
 
 namespace DoLess.Bindings
 {
-    internal class CollectionBinding<TSource, TTarget, TItemProperty> :
-        OneWayPropertyBinding<TSource, TTarget, IEnumerable<TItemProperty>, IEnumerable<TItemProperty>>,
-        ICollectionBinding<TSource, TTarget, TItemProperty>
+    internal class CollectionBinding<TSource, TTarget, TItem> :
+        OneWayPropertyBinding<TSource, TTarget, IEnumerable<TItem>, IEnumerable<TItem>>,
+        ICollectionBinding<TSource, TTarget, TItem>
         where TSource : class
-        where TTarget : class, IBindableAdapter<TItemProperty>
-        where TItemProperty : class
+        where TTarget : class, ICollectionViewAdapter<TItem>
+        where TItem : class
     {
-        public CollectionBinding(IPropertyBinding<TSource, TTarget, IEnumerable<TItemProperty>> propertyBinding, Expression<Func<TSource, IEnumerable<TItemProperty>>> itemsSourcePropertyExpression) :
+        public CollectionBinding(IPropertyBinding<TSource, TTarget, IEnumerable<TItem>> propertyBinding, Expression<Func<TSource, IEnumerable<TItem>>> itemsSourcePropertyExpression) :
             base(propertyBinding, itemsSourcePropertyExpression)
         {
-            this.WithConverter<IdentityConverter<IEnumerable<TItemProperty>>>();
+            this.WithConverter<IdentityConverter<IEnumerable<TItem>>>();
         }
 
-        public ICollectionBinding<TSource, TTarget, TItemProperty> Configure(Action<ICollectionViewAdapter<TItemProperty>> configurator)
+        public ICollectionBinding<TSource, TTarget, TItem> ConfigureItem(Action<IViewBinder<TItem>> configurator)
         {
-            var adapter = this.Target?.CollectionViewAdapter;
+            var adapter = this.Target?.ItemBinder;
             if (adapter != null && configurator != null)
             {
                 configurator(adapter);
             }
             return this;
-        }        
-
-        public IEventToCommandBinding<TSource, TTarget, EventArgs<TItemProperty>, TCommand> ItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
-            where TCommand : ICommand
-        {
-            return this.EventTo<TSource, TTarget, TCommand, TItemProperty>(commandExpression, (s, e) => new ItemClickWeakEventHandler<TTarget, TItemProperty>(s, e))
-                       .WithConverter<EventArgsConverter<EventArgs<TItemProperty>, TItemProperty>>();
         }
 
-        public IEventToCommandBinding<TSource, TTarget, EventArgs<TItemProperty>, TCommand> ItemLongClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        public IEventToCommandBinding<TSource, TTarget, EventArgs<TItem>, TCommand> ItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand
         {
-            return this.EventTo<TSource, TTarget, TCommand, TItemProperty>(commandExpression, (s, e) => new ItemLongClickWeakEventHandler<TTarget, TItemProperty>(s, e))
-                       .WithConverter<EventArgsConverter<EventArgs<TItemProperty>, TItemProperty>>();
+            var binding = this.EventTo<TSource, TTarget, TCommand, TItem>(commandExpression, (s, e) => new ItemClickWeakEventHandler<TTarget, TItem>(s, e))
+                              .WithConverter<EventArgsConverter<EventArgs<TItem>, TItem>>();
+            
+            return this;
+        }
+
+        public IEventToCommandBinding<TSource, TTarget, EventArgs<TItem>, TCommand> ItemLongClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+            where TCommand : ICommand
+        {
+            return this.EventTo<TSource, TTarget, TCommand, TItem>(commandExpression, (s, e) => new ItemLongClickWeakEventHandler<TTarget, TItem>(s, e))
+                       .WithConverter<EventArgsConverter<EventArgs<TItem>, TItem>>();
         }
     }
 }

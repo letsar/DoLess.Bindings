@@ -29,10 +29,10 @@ namespace DoLess.Bindings.Sample.Droid.Views
             this.CreateBindableView(this.ViewModel)
 
                 .Bind<Button>(Resource.Id.activity_buttons_command)
-                .ClickTo(x => x.CancellableCommand)
+                .ViewClickTo(x => x.CancellableCommand)
 
                 .Bind<Button>(Resource.Id.activity_buttons_cancelcommand)
-                .ClickTo(x => x.CancellableCommand.CancelCommand);
+                .ViewClickTo(x => x.CancellableCommand.CancelCommand);
         }
 
         public ButtonsViewModel ViewModel { get; set; }
