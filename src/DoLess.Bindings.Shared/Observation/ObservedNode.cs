@@ -110,7 +110,7 @@ namespace DoLess.Bindings.Observation
         private void UnobserveInternal()
         {
             this.whenChanged = null;
-            this.weakHandler.Unsubscribe();
+            this.weakHandler?.Unsubscribe();
             this.weakHandler = null;
             this.propertyInfo = null;
 

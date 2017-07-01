@@ -33,7 +33,7 @@ namespace DoLess.Bindings
         }
 
         public EventBinding(EventBinding<TSource, TTarget, TEventArgs> binding) :
-            base((Binding<TSource, TTarget>)binding)
+            base(binding)
         {
             if (binding.weakEventHandlerFactory == null)
             {
@@ -45,7 +45,7 @@ namespace DoLess.Bindings
                 this.weakEventHandler = binding.weakEventHandlerFactory(this.Target, this.OnEventRaised);
             }
 
-            binding.UnbindInternal();
+            binding.DeleteFromGroup();
         }
 
         public EventBinding(IEventBinding<TSource, TTarget, TEventArgs> binding) :
@@ -64,14 +64,14 @@ namespace DoLess.Bindings
             this.weakEventHandler = new DynamicWeakEventHandler<TTarget, TEventArgs>(this.Target, eventName, this.OnEventRaised);
         }
 
-        public override void UnbindInternal()
-        {
-            base.UnbindInternal();
+        public override void Dispose()
+        {            
             if (this.weakEventHandler != null)
             {
                 this.weakEventHandler.Unsubscribe();
                 this.weakEventHandler = null;
             }
+            base.Dispose();
         }
 
         public IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> To<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)

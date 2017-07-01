@@ -7,15 +7,15 @@ namespace DoLess.Bindings
     public static class Bindings
     {
         private static readonly IdentifierPool IdPool;
-        private static readonly Dictionary<long, Binding> AllBindings;
+        private static readonly Dictionary<long, BindingGroup> AllBindingGroups;        
         private static readonly Dictionary<long, WeakReference<IBindableView>> BindableViews;
 
-        private static readonly Func<Binding, bool> TrueForAll;
-        private static readonly Func<Binding, bool> TrueForCanBePurged;
+        private static readonly Func<IInternalBinding, bool> TrueForAll;
+        private static readonly Func<IInternalBinding, bool> TrueForCanBePurged;
 
         static Bindings()
         {
-            AllBindings = new Dictionary<long, Binding>();
+            AllBindingGroups = new Dictionary<long, BindingGroup>();            
             BindableViews = new Dictionary<long, WeakReference<IBindableView>>();
 
             IdPool = new IdentifierPool();
@@ -25,41 +25,41 @@ namespace DoLess.Bindings
 
         public static event EventHandler<BindingTraceEventArgs> Trace = delegate { };
 
-        internal static void Add(Binding binding)
+        internal static void Add(BindingGroup group)
         {
-            if (binding != null)
+            if (group != null)
             {
-                if (binding.Id == 0)
+                if (group.Id == 0)
                 {
-                    binding.Id = IdPool.Next();
+                    group.Id = IdPool.Next();
                 }
 
-                AllBindings[binding.Id] = binding;
+                AllBindingGroups[group.Id] = group;
             }
         }
 
-        internal static void SetBindableView(Binding binding, IBindableView bindableView)
+        internal static void SetBindableView(BindingGroup group, IBindableView bindableView)
         {
-            BindableViews[binding.Id] = new WeakReference<IBindableView>(bindableView);
+            BindableViews[group.Id] = new WeakReference<IBindableView>(bindableView);
         }
 
-        internal static IBindableView GetBindableView(Binding binding)
+        internal static IBindableView GetBindableView(BindingGroup group)
         {
             WeakReference<IBindableView> weakReference = null;
-            BindableViews.TryGetValue(binding.Id, out weakReference);
+            BindableViews.TryGetValue(group.Id, out weakReference);
             return weakReference?.GetOrDefault();
         }
 
-        internal static void Remove(Binding binding)
+        internal static void Remove(BindingGroup group)
         {
-            if (binding != null && binding.Id > 0)
+            if (group != null && group.Id > 0)
             {
-                var id = binding.Id;
-                AllBindings.Remove(id);
+                var id = group.Id;
+                AllBindingGroups.Remove(id);
                 BindableViews.Remove(id);
 
                 IdPool.Recycle(id);
-                binding.Id = 0;
+                group.Id = 0;
             }
         }
 
@@ -73,14 +73,14 @@ namespace DoLess.Bindings
             Unbind(TrueForCanBePurged);
         }
 
-        internal static void Unbind(Func<Binding, bool> predicate)
+        internal static void Unbind(Func<IInternalBinding, bool> predicate)
         {
-            var bindings = AllBindings.Values.ToList();
+            var bindings = AllBindingGroups.Values.SelectMany(x => x).ToList();
 
             foreach (var binding in bindings.Where(predicate))
             {
                 // When the unbind reaches the root, it removes itself.
-                binding.Unbind();
+                binding.Dispose();
             }
         }
 

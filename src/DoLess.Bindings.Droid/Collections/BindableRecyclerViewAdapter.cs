@@ -42,7 +42,7 @@ namespace DoLess.Bindings
 
         public override Android.Support.V7.Widget.RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            return this.itemBinder.CreateViewHolder(parent, viewType);
+            return this.itemBinder.CreateViewHolder(this.itemBinder.CreateView(parent, viewType));
         }
 
         public override void OnViewRecycled(Java.Lang.Object holder)

@@ -12,21 +12,21 @@ namespace DoLess.Bindings
         private WeakReference<TSource> weakSource;
         private WeakReference<TTarget> weakTarget;        
 
-        public Binding(TSource source, TTarget target, IBinding linkedBinding = null) :
-            base(linkedBinding)
+        public Binding(TSource source, TTarget target, BindingGroup bindingChain = null) :
+            base(bindingChain)
         {
             this.weakSource = new WeakReference<TSource>(source);
             this.weakTarget = new WeakReference<TTarget>(target);            
         }
 
         public Binding(Binding<TSource, TTarget> binding) :
-            this(binding.Source, binding.Target, binding)
+            this(binding.Source, binding.Target, binding.BindingGroup)
         { }
 
         public static Binding<TSource, TTarget> CreateFromBindableView(IBindableView<TSource> bindableView, TTarget target)
         {
             var binding = new Binding<TSource, TTarget>(bindableView.ViewModel, target);
-            Bindings.SetBindableView(binding, bindableView);
+            Bindings.SetBindableView(binding.BindingGroup, bindableView);
             return binding;
         }
 
@@ -34,11 +34,11 @@ namespace DoLess.Bindings
 
         public TTarget Target => this.weakTarget.GetOrDefault();        
 
-        public override void UnbindInternal()
+        public override void Dispose()
         {
             this.weakSource = null;
             this.weakTarget = null;
-            base.UnbindInternal();
+            base.Dispose();
         }
 
         public sealed override bool CanBePurged()
@@ -49,7 +49,7 @@ namespace DoLess.Bindings
         public IBinding<TSource, TNewTarget> Bind<TNewTarget>(TNewTarget target)
             where TNewTarget : class
         {
-            return new Binding<TSource, TNewTarget>(this.Source, target, this);
+            return new Binding<TSource, TNewTarget>(this.Source, target, this.BindingGroup);
         }
 
         public IPropertyBinding<TSource, TTarget, TTargetProperty> Property<TTargetProperty>(Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression)

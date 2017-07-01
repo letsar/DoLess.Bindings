@@ -7,8 +7,6 @@ namespace DoLess.Bindings
     /// </summary>
     public interface IBinding
     {
-        long Id { get; }
-
         void Unbind();
     }
 }

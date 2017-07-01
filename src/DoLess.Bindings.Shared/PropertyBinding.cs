@@ -21,7 +21,7 @@ namespace DoLess.Bindings
             base(propertyBinding)
         {
             this.targetProperty = propertyBinding.targetProperty;
-            propertyBinding.UnbindInternal();
+            propertyBinding.DeleteFromGroup();
         }
 
         public PropertyBinding(IPropertyBinding<TSource, TTarget, TTargetProperty> propertyBinding) :
@@ -29,10 +29,10 @@ namespace DoLess.Bindings
         {
         }
 
-        public override void UnbindInternal()
-        {
-            base.UnbindInternal();
+        public override void Dispose()
+        {            
             this.targetProperty = null;
+            base.Dispose();
         }
 
         public IOneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> To<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression)

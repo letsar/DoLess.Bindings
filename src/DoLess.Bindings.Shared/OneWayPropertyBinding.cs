@@ -55,11 +55,11 @@ namespace DoLess.Bindings
             }
         }
 
-        public override void UnbindInternal()
-        {
-            base.UnbindInternal();
+        public override void Dispose()
+        {            
             this.sourceRootNode.Unobserve();
             this.sourceRootNode = null;
+            base.Dispose();
         }
 
         public ITwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> TwoWay()

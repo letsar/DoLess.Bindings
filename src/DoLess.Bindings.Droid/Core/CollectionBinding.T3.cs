@@ -28,20 +28,23 @@ namespace DoLess.Bindings
             return this;
         }
 
-        public IEventToCommandBinding<TSource, TTarget, EventArgs<TItem>, TCommand> ItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        public ICollectionBinding<TSource, TTarget, TItem> ItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand
         {
-            var binding = this.EventTo<TSource, TTarget, TCommand, TItem>(commandExpression, (s, e) => new ItemClickWeakEventHandler<TTarget, TItem>(s, e))
-                              .WithConverter<EventArgsConverter<EventArgs<TItem>, TItem>>();
+
+            this.EventTo<TSource, TTarget, TCommand, TItem>(commandExpression, (s, e) => new ItemClickWeakEventHandler<TTarget, TItem>(s, e))
+                .WithConverter<EventArgsConverter<EventArgs<TItem>, TItem>>();           
             
             return this;
         }
 
-        public IEventToCommandBinding<TSource, TTarget, EventArgs<TItem>, TCommand> ItemLongClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        public ICollectionBinding<TSource, TTarget, TItem> ItemLongClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand
         {
-            return this.EventTo<TSource, TTarget, TCommand, TItem>(commandExpression, (s, e) => new ItemLongClickWeakEventHandler<TTarget, TItem>(s, e))
-                       .WithConverter<EventArgsConverter<EventArgs<TItem>, TItem>>();
+            this.EventTo<TSource, TTarget, TCommand, TItem>(commandExpression, (s, e) => new ItemLongClickWeakEventHandler<TTarget, TItem>(s, e))
+                .WithConverter<EventArgsConverter<EventArgs<TItem>, TItem>>();
+
+            return this;
         }
     }
 }

@@ -7,9 +7,9 @@ namespace DoLess.Bindings
 {
     public static class RecyclerViewExtensions
     {
-        public static IOneWayPropertyBinding<TSource, ICollectionViewAdapter<TItem>, IEnumerable<TItem>, IEnumerable<TItem>> ItemsSourceTo<TSource, TItem>(
-            this IBinding<TSource, RecyclerView> self, 
-            Expression<Func<TSource, IEnumerable<TItem>>> itemsSourcePropertyExpression, 
+        public static ICollectionBinding<TSource, ICollectionViewAdapter<TItem>, TItem> ItemsSourceTo<TSource, TItem>(
+            this IBinding<TSource, RecyclerView> self,
+            Expression<Func<TSource, IEnumerable<TItem>>> itemsSourcePropertyExpression,
             ICollectionViewAdapter<TItem> adapter = null)
             where TSource : class
             where TItem : class
@@ -17,8 +17,7 @@ namespace DoLess.Bindings
             adapter = adapter ?? new BindableRecyclerViewAdapter<TItem>();
 
             var binding = ((Binding<TSource, RecyclerView>)self).Bind(adapter)
-                                                                .Property(x => x.ItemsSource)
-                                                                .To(itemsSourcePropertyExpression);
+                                                                .Property(x => x.ItemsSource);
 
             var view = self.Target;
             if (view != null)
@@ -35,7 +34,7 @@ namespace DoLess.Bindings
                 }
             }
 
-            return binding;
+            return new CollectionBinding<TSource, ICollectionViewAdapter<TItem>, TItem>(binding, itemsSourcePropertyExpression);
         }
     }
 }

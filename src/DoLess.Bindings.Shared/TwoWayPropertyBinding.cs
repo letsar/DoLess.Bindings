@@ -127,14 +127,14 @@ namespace DoLess.Bindings
             }
         }
 
-        public override void UnbindInternal()
+        public override void Dispose()
         {
-            base.UnbindInternal();
             this.sourceRootNode.Unobserve();
             this.sourceRootNode = null;
             this.targetPropertyChangedWeakEventHandler.Unsubscribe();
             this.targetPropertyChangedWeakEventHandler = null;
             this.sourceProperty = null;
+            base.Dispose();
         }
     }
 }

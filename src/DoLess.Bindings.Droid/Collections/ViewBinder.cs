@@ -40,13 +40,18 @@ namespace DoLess.Bindings
             }
         }
 
-        public BindableViewHolder<TData> CreateViewHolder(ViewGroup parent, int viewType)
+        public BindableViewHolder<TData> CreateViewHolder(View view)
         {
-            View view = LayoutInflater.From(parent.Context).Inflate(viewType, parent, false);
             var viewHolder = new BindableViewHolder<TData>(view);
             viewHolder.Click += this.OnViewHolderClick;
             viewHolder.LongClick += this.OnViewHolderLongClick;
+            view.Tag = viewHolder;
             return viewHolder;
+        }
+
+        public View CreateView(ViewGroup parent, int viewType)
+        {
+            return LayoutInflater.From(parent.Context).Inflate(viewType, parent, false);
         }
 
         public int GetLayoutId(TData data)
@@ -56,18 +61,11 @@ namespace DoLess.Bindings
 
         public View GetView(TData data, View convertView, ViewGroup parent)
         {
-            BindableViewHolder<TData> viewHolder = null;
+            convertView = convertView ??
+                          this.CreateView(parent, this.GetLayoutId(data));
 
-            if (convertView != null)
-            {
-                viewHolder = convertView.Tag as BindableViewHolder<TData>;
-            }
-
-            if (viewHolder == null)
-            {
-                viewHolder = this.CreateViewHolder(parent, this.GetLayoutId(data));
-                convertView.Tag = viewHolder;
-            }
+            var viewHolder = convertView?.Tag as BindableViewHolder<TData> ??
+                             this.CreateViewHolder(convertView);
 
             this.BindViewHolder(viewHolder, data);
             return convertView;

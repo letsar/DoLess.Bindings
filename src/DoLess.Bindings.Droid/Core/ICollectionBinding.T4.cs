@@ -14,10 +14,10 @@ namespace DoLess.Bindings
     {
         ICollectionBinding<TSource, TTarget, TItem, TSubItem> ConfigureSubItem(Action<IViewBinder<TSubItem>> configurator);
 
-        IEventToCommandBinding<TSource, TTarget, EventArgs<TSubItem>, TCommand> SubItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        ICollectionBinding<TSource, TTarget, TItem, TSubItem> SubItemClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand;
 
-        IEventToCommandBinding<TSource, TTarget, EventArgs<TSubItem>, TCommand> SubItemLongClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        ICollectionBinding<TSource, TTarget, TItem, TSubItem> SubItemLongClickTo<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand;
     }
 }

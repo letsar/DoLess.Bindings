@@ -7,7 +7,7 @@ namespace DoLess.Bindings
         public IBinding<TSource, TNewTarget> Bind<TNewTarget>(int resourceId)
             where TNewTarget : View
         {
-            var bindableView = Bindings.GetBindableView(this);
+            var bindableView = Bindings.GetBindableView(this.BindingGroup);
             TNewTarget target = null;
             if (bindableView == null)
             {
@@ -22,7 +22,7 @@ namespace DoLess.Bindings
                     Bindings.LogError($"there is no bindable view associated with the binding n°{this.Id}");
                 }
             }
-            return new Binding<TSource, TNewTarget>(this.Source, target, this);
+            return new Binding<TSource, TNewTarget>(this.Source, target, this.BindingGroup);
         }
     }
 }

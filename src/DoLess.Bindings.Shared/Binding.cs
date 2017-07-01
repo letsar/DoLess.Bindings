@@ -5,38 +5,37 @@ using System.Text;
 namespace DoLess.Bindings
 {
     internal abstract class Binding :
-        IBinding
+        IInternalBinding
     {
-        public Binding(IBinding linkedBinding)
+        private static IdentifierPool IdPool = new IdentifierPool();
+
+        public Binding(BindingGroup bindingGroup)
         {
-            this.LinkedBinding = linkedBinding;
-            this.Id = linkedBinding == null ? 0 : linkedBinding.Id;
-            Bindings.Add(this);
+            this.BindingGroup = bindingGroup ?? new BindingGroup();            
+            this.Id = IdPool.Next();
+            Bindings.Add(this.BindingGroup);
+            this.BindingGroup.Add(this);
         }
 
-        public IBinding LinkedBinding { get; protected set; }
+        public BindingGroup BindingGroup { get; }
 
-        public long Id { get; set; }
+        public long Id { get; }
+
+        public abstract bool CanBePurged();
+
+        public virtual  void Dispose()
+        {
+            IdPool.Recycle(this.Id);
+        }
+
+        public void DeleteFromGroup()
+        {
+            this.BindingGroup?.Unbind(this);
+        }
 
         public void Unbind()
         {
-            if (this.LinkedBinding != null)
-            {
-                this.LinkedBinding.Unbind();
-                this.LinkedBinding = null;
-            }
-            else
-            {
-                // End of the chain.
-                Bindings.Remove(this);
-            }
-            this.UnbindInternal();
+            this.BindingGroup.Unbind();
         }
-
-        public virtual void UnbindInternal()
-        {
-        }
-
-        public abstract bool CanBePurged();
     }
 }

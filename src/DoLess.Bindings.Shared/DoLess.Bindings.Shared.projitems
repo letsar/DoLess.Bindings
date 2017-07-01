@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Binding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BindingChain.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BindingGroup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BindingExpression.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EventArgsConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringCastConverter.cs" />
@@ -32,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindingTraceEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBindableView.T2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBindableView.T1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IInternalBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBinding.T1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEventToCommandBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEventBinding.cs" />

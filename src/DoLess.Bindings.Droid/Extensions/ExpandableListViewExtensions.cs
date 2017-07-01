@@ -7,19 +7,17 @@ namespace DoLess.Bindings
 {
     public static class ExpandableListViewExtensions
     {
-        public static IOneWayPropertyBinding<TSource, ICollectionViewAdapter<TItem, TSubItem>, IEnumerable<TItem>, IEnumerable<TItem>> ItemsSourceTo<TSource, TItem, TSubItem>(
+        public static ICollectionBinding<TSource, ICollectionViewAdapter<IEnumerable<TSubItem>, TSubItem>, IEnumerable<TSubItem>, TSubItem> ItemsSourceTo<TSource, TSubItem>(
             this IBinding<TSource, ExpandableListView> self,
-            Expression<Func<TSource, IEnumerable<TItem>>> itemsSourcePropertyExpression,
-            ICollectionViewAdapter<TItem, TSubItem> adapter = null)
-            where TSource : class
-            where TItem : class, IEnumerable<TSubItem>
+            Expression<Func<TSource, IEnumerable<IEnumerable<TSubItem>>>> itemsSourcePropertyExpression,
+            ICollectionViewAdapter<IEnumerable<TSubItem>, TSubItem> adapter = null)
+            where TSource : class            
             where TSubItem : class
-        {           
-            adapter = adapter ?? new BindableBaseExpandableListAdapter<TItem, TSubItem>();
+        {
+            adapter = adapter ?? new BindableBaseExpandableListAdapter<IEnumerable<TSubItem>, TSubItem>();
 
             var binding = ((Binding<TSource, ExpandableListView>)self).Bind(adapter)
-                                                                      .Property(x => x.ItemsSource)
-                                                                      .To(itemsSourcePropertyExpression);
+                                                                      .Property(x => x.ItemsSource);
 
             var view = self.Target;
             if (view != null)
@@ -36,7 +34,7 @@ namespace DoLess.Bindings
                 }
             }
 
-            return binding;
+            return new CollectionBinding<TSource, ICollectionViewAdapter<IEnumerable<TSubItem>, TSubItem>, IEnumerable<TSubItem>, TSubItem>(binding, itemsSourcePropertyExpression);
         }
     }
 }
