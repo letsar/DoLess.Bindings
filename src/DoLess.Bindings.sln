@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DoLess.Bindings.Shared", "DoLess.Bindings.Shared\DoLess.Bindings.Shared.shproj", "{F0B6402C-AA96-413E-B8F2-3E03BCC4C415}"
 EndProject
@@ -21,10 +21,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoLess.Bindings.Sample.View
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoLess.Bindings.iOS", "DoLess.Bindings.iOS\DoLess.Bindings.iOS.csproj", "{B9A032D1-B94C-485A-8C94-7B539868A4E3}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DoLess.Bindings.Views.Shared", "DoLess.Bindings.Views.Shared\DoLess.Bindings.Views.Shared.shproj", "{05C6F832-0FE0-4186-973E-1D25FF074DE8}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		DoLess.Bindings.Views.Shared\DoLess.Bindings.Views.Shared.projitems*{05c6f832-0fe0-4186-973e-1d25ff074de8}*SharedItemsImports = 13
 		DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems*{3b656d99-3388-4632-8557-3065fd164f02}*SharedItemsImports = 4
+		DoLess.Bindings.Views.Shared\DoLess.Bindings.Views.Shared.projitems*{3b656d99-3388-4632-8557-3065fd164f02}*SharedItemsImports = 4
 		DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems*{b9a032d1-b94c-485a-8c94-7b539868a4e3}*SharedItemsImports = 4
+		DoLess.Bindings.Views.Shared\DoLess.Bindings.Views.Shared.projitems*{b9a032d1-b94c-485a-8c94-7b539868a4e3}*SharedItemsImports = 4
 		DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems*{f0b6402c-aa96-413e-b8f2-3e03bcc4c415}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

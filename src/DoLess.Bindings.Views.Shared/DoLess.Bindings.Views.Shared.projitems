@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>05c6f832-0fe0-4186-973e-1d25ff074de8</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>DoLess.Bindings</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\IdentityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\BindingMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Cache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\PropertyBindingExpression.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Bindings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindingTraceEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindingTraceEventType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\Binding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\BindingParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\PropertyBindingBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\PropertyBindingSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBindableView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinding.T2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinding.T1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ICanBind.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPropertyBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPropertyBindingSource.cs" />
+  </ItemGroup>
+</Project>

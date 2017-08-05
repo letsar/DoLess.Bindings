@@ -29,21 +29,21 @@ namespace DoLess.Bindings.Sample.Droid.Views
             this.ViewModel.InitializePersons();
 
 
-            this.CreateBindableView(this.ViewModel)
-                .Bind<ExpandableListView>(Resource.Id.activity_expandablelistview_expandablelistview)
-                .ItemsSourceTo(x => x.Persons)
-                .ConfigureSubItem(a => a.WithDataTemplate(Resource.Layout.item_person)
-                                        .BindTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
-                                                      .Property(x => x.Text)
-                                                      .To(x => x.FirstName)
+            //this.CreateBindableView(this.ViewModel)
+            //    .Bind<ExpandableListView>(Resource.Id.activity_expandablelistview_expandablelistview)
+            //    .ItemsSourceTo(x => x.Persons)
+            //    .ConfigureSubItem(a => a.WithDataTemplate(Resource.Layout.item_person)
+            //                            .BindTo(v => v.Bind<TextView>(Resource.Id.item_person_firstname)
+            //                                          .Property(x => x.Text)
+            //                                          .To(x => x.FirstName)
 
-                                                      .Bind<TextView>(Resource.Id.item_person_lastname)
-                                                      .Property(x => x.Text)
-                                                      .To(x => x.LastName)))
-                .ConfigureItem(a => a.WithDataTemplate(Resource.Layout.header_person)
-                                     .BindTo(v => v.Bind<TextView>(Resource.Id.header_person_text)
-                                                   .Property(x => x.Text)
-                                                   .To(x => ((IGrouping<string, PersonViewModel>)x).Key)));
+            //                                          .Bind<TextView>(Resource.Id.item_person_lastname)
+            //                                          .Property(x => x.Text)
+            //                                          .To(x => x.LastName)))
+            //    .ConfigureItem(a => a.WithDataTemplate(Resource.Layout.header_person)
+            //                         .BindTo(v => v.Bind<TextView>(Resource.Id.header_person_text)
+            //                                       .Property(x => x.Text)
+            //                                       .To(x => ((IGrouping<string, PersonViewModel>)x).Key)));
 
         }
 

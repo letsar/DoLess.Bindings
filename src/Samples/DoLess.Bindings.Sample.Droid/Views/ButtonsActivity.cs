@@ -26,13 +26,13 @@ namespace DoLess.Bindings.Sample.Droid.Views
             this.SetToolbarTitle("Buttons");
             this.ViewModel = new ButtonsViewModel();
 
-            this.CreateBindableView(this.ViewModel)
+            //this.CreateBindableView(this.ViewModel)
 
-                .Bind<Button>(Resource.Id.activity_buttons_command)
-                .ClickTo(x => x.CancellableCommand)
+            //    .Bind<Button>(Resource.Id.activity_buttons_command)
+            //    .ClickTo(x => x.CancellableCommand)
 
-                .Bind<Button>(Resource.Id.activity_buttons_cancelcommand)
-                .ClickTo(x => x.CancellableCommand.CancelCommand);
+            //    .Bind<Button>(Resource.Id.activity_buttons_cancelcommand)
+            //    .ClickTo(x => x.CancellableCommand.CancelCommand);
         }
 
         public ButtonsViewModel ViewModel { get; set; }

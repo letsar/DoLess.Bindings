@@ -26,9 +26,15 @@ namespace DoLess.Bindings.Tests
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        [DependsOn(nameof(FirstName), nameof(LastName))]
+        public string FullName => $"{this.FirstName} {this.LastName}";
+
         public NotViewModel1 NotViewModel1 { get; set; }
         public List<string> StringList { get; set; }
         public ViewModel2 ViewModel2 { get; set; }
+
+
+
         public string this[int index]
         {
             get { return this.range[index]; }

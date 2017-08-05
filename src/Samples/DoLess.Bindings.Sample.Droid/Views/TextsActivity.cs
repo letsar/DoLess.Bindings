@@ -22,7 +22,6 @@ namespace DoLess.Bindings.Sample.Droid.Views
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            Bindings.Purge();
             base.OnCreate(savedInstanceState);
 
             this.SetContentView(Resource.Layout.activity_texts);
@@ -32,16 +31,16 @@ namespace DoLess.Bindings.Sample.Droid.Views
 
             this.ViewModel.Person = new PersonViewModel("Dark", "Vador");
 
-            this.CreateBindableView(this.ViewModel)
+            //this.CreateBindableView(this.ViewModel)
 
-                .Bind<TextView>(Resource.Id.activity_texts_textview)
-                .Property(x => x.Text)
-                .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
+            //    .Bind<TextView>(Resource.Id.activity_texts_textview)
+            //    .Property(x => x.Text)
+            //    .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
 
-                .Bind<EditText>(Resource.Id.activity_texts_edittext)
-                .Property(x => x.Text)
-                .To(x => x.Person.FirstName)
-                .TwoWay();
+            //    .Bind<EditText>(Resource.Id.activity_texts_edittext)
+            //    .Property(x => x.Text)
+            //    .To(x => x.Person.FirstName)
+            //    .TwoWay();
 
         }
 

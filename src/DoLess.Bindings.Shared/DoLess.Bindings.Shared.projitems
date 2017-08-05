@@ -9,53 +9,10 @@
     <Import_RootNamespace>DoLess.Bindings</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Binding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BindingGroup.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BindingExpression.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\EventArgsConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\StringCastConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\StructCastConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\ClassCastConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Events\DynamicWeakEventHandler.T1.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Events\EventArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EventToCommandBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Events\DynamicWeakEventHandler.T2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerableExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Bindings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Cache.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverterFromTarget.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverterFromSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Data.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindingTraceEventType.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\IdentifierPool.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindingTraceEventArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBindableView.T2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBindableView.T1.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IInternalBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBinding.T1.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IEventToCommandBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IEventBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ICanBind.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ITwoWayPropertyBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TwoWayPropertyBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)OneWayPropertyBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EventBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PropertyBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Binding.T2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\IdentityConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Events\WeakEventHandlers.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\BindingExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExpressionExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\WeakEventHandlerExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\WeakReferenceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Check.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IOneWayPropertyBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IPropertyBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IBinding.T2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Observation\ObservedNodeBuilder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Observation\ObservedNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertyWatching\PropertyWatcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertyWatching\PropertyWatcherBuilder.cs" />
   </ItemGroup>
 </Project>

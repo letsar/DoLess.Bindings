@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
 
 namespace DoLess.Bindings.Helpers
 {
@@ -23,6 +20,6 @@ namespace DoLess.Bindings.Helpers
                 throw new ArgumentNullException(paramName);
             }
             return value;
-        }       
+        }
     }
 }
