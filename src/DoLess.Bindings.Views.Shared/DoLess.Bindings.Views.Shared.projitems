@@ -32,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinding.T2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinding.T1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBindingArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ICanBind.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPropertyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPropertyBindingSource.cs" />

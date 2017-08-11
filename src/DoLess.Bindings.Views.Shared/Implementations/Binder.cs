@@ -6,7 +6,7 @@ namespace DoLess.Bindings
     /// <summary>
     /// Represents an object that holds a view model and allows to binds it.
     /// </summary>
-    public class Binder<TViewModel> : IBinder<TViewModel>
+    internal partial class Binder<TViewModel> : IBinder<TViewModel>, IBindingArgs
         where TViewModel : class
     {
         private IBinding binding;
@@ -21,11 +21,11 @@ namespace DoLess.Bindings
         /// </summary>
         public TViewModel ViewModel { get; private set; }
 
-        public IBinding<TViewModel, TView> Bind<TView>(TView view, BindingArgs args = null)
+        public IBinding<TViewModel, TView> Bind<TView>(TView view)
             where TView : class
         {
             DisposerHelper.Release(ref this.binding);
-            var binding = new Binding<TViewModel, TView>(this.ViewModel, view, args);
+            var binding = new Binding<TViewModel, TView>(this.ViewModel, view, this);
             this.binding = binding;
             return binding;
         }
@@ -34,6 +34,9 @@ namespace DoLess.Bindings
         {
             DisposerHelper.Release(ref this.binding);
             this.ViewModel = null;
+            this.InternalDispose();
         }
+
+        partial void InternalDispose();
     }
 }

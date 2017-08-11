@@ -4,8 +4,13 @@ using System.Text;
 
 namespace DoLess.Bindings
 {
-    public partial class BindingArgs
+    internal partial class BindingArgs2 : IDisposable
     {
-        // One part in the view (FindViewById - Droid)
+        partial void InternalDispose();
+
+        public void Dispose()
+        {
+            this.InternalDispose();
+        }
     }
 }

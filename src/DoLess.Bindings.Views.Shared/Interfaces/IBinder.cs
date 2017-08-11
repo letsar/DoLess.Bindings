@@ -5,7 +5,7 @@ namespace DoLess.Bindings
     /// <summary>
     /// Represents an object that holds a view model and allows to binds it.
     /// </summary>
-    public interface IBinder<TViewModel> : IDisposable
+    public partial interface IBinder<TViewModel> : IDisposable
         where TViewModel : class
     {       
         /// <summary>
@@ -13,7 +13,7 @@ namespace DoLess.Bindings
         /// </summary>
         TViewModel ViewModel { get;  }
 
-        IBinding<TViewModel, TView> Bind<TView>(TView view, BindingArgs args = null)
+        IBinding<TViewModel, TView> Bind<TView>(TView view)
             where TView : class;
     }
 }

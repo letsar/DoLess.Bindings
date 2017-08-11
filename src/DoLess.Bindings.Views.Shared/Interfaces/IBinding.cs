@@ -9,6 +9,6 @@ namespace DoLess.Bindings
     /// </summary>
     public interface IBinding : IDisposable
     {
-        BindingArgs Args { get; }
+        IBindingArgs Args { get; }
     }
 }

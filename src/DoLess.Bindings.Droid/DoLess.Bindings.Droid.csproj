@@ -57,6 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ActivityExtensions.cs" />
+    <Compile Include="Extensions\IBindableViewExtensions.cs" />
+    <Compile Include="Implementations\Binder.cs" />
+    <Compile Include="Implementations\Binding.cs" />
+    <Compile Include="Interfaces\IBinder.cs" />
+    <Compile Include="Interfaces\IBindingArgs.cs" />
+    <Compile Include="Interfaces\ICanBind.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,7 +74,8 @@
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <Import Project="..\DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems" Label="Shared" />
   <Import Project="..\DoLess.Bindings.Views.Shared\DoLess.Bindings.Views.Shared.projitems" Label="Shared" />

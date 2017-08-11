@@ -33,7 +33,7 @@ namespace DoLess.Bindings
         private void AddHandler()
         {
             EventInfo eventInfo = this.GetCachedEventInfo();
-            if (eventInfo != null)
+            if (eventInfo != null && this.target != null)
             {
                 this.eventHandler = CreateGenericEventHandler(eventInfo, this.onChanged);
                 eventInfo.AddEventHandler(this.target, this.eventHandler);

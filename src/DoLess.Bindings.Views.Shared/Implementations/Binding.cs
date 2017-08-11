@@ -2,12 +2,12 @@
 
 namespace DoLess.Bindings
 {
-    internal class Binding<TSource, TTarget> :
+    internal partial class Binding<TSource, TTarget> :
         IBinding<TSource, TTarget>
         where TSource : class
         where TTarget : class
     {
-        public Binding(TSource source, TTarget target, BindingArgs parameters = null)
+        public Binding(TSource source, TTarget target, IBindingArgs parameters = null)
         {
             this.Source = source;
             this.Target = target;
@@ -20,7 +20,7 @@ namespace DoLess.Bindings
             this.Parent = parent;
         }
 
-        public BindingArgs Args { get; private set; }
+        public IBindingArgs Args { get; private set; }
 
         public TTarget Target { get; private set; }
 
@@ -46,7 +46,6 @@ namespace DoLess.Bindings
             this.Parent?.Dispose();
             this.Parent = null;
 
-            this.Args = null;
             this.Source = null;
             this.Target = null;
         }

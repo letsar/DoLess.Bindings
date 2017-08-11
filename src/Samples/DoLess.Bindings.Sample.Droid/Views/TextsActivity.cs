@@ -32,16 +32,15 @@ namespace DoLess.Bindings.Sample.Droid.Views
             var vm = new TextsViewModel();
             vm.Person = new PersonViewModel("Dark", "Vador");
 
-            this.Binder = new Binder<TextsViewModel>(vm);
-
             var activity_texts_textview = this.FindViewById<TextView>(Resource.Id.activity_texts_textview);
             var activity_texts_edittext = this.FindViewById<EditText>(Resource.Id.activity_texts_edittext);
 
-            this.Bind(activity_texts_textview)
+            this.Setup(vm)
+                .Bind<TextView>(Resource.Id.activity_texts_textview)                
                 .Property(x => x.Text)
                 .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
 
-                .Bind(activity_texts_edittext)
+                .Bind<EditText>(Resource.Id.activity_texts_edittext)                
                 .Property(x => x.Text)
                 .To(x => x.Person.FirstName, BindingMode.TwoWay);
 
