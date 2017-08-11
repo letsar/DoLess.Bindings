@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace DoLess.Bindings
 {
@@ -12,16 +10,32 @@ namespace DoLess.Bindings
         where TTarget : class
     {
         private readonly Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression;
+        private readonly IBinding<TSource, TTarget> parent;
 
         public PropertyBindingSource(IBinding<TSource, TTarget> binding, Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression) :
             base(binding)
         {
+            this.parent = binding;
             this.targetPropertyExpression = targetPropertyExpression;
         }
 
         public IPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> To<TSourceProperty>(Expression<Func<TSource, TSourceProperty>> sourcePropertyExpression, BindingMode mode = BindingMode.OneWay)
         {
-            throw new NotImplementedException();
+            IPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty> result = null;
+            switch (mode)
+            {
+                case BindingMode.OneWay:
+                    result = new OneWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(this.parent, sourcePropertyExpression, this.targetPropertyExpression);
+                    break;
+                case BindingMode.TwoWay:
+                    result = new TwoWayPropertyBinding<TSource, TTarget, TTargetProperty, TSourceProperty>(this.parent, sourcePropertyExpression, this.targetPropertyExpression);
+                    break;
+                default: break; ;   // Not possible. 
+            }
+
+            result.WithConverter<DefaultConverter<TSourceProperty, TTargetProperty>>();
+
+            return result;
         }
     }
 }

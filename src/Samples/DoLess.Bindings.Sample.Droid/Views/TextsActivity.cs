@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using DoLess.Bindings;
 using DoLess.Bindings.Sample.ViewModels;
 using Android.Support.V7.App;
 using Java.Lang;
@@ -16,7 +17,7 @@ using Java.Lang;
 namespace DoLess.Bindings.Sample.Droid.Views
 {
     [Activity(Label = "TextsActivity")]
-    public class TextsActivity : BaseActivity
+    public class TextsActivity : BaseActivity, IBindableView<TextsViewModel>
     {
         private static List<WeakReference<TextView>> Weaks = new List<WeakReference<TextView>>();
 
@@ -27,9 +28,22 @@ namespace DoLess.Bindings.Sample.Droid.Views
             this.SetContentView(Resource.Layout.activity_texts);
 
             this.SetToolbarTitle("Texts");
-            this.ViewModel = new TextsViewModel();
+            
+            var vm = new TextsViewModel();
+            vm.Person = new PersonViewModel("Dark", "Vador");
 
-            this.ViewModel.Person = new PersonViewModel("Dark", "Vador");
+            this.Binder = new Binder<TextsViewModel>(vm);
+
+            var activity_texts_textview = this.FindViewById<TextView>(Resource.Id.activity_texts_textview);
+            var activity_texts_edittext = this.FindViewById<EditText>(Resource.Id.activity_texts_edittext);
+
+            this.Bind(activity_texts_textview)
+                .Property(x => x.Text)
+                .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
+
+                .Bind(activity_texts_edittext)
+                .Property(x => x.Text)
+                .To(x => x.Person.FirstName, BindingMode.TwoWay);
 
             //this.CreateBindableView(this.ViewModel)
 
@@ -41,19 +55,15 @@ namespace DoLess.Bindings.Sample.Droid.Views
             //    .Property(x => x.Text)
             //    .To(x => x.Person.FirstName)
             //    .TwoWay();
-
         }
 
-        public TextsViewModel ViewModel { get; set; }
+        public IBinder<TextsViewModel> Binder { get; set; }
 
-        protected override void OnDestroy()
+        protected override void OnStop()
         {
-            base.OnDestroy();
-            this.ViewModel = null;        
-
-            Runtime.GetRuntime().Gc();
-            GC.Collect();
-            GC.Collect();
+            base.OnStop();
+            this.Binder?.Dispose();
+            this.Binder = null;
         }
     }
 }

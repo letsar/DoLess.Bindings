@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DoLess.Bindings
 {
-    public partial class BindingParameters
+    public partial class BindingArgs
     {
         // One part in the view (FindViewById - Droid)
     }

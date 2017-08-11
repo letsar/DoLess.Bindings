@@ -37,7 +37,7 @@ namespace DoLess.Bindings.Sample.Droid
             TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
 
             // Set our view from the "main" layout resource
-            SetContentView (Resource.Layout.Main);
+            SetContentView(Resource.Layout.Main);
             this.SetToolbarTitle("Home", false);
 
             this.FindViewById<Button>(Resource.Id.main_buttons).Click += (s, e) => this.StartActivity(typeof(ButtonsActivity));
@@ -45,7 +45,7 @@ namespace DoLess.Bindings.Sample.Droid
             this.FindViewById<Button>(Resource.Id.main_recyclerview).Click += (s, e) => this.StartActivity(typeof(RecyclerViewActivity));
             this.FindViewById<Button>(Resource.Id.main_expandablelistview).Click += (s, e) => this.StartActivity(typeof(ExpandableListViewActivity));
 
-            Bindings.Trace += this.Bindings_Failed;           
+            Bindings.Trace += this.Bindings_Failed;
 
             //this.CreateBindableView(this.ViewModel)
             //    .Bind(textView)
@@ -88,7 +88,7 @@ namespace DoLess.Bindings.Sample.Droid
         {
             if (obj.EventType == BindingTraceEventType.Error)
             {
-                throw new NotImplementedException();
+                Console.WriteLine(obj.Message);
             }
         }
 
@@ -110,7 +110,7 @@ namespace DoLess.Bindings.Sample.Droid
         private void CommandButton_Click(object sender, EventArgs e)
         {
 
-        }     
+        }
 
 
         public void OnEvent<TEventArgs>(Expression<Func<TextView, EventHandler<TEventArgs>>> expr) where TEventArgs : EventArgs

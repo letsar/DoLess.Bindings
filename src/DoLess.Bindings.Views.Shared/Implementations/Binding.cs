@@ -7,20 +7,20 @@ namespace DoLess.Bindings
         where TSource : class
         where TTarget : class
     {
-        public Binding(TSource source, TTarget target, BindingParameters parameters = null)
+        public Binding(TSource source, TTarget target, BindingArgs parameters = null)
         {
             this.Source = source;
             this.Target = target;
-            this.Parameters = parameters;
+            this.Args = parameters;
         }
 
         public Binding(IBinding<TSource, TTarget> parent) :
-            this(parent?.Source, parent?.Target, parent?.Parameters)
+            this(parent?.Source, parent?.Target, parent?.Args)
         {
             this.Parent = parent;
         }
 
-        public BindingParameters Parameters { get; private set; }
+        public BindingArgs Args { get; private set; }
 
         public TTarget Target { get; private set; }
 
@@ -31,16 +31,22 @@ namespace DoLess.Bindings
         public IBinding<TSource, TNewTarget> Bind<TNewTarget>(TNewTarget newTarget)
             where TNewTarget : class
         {
-            var newBinding = new Binding<TSource, TNewTarget>(this.Source, newTarget, this.Parameters);
+            var newBinding = new Binding<TSource, TNewTarget>(this.Source, newTarget, this.Args);
             newBinding.Parent = this;
             return newBinding;
+        }
+
+        public IPropertyBindingSource<TSource, TTarget, TTargetProperty> Property<TTargetProperty>(System.Linq.Expressions.Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression)
+        {
+            return new PropertyBindingSource<TSource, TTarget, TTargetProperty>(this, targetPropertyExpression);
         }
 
         public virtual void Dispose()
         {
             this.Parent?.Dispose();
             this.Parent = null;
-            this.Parameters = null;
+
+            this.Args = null;
             this.Source = null;
             this.Target = null;
         }

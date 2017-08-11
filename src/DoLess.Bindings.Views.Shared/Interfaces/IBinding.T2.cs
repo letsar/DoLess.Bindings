@@ -1,4 +1,7 @@
-﻿namespace DoLess.Bindings
+﻿using System;
+using System.Linq.Expressions;
+
+namespace DoLess.Bindings
 {
     /// <summary>
     /// Represents a binding between a source and a target.
@@ -9,5 +12,7 @@
         where TTarget : class
     {
         TTarget Target { get; }
+
+        IPropertyBindingSource<TSource, TTarget, TTargetProperty> Property<TTargetProperty>(Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression);
     }
 }

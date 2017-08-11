@@ -7,13 +7,17 @@ namespace DoLess.Bindings
     public static class Bindings
     {
         static Bindings()
-        {           
+        {
         }
 
         public static event EventHandler<BindingTraceEventArgs> Trace = delegate { };
 
-        internal static void LogError(string message)
+        internal static void LogError(string message, Exception ex = null)
         {
+            if (ex != null)
+            {
+                message += ": " + ex.ToString();
+            }
             Log(BindingTraceEventType.Error, message);
         }
 
