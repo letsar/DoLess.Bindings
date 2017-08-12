@@ -17,7 +17,7 @@ using Java.Lang;
 namespace DoLess.Bindings.Sample.Droid.Views
 {
     [Activity(Label = "TextsActivity")]
-    public class TextsActivity : BaseActivity, IBindableView<TextsViewModel>
+    public class TextsActivity : BaseActivity<TextsViewModel>
     {
         private static List<WeakReference<TextView>> Weaks = new List<WeakReference<TextView>>();
 
@@ -30,39 +30,16 @@ namespace DoLess.Bindings.Sample.Droid.Views
             this.SetToolbarTitle("Texts");
             
             var vm = new TextsViewModel();
-            vm.Person = new PersonViewModel("Dark", "Vador");
+            vm.Person = new PersonViewModel("Dark", "Vador");            
 
-            var activity_texts_textview = this.FindViewById<TextView>(Resource.Id.activity_texts_textview);
-            var activity_texts_edittext = this.FindViewById<EditText>(Resource.Id.activity_texts_edittext);
-
-            this.Setup(vm)
+            this.ViewModel(vm)
                 .Bind<TextView>(Resource.Id.activity_texts_textview)                
                 .Property(x => x.Text)
                 .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
 
                 .Bind<EditText>(Resource.Id.activity_texts_edittext)                
                 .Property(x => x.Text)
-                .To(x => x.Person.FirstName, BindingMode.TwoWay);
-
-            //this.CreateBindableView(this.ViewModel)
-
-            //    .Bind<TextView>(Resource.Id.activity_texts_textview)
-            //    .Property(x => x.Text)
-            //    .To(x => $"{x.Person.FirstName} {x.Person.LastName}")
-
-            //    .Bind<EditText>(Resource.Id.activity_texts_edittext)
-            //    .Property(x => x.Text)
-            //    .To(x => x.Person.FirstName)
-            //    .TwoWay();
-        }
-
-        public IBinder<TextsViewModel> Binder { get; set; }
-
-        protected override void OnStop()
-        {
-            base.OnStop();
-            this.Binder?.Dispose();
-            this.Binder = null;
+                .To(x => x.Person.FirstName, BindingMode.TwoWay);          
         }
     }
 }

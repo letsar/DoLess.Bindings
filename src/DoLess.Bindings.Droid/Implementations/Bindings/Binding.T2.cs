@@ -1,4 +1,7 @@
-﻿using Android.Views;
+﻿using System;
+using System.Linq.Expressions;
+using System.Windows.Input;
+using Android.Views;
 
 namespace DoLess.Bindings
 {

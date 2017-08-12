@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DoLess.Bindings
 {
     public class BindingTraceEventArgs : EventArgs
     {
-        internal BindingTraceEventArgs(BindingTraceEventType type, string message) : base()
+        internal BindingTraceEventArgs(BindingTraceEventType type, string message, Exception exception = null) : base()
         {
             this.EventType = type;
             this.Message = $"DoLess.Bindings - {type.ToString()}: {message}.";
+            this.Exception = exception;
         }
 
         public BindingTraceEventType EventType { get; }
 
         public string Message { get; }
+
+        public Exception Exception { get; }
     }
 }

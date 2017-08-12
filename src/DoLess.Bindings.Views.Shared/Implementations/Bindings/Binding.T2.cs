@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace DoLess.Bindings
 {
@@ -36,9 +37,15 @@ namespace DoLess.Bindings
             return newBinding;
         }
 
-        public IPropertyBindingSource<TSource, TTarget, TTargetProperty> Property<TTargetProperty>(System.Linq.Expressions.Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression)
+        public IPropertyBindingSource<TSource, TTarget, TTargetProperty> Property<TTargetProperty>(Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression)
         {
             return new PropertyBindingSource<TSource, TTarget, TTargetProperty>(this, targetPropertyExpression);
+        }
+
+        public IEventBindingSource<TSource, TTarget, TEventArgs> Event<TEventArgs>(Action<TTarget, EventHandler<TEventArgs>> addHandler, Action<TTarget, EventHandler<TEventArgs>> removeHandler)
+            where TEventArgs : EventArgs
+        {
+            return new EventBindingSource<TSource, TTarget, TEventArgs>(this, addHandler, removeHandler);
         }
 
         public virtual void Dispose()

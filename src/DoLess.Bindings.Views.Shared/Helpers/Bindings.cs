@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DoLess.Bindings
 {
@@ -14,11 +12,7 @@ namespace DoLess.Bindings
 
         internal static void LogError(string message, Exception ex = null)
         {
-            if (ex != null)
-            {
-                message += ": " + ex.ToString();
-            }
-            Log(BindingTraceEventType.Error, message);
+            Log(BindingTraceEventType.Error, message, ex);
         }
 
         internal static void LogWarning(string message)
@@ -26,9 +20,9 @@ namespace DoLess.Bindings
             Log(BindingTraceEventType.Warning, message);
         }
 
-        private static void Log(BindingTraceEventType type, string message)
+        private static void Log(BindingTraceEventType type, string message, Exception exception = null)
         {
-            Trace(null, new BindingTraceEventArgs(type, message));
+            Trace(null, new BindingTraceEventArgs(type, message, exception));
         }
     }
 }

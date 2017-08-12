@@ -66,8 +66,8 @@ namespace DoLess.Bindings
 
         public override void Dispose()
         {
-            base.Dispose();
             DisposerHelper.Release(ref this.onChangedEventSubscription);
+            base.Dispose();
         }
     }
 }

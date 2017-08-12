@@ -6,7 +6,7 @@ namespace DoLess.Bindings
     /// <summary>
     /// Represents a binding between a source and a target.
     /// </summary>
-    public interface IBinding<TSource, TTarget> : 
+    public partial interface IBinding<TSource, TTarget> : 
         IBinding<TSource>
         where TSource : class
         where TTarget : class
@@ -14,5 +14,8 @@ namespace DoLess.Bindings
         TTarget Target { get; }
 
         IPropertyBindingSource<TSource, TTarget, TTargetProperty> Property<TTargetProperty>(Expression<Func<TTarget, TTargetProperty>> targetPropertyExpression);
+
+        IEventBindingSource<TSource, TTarget, TEventArgs> Event<TEventArgs>(Action<TTarget, EventHandler<TEventArgs>> addHandler, Action<TTarget, EventHandler<TEventArgs>> removeHandler)
+            where TEventArgs : EventArgs;
     }
 }

@@ -21,8 +21,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Bindings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindingTraceEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindingTraceEventType.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Implementations\Binding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Entities\BindingArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\Bindings\Binding.T3.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\Bindings\Binding.T2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\EventBindings\EventBinding.T5.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\EventBindings\EventBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\EventBindings\EventBindingSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\PropertyBindings\TwoWayPropertyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\PropertyBindings\OneWayPropertyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\PropertyBindings\PropertyBindingBase.cs" />
@@ -34,6 +37,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBindingArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ICanBind.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEventBinding.T5.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEventBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEventBindingSource.T3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPropertyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPropertyBindingSource.cs" />
   </ItemGroup>

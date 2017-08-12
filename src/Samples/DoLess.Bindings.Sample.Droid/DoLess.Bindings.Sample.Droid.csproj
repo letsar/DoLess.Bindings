@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapter1.cs" />
+    <Compile Include="Views\BaseActivity.T1.cs" />
     <Compile Include="Views\BaseActivity.cs" />
     <Compile Include="Views\ExpandableListViewActivity.cs" />
     <Compile Include="Views\RecyclerViewActivity.cs" />
