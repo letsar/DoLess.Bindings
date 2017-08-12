@@ -11,7 +11,7 @@ namespace DoLess.Bindings
         where TTarget : class
         where TEventArgs : EventArgs
     {
-        IEventBinding<TSource, TTarget, TEventArgs, TCommand> To<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> To<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
             where TCommand : ICommand;
     }
 }

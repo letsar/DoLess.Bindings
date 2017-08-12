@@ -25,16 +25,16 @@ namespace DoLess.Bindings
             this.removeHandler = removeHandler;
         }
 
-        public IEventBinding<TSource, TTarget, TEventArgs, TCommand> To<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
+        public IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> To<TCommand>(Expression<Func<TSource, TCommand>> commandExpression)
                     where TCommand : ICommand
         {
             return this.To<TCommand>(commandExpression, null);
         }
 
-        public IEventBinding<TSource, TTarget, TEventArgs, TCommand> To<TCommand>(Expression<Func<TSource, TCommand>> commandExpression, Expression<Func<TTarget, bool>> targetCanExecutePropertyExpression)
+        public IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> To<TCommand>(Expression<Func<TSource, TCommand>> commandExpression, Expression<Func<TTarget, bool>> targetCanExecutePropertyExpression)
                     where TCommand : ICommand
         {
-            return new EventBinding<TSource, TTarget, TEventArgs, TCommand>(this.parent, this.addHandler, this.removeHandler, commandExpression, targetCanExecutePropertyExpression);
+            return new EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>(this.parent, this.addHandler, this.removeHandler, commandExpression, targetCanExecutePropertyExpression);
         }
     }
 }

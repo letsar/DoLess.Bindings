@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace DoLess.Bindings
 {
-    public interface IEventBinding<TSource, TTarget, TEventArgs, TCommand, TParameter> :
+    public interface IEventToCommandWithConverterBinding<TSource, TTarget, TEventArgs, TCommand, TParameter> :
         ICanBind<TSource>
         where TSource : class
         where TTarget : class

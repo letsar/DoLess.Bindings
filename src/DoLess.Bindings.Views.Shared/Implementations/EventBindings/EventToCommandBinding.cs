@@ -6,9 +6,9 @@ using System.Windows.Input;
 
 namespace DoLess.Bindings
 {
-    internal class EventBinding<TSource, TTarget, TEventArgs, TCommand> :
+    internal class EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> :
         Binding<TSource, TTarget, TCommand>,
-        IEventBinding<TSource, TTarget, TEventArgs, TCommand>
+        IEventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>
         where TSource : class
         where TTarget : class
         where TEventArgs : EventArgs
@@ -22,7 +22,13 @@ namespace DoLess.Bindings
         private Expression<Func<TSource, TCommand>> commandExpression;
         private Expression<Func<TTarget, bool>> targetCanExecutePropertyExpression;
 
-        public EventBinding(IBinding<TSource, TTarget> binding, Action<TTarget, EventHandler<TEventArgs>> addHandler, Action<TTarget, EventHandler<TEventArgs>> removeHandler, Expression<Func<TSource, TCommand>> commandExpression, Expression<Func<TTarget, bool>> targetCanExecutePropertyExpression = null) : base(binding, commandExpression)
+        public EventToCommandBinding(
+            IBinding<TSource, TTarget> binding, 
+            Action<TTarget, EventHandler<TEventArgs>> addHandler,
+            Action<TTarget, EventHandler<TEventArgs>> removeHandler, 
+            Expression<Func<TSource, TCommand>> commandExpression, 
+            Expression<Func<TTarget, bool>> targetCanExecutePropertyExpression = null) : 
+            base(binding, commandExpression)
         {
             if (commandExpression != null)
             {
@@ -42,7 +48,7 @@ namespace DoLess.Bindings
             }
         }
 
-        protected EventBinding(EventBinding<TSource, TTarget, TEventArgs, TCommand> eventBinding) : this((IBinding<TSource, TTarget>)eventBinding.Parent, eventBinding.addHandler, eventBinding.removeHandler, eventBinding.commandExpression, eventBinding.targetCanExecutePropertyExpression)
+        protected EventToCommandBinding(EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> eventBinding) : this((IBinding<TSource, TTarget>)eventBinding.Parent, eventBinding.addHandler, eventBinding.removeHandler, eventBinding.commandExpression, eventBinding.targetCanExecutePropertyExpression)
         {
         }
 
@@ -55,9 +61,9 @@ namespace DoLess.Bindings
             base.Dispose();
         }
 
-        public IEventBinding<TSource, TTarget, TEventArgs, TCommand, TParameter> WithConverter<TParameter>(Func<TEventArgs, TParameter> converter)
+        public IEventToCommandWithConverterBinding<TSource, TTarget, TEventArgs, TCommand, TParameter> WithConverter<TParameter>(Func<TEventArgs, TParameter> converter)
         {
-            return new EventBinding<TSource, TTarget, TEventArgs, TCommand, TParameter>(this, converter);
+            return new EventToCommandWithConverterBinding<TSource, TTarget, TEventArgs, TCommand, TParameter>(this, converter);
         }
 
         protected override void OnSourceChanged(object sender, string propertyName)

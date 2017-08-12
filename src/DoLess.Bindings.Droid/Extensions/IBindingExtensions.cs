@@ -16,7 +16,7 @@ namespace DoLess.Bindings
 {
     public static class IBindingExtensions
     {
-        public static IEventBinding<TSource, TTarget, EventArgs, TCommand> ClickTo<TSource, TTarget, TCommand>(
+        public static IEventToCommandBinding<TSource, TTarget, EventArgs, TCommand> ClickTo<TSource, TTarget, TCommand>(
             this IBinding<TSource, TTarget> self,
             Expression<Func<TSource, TCommand>> commandExpression)
             where TSource : class
@@ -31,7 +31,7 @@ namespace DoLess.Bindings
             return eventBindingSource.To<TCommand>(commandExpression, x => x.Enabled);
         }
 
-        public static IEventBinding<TSource, TTarget, LongClickEventArgs, TCommand> LongClickTo<TSource, TTarget, TCommand>(
+        public static IEventToCommandBinding<TSource, TTarget, LongClickEventArgs, TCommand> LongClickTo<TSource, TTarget, TCommand>(
             this IBinding<TSource, TTarget> self,
             Expression<Func<TSource, TCommand>> commandExpression)
             where TSource : class

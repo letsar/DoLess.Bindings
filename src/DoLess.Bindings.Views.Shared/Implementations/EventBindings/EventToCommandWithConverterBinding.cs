@@ -3,9 +3,9 @@ using System.Windows.Input;
 
 namespace DoLess.Bindings
 {
-    internal class EventBinding<TSource, TTarget, TEventArgs, TCommand, TParameter> :
-        EventBinding<TSource, TTarget, TEventArgs, TCommand>,
-        IEventBinding<TSource, TTarget, TEventArgs, TCommand, TParameter>
+    internal class EventToCommandWithConverterBinding<TSource, TTarget, TEventArgs, TCommand, TParameter> :
+        EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand>,
+        IEventToCommandWithConverterBinding<TSource, TTarget, TEventArgs, TCommand, TParameter>
         where TSource : class
         where TTarget : class
         where TEventArgs : EventArgs
@@ -13,7 +13,7 @@ namespace DoLess.Bindings
     {
         private readonly Func<TEventArgs, TParameter> converter;
 
-        public EventBinding(EventBinding<TSource, TTarget, TEventArgs, TCommand> eventBinding, Func<TEventArgs, TParameter> converter) : base(eventBinding)
+        public EventToCommandWithConverterBinding(EventToCommandBinding<TSource, TTarget, TEventArgs, TCommand> eventBinding, Func<TEventArgs, TParameter> converter) : base(eventBinding)
         {
             this.converter = converter;
         }
