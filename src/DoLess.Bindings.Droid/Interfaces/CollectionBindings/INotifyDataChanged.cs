@@ -2,6 +2,6 @@
 {
     internal partial interface INotifyDataChanged
     {
-        void NotifyDataSetChanged();
+        
     }
 }
