@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DoLess.Bindings.Shared", "DoLess.Bindings.Shared\DoLess.Bindings.Shared.shproj", "{F0B6402C-AA96-413E-B8F2-3E03BCC4C415}"
 EndProject
@@ -208,5 +208,8 @@ Global
 		{CE7A3CE3-55A3-4EA9-A6FF-05CA19F5D633} = {683CB9FF-6627-4317-9D06-EBA1359F1ED9}
 		{9413F087-55BD-4362-BF2B-2DBC634137B0} = {683CB9FF-6627-4317-9D06-EBA1359F1ED9}
 		{5B5E0FEB-6A58-4F3F-9AE2-CAAAD9096779} = {683CB9FF-6627-4317-9D06-EBA1359F1ED9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3B5AACA-7D92-4C5D-862B-6CFD077A15BE}
 	EndGlobalSection
 EndGlobal

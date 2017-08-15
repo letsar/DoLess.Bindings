@@ -93,7 +93,7 @@ namespace DoLess.Bindings
             var eventNames = new string[]
             {
                 propertyName + "Changed",
-                "EditingDidEnd",
+                "EditingChanged",
                 "ValueChanged",
                 "Changed"
             };

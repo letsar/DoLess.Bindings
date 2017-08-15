@@ -38,13 +38,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Events\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\IBindingEventExtensions.cs" />
+    <Compile Include="Implementations\Binder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <Import Project="..\DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems" Label="Shared" />
   <Import Project="..\DoLess.Bindings.Views.Shared\DoLess.Bindings.Views.Shared.projitems" Label="Shared" />
+  <Import Project="..\DoLess.Bindings.Shared\DoLess.Bindings.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

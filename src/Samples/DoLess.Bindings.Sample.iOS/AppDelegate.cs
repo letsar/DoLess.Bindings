@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using DoLess.Bindings.Sample.iOS.Views;
+using Foundation;
 using UIKit;
 
 namespace DoLess.Bindings.Sample.iOS
@@ -19,13 +20,15 @@ namespace DoLess.Bindings.Sample.iOS
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             // create a new window instance based on the screen size
-            Window = new UIWindow(UIScreen.MainScreen.Bounds);
+            this.Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-            // If you have defined a root view controller, set it here:
-            // Window.RootViewController = myViewController;
+            var mainController = new MainViewController();
+            var navController = new UINavigationController(mainController);
+
+            this.Window.RootViewController = navController;
 
             // make the window visible
-            Window.MakeKeyAndVisible();
+            this.Window.MakeKeyAndVisible();
 
             return true;
         }

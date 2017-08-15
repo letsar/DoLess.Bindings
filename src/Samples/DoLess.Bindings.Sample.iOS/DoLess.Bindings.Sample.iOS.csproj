@@ -86,6 +86,10 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Views\BaseViewController.cs" />
+    <Compile Include="Views\TextsViewController.cs" />
+    <Compile Include="Views\ButtonsViewController.cs" />
+    <Compile Include="Views\MainViewController.cs" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +107,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DoLess.Bindings.iOS\DoLess.Bindings.iOS.csproj">
+      <Project>{b9a032d1-b94c-485a-8c94-7b539868a4e3}</Project>
+      <Name>DoLess.Bindings.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
+    </ProjectReference>
+    <ProjectReference Include="..\DoLess.Bindings.Sample.ViewModels\DoLess.Bindings.Sample.ViewModels.csproj">
+      <Project>{5b5e0feb-6a58-4f3f-9ae2-caaad9096779}</Project>
+      <Name>DoLess.Bindings.Sample.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

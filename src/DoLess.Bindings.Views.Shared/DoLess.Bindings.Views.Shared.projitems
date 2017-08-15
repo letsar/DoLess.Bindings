@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IdentityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\BindingMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\IBindableViewExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ItemEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\Binder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Cache.cs" />

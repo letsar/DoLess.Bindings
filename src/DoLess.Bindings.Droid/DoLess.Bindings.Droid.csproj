@@ -57,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ActivityExtensions.cs" />
-    <Compile Include="Extensions\IBindableViewExtensions.cs" />
     <Compile Include="Extensions\IBindingCollectionExtensions.cs" />
     <Compile Include="Extensions\IBindingEventExtensions.cs" />
     <Compile Include="Implementations\Binder.cs" />
