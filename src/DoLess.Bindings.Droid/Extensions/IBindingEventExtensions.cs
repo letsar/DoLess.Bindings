@@ -14,7 +14,7 @@ using static Android.Views.View;
 
 namespace DoLess.Bindings
 {
-    public static class IBindingExtensions
+    public static class IBindingEventExtensions
     {
         public static IEventToCommandBinding<TSource, TTarget, EventArgs, TCommand> ClickTo<TSource, TTarget, TCommand>(
             this IBinding<TSource, TTarget> self,

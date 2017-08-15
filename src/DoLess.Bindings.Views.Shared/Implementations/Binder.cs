@@ -32,9 +32,9 @@ namespace DoLess.Bindings
 
         public void Dispose()
         {
+            this.InternalDispose();
             DisposerHelper.Release(ref this.binding);
             this.ViewModel = null;
-            this.InternalDispose();
         }
 
         partial void InternalDispose();

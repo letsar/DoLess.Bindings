@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IdentityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\BindingMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ItemEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\Binder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Cache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DisposerHelper.cs" />
@@ -23,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindingTraceEventType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\Bindings\Binding.T3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\Bindings\Binding.T2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\CollectionBindings\ItemsSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\EventBindings\EventToCommandWithConverterBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\EventBindings\EventToCommandBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\EventBindings\EventBindingSource.cs" />
@@ -30,20 +32,28 @@
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\PropertyBindings\OneWayPropertyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\PropertyBindings\PropertyBindingBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Implementations\PropertyBindings\PropertyBindingSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\CollectionBindings\IDataTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\CollectionBindings\IDataTemplate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\CollectionBindings\INotifyDataChanged.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\CollectionBindings\INotifyItemChanged.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBindableView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinding.T3.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinding.T2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Bindings\IBinding.T3.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Bindings\IBinding.T2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Bindings\IBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBindingArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ICanBind.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEventToCommandWithConverterBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEventToCommandBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEventBindingSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPropertyBinding.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPropertyBindingSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\EventBindings\IEventToCommandWithConverterBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\EventBindings\IEventToCommandBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\EventBindings\IEventBindingSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\CollectionBindings\ICollectionBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\PropertyBindings\IPropertyBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\PropertyBindings\IPropertyBindingSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Implementations\PropertyBindings\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Interfaces\EventBindings\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Interfaces\Bindings\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Interfaces\PropertyBindings\" />
   </ItemGroup>
 </Project>

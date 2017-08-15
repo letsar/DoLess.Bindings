@@ -58,11 +58,17 @@
   <ItemGroup>
     <Compile Include="Extensions\ActivityExtensions.cs" />
     <Compile Include="Extensions\IBindableViewExtensions.cs" />
-    <Compile Include="Extensions\IBindingExtensions.cs" />
+    <Compile Include="Extensions\IBindingCollectionExtensions.cs" />
+    <Compile Include="Extensions\IBindingEventExtensions.cs" />
     <Compile Include="Implementations\Binder.cs" />
     <Compile Include="Implementations\Bindings\Binding.T2.cs" />
+    <Compile Include="Implementations\CollectionBindings\BindableRecyclerViewAdapter.cs" />
+    <Compile Include="Implementations\CollectionBindings\BindableViewHolder.cs" />
+    <Compile Include="Interfaces\CollectionBindings\ICollectionViewAdapter.cs" />
+    <Compile Include="Interfaces\CollectionBindings\INotifyDataChanged.cs" />
+    <Compile Include="Interfaces\CollectionBindings\INotifyItemChanged.cs" />
     <Compile Include="Interfaces\IBinder.cs" />
-    <Compile Include="Interfaces\IBinding.T2.cs" />
+    <Compile Include="Interfaces\Bindings\IBinding.T2.cs" />
     <Compile Include="Interfaces\IBindingArgs.cs" />
     <Compile Include="Interfaces\ICanBind.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
